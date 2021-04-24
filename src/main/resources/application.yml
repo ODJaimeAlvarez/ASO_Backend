@@ -1,0 +1,26 @@
+spring:
+  profiles:
+    active:
+      local 
+  application:
+    name: ASO_Backend
+  datasource:
+    url: jdbc:mysql://localhost/proyecto_final?useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: metrica123
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: none
+  jackson:
+    time-zone: Europe/Madrid
+    locale: es_ES
+    
+logging:
+ level:
+  org:
+   hibernate:
+    SQL:
+     debug
+  

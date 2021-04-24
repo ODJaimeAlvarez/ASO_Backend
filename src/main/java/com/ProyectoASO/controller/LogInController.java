@@ -21,6 +21,7 @@ import com.ProyectoASO.dto.UserLoginDTO;
 import com.ProyectoASO.service.IUserService;
 import com.ProyectoASO.service.UserService;
 @RestController
+@RequestMapping("/api")
 public class LogInController {
 	@Autowired
 	private AuthenticationManager authManager;

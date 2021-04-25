@@ -2,32 +2,42 @@ package com.ProyectoASO.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.ProyectoASO.converter.UsuarioConverter;
 import com.ProyectoASO.dao.IUsuarioDao;
 import com.ProyectoASO.dto.UsuarioDTO;
 import com.ProyectoASO.entity.Usuario;
+import com.ProyectoASO.exceptions.DBException;
 @Service
-public class UserService implements IUserService,UserDetailsService {
+public class UserService implements IUserService {
 	@Autowired
 	IUsuarioDao usuarioRepository;
+	
+	@Autowired
+	UsuarioConverter usuarioConverter;
 
 	@Override
 	public List<UsuarioDTO> getAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		return usuarioConverter.convert(usuarioRepository.findAll());
 	}
 
 	@Override
 	public UsuarioDTO getUserById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Usuario> findedUser= usuarioRepository.findById(id);
+		
+		if(findedUser.isPresent()) {
+			return usuarioConverter.convert(findedUser.get());
+		}
+		throw new DBException("Usuario con id "+id+" no encontrado.", HttpStatus.NOT_FOUND);
 	}
 
 	@Override
@@ -49,9 +59,7 @@ public class UserService implements IUserService,UserDetailsService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Usuario user= usuarioRepository.findByCorreo(username);
-		return new User(user.getCorreo(),user.getPasswd(),new ArrayList<>());
+	public Usuario buscarPorcorreo(String correo) {
+		return usuarioRepository.findByCorreo(correo);
 	}
-
 }

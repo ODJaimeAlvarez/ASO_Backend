@@ -13,12 +13,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
+import com.ProyectoASO.service.LogInService;
 import com.ProyectoASO.service.UserService;
 @Configuration
 @EnableWebSecurity
 public class Security extends WebSecurityConfigurerAdapter {
 	@Autowired
-	private UserService userService;
+	private LogInService logInService;
 	
 //	@Bean
 //	public BCryptPasswordEncoder getBCryptPasswordEncoder() {
@@ -28,7 +29,7 @@ public class Security extends WebSecurityConfigurerAdapter {
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+		auth.userDetailsService(logInService).passwordEncoder(NoOpPasswordEncoder.getInstance());
 	}
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

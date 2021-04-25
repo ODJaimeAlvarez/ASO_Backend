@@ -19,6 +19,7 @@ import com.ProyectoASO.dao.IUsuarioDao;
 import com.ProyectoASO.dto.LoginResponse;
 import com.ProyectoASO.dto.UserLoginDTO;
 import com.ProyectoASO.service.IUserService;
+import com.ProyectoASO.service.LogInService;
 import com.ProyectoASO.service.UserService;
 @RestController
 @RequestMapping("/api")
@@ -27,7 +28,7 @@ public class LogInController {
 	private AuthenticationManager authManager;
 	
 	@Autowired
-	UserService userService;
+	LogInService logInService;
 	
 	@Autowired
 	JwtUtility jwtUtil;
@@ -39,7 +40,7 @@ public class LogInController {
 		}catch (BadCredentialsException e) {
 			throw new Exception("Email o contraseña incorrecta.");
 		}
-		final UserDetails userDetails= userService.loadUserByUsername(userLogin.getEmail());
+		final UserDetails userDetails= logInService.loadUserByUsername(userLogin.getEmail());
 		
 		final String jwt = jwtUtil.generateToken(userDetails);
 		return new ResponseEntity<>(new LoginResponse(jwt), HttpStatus.OK);

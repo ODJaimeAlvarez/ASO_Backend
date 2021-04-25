@@ -12,6 +12,9 @@ public class UsuarioDTO implements Serializable {
 	@JsonProperty(value = "id")
 	private Integer id;
 	
+	@JsonProperty(value = "nombre")
+	private String nombre;
+	
 	@JsonProperty(value = "apellido1")
 	private String apellido1;
 	
@@ -26,17 +29,19 @@ public class UsuarioDTO implements Serializable {
 
 	public UsuarioDTO() {}
 
-	public UsuarioDTO(Integer id, String apellido1, String apellido2, String correo, Boolean activo) {
+	public UsuarioDTO(Integer id, String nombre, String apellido1, String apellido2, String correo, Boolean activo) {
 		super();
 		this.id = id;
+		this.nombre=nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.correo = correo;
 		this.activo = activo;
 	}
 
-	public UsuarioDTO(String apellido1, String apellido2, String correo, Boolean activo) {
+	public UsuarioDTO(String nombre, String apellido1, String apellido2, String correo, Boolean activo) {
 		super();
+		this.nombre=nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.correo = correo;

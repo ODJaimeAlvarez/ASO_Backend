@@ -37,16 +37,17 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public Usuario(String apellido1, String apellido2, String correo, String passwd, Boolean activo) {
+	public Usuario(String apellido1, String apellido2, String correo, String passwd, Boolean activo, String nombre) {
 		super();
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.correo = correo;
 		this.passwd = passwd;
 		this.activo = activo;
+		this.nombre= nombre;
 	}
 
-	public Usuario(Integer id, String apellido1, String apellido2, String correo, String passwd, Boolean activo) {
+	public Usuario(Integer id, String apellido1, String apellido2, String correo, String passwd, Boolean activo, String nombre) {
 		super();
 		this.id = id;
 		this.apellido1 = apellido1;
@@ -54,6 +55,7 @@ public class Usuario {
 		this.correo = correo;
 		this.passwd = passwd;
 		this.activo = activo;
+		this.nombre= nombre;
 	}
 
 	public Integer getId() {

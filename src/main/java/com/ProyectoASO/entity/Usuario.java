@@ -28,7 +28,7 @@ public class Usuario {
 	@Column(name = "correo_corporativo")
 	private String correo;
 
-	@Column(name="contraseña_usuario")
+	@Column(name="password_usuario")
 	private String passwd;
 	
 	@Column(name= "activo")

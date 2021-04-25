@@ -12,6 +12,10 @@ import org.springframework.context.annotation.Profile;
 import com.ProyectoASO.dao.IUsuarioDao;
 import com.ProyectoASO.entity.Usuario;
 
+/*
+ * Es una clase que se ejecuta al ejecutarse el programa de Spring, una de sus utilidades es introducir valores 
+ * por defecto en la base de datos.
+ */
 @Configuration
 public class Runner {
 
@@ -24,7 +28,10 @@ public class Runner {
 
 		return arg -> meterUsuarioRunner();
 	}
-
+	
+	/**
+	 * Método que crea una lista con Usuarios para su posterior inserción en la base de datos
+	 */
 	private void meterUsuarioRunner() {
 
 		List<Usuario> list_user = new ArrayList<>();

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import com.ProyectoASO.dao.IUsuarioDao;
 import com.ProyectoASO.entity.Usuario;
@@ -16,7 +17,8 @@ public class Runner {
 
 	@Autowired
 	IUsuarioDao user;
-
+	
+	@Profile("Testing")
 	@Bean
 	public ApplicationRunner meterUser() {
 

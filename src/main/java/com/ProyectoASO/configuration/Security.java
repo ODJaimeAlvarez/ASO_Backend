@@ -18,6 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.ProyectoASO.jwt.JwtEntryPoint;
 import com.ProyectoASO.jwt.JwtFilter;
@@ -50,20 +52,28 @@ public class Security extends WebSecurityConfigurerAdapter {
 	}
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().cors();//Habilitamos CORS para que el front se pueda comunicar con el Back, desactivamos CSRF
+		http.csrf().disable().cors().and()//Habilitamos CORS para que el front se pueda comunicar con el Back, desactivamos CSRF
 		
-		http = http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();//Determinamos que el servidor funcione sin sesion
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()//Determinamos que el servidor funcione sin sesion
 		
-		http= http.exceptionHandling().authenticationEntryPoint(new JwtEntryPoint()).and();//Handling de error en la autenticacion
+		.exceptionHandling().authenticationEntryPoint(new JwtEntryPoint()).and()//Handling de error en la autenticacion
 		
-		http.authorizeRequests()
-			.antMatchers(HttpMethod.POST,"/login").permitAll()//Metodo autorizado sin login.
+		.authorizeRequests()
+			.antMatchers(HttpMethod.POST,"/login").permitAll()//Metodos autorizado sin login.
 			.antMatchers(HttpMethod.POST,"/register").permitAll()
 			.and().authorizeRequests()
 			.anyRequest().authenticated().and();//todas las demas necesitan token JWT para acceder.
 		
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);//Filtro que permite autenticacion y autorizacion a traves de token JWT
 	}
-	
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("*").allowedOrigins("*");
+			}
+		};
+	}
 }
 

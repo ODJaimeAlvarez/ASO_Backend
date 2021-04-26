@@ -1,38 +1,47 @@
 package com.ProyectoASO.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "usuario")
 public class Usuario {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_usuario")
 	private Integer id;
-	
+
 	@Column(name = "nombre")
 	private String nombre;
-	
+
 	@Column(name = "apellido1")
 	private String apellido1;
-	
+
 	@Column(name = "apellido2")
 	private String apellido2;
-	
+
 	@Column(name = "correo_corporativo")
 	private String correo;
 
-	@Column(name="password_usuario")
+	@Column(name = "password_usuario")
 	private String passwd;
-	
-	@Column(name= "activo")
+
+	@Column(name = "activo")
 	private Boolean activo;
+
+	@OneToMany(mappedBy = "usuario")
+	Set<rol_usuario> rol;
 	
 	public Usuario() {
 	}
@@ -44,10 +53,11 @@ public class Usuario {
 		this.correo = correo;
 		this.passwd = passwd;
 		this.activo = activo;
-		this.nombre= nombre;
+		this.nombre = nombre;
 	}
 
-	public Usuario(Integer id, String apellido1, String apellido2, String correo, String passwd, Boolean activo, String nombre) {
+	public Usuario(Integer id, String apellido1, String apellido2, String correo, String passwd, Boolean activo,
+			String nombre) {
 		super();
 		this.id = id;
 		this.apellido1 = apellido1;
@@ -55,7 +65,7 @@ public class Usuario {
 		this.correo = correo;
 		this.passwd = passwd;
 		this.activo = activo;
-		this.nombre= nombre;
+		this.nombre = nombre;
 	}
 
 	public Integer getId() {
@@ -112,6 +122,6 @@ public class Usuario {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}	
+	}
 
 }

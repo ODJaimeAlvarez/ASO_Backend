@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.ProyectoASO.dao.IRolDao;
 import com.ProyectoASO.dao.IUsuarioDao;
+import com.ProyectoASO.entity.Rol;
 import com.ProyectoASO.entity.Usuario;
 
 /*
@@ -21,18 +23,22 @@ public class Runner {
 
 	@Autowired
 	IUsuarioDao user;
-	
+
+	@Autowired
+	IRolDao rol;
+
 	@Profile("Testing")
 	@Bean
 	public ApplicationRunner meterUser() {
 
-		return arg -> meterUsuarioRunner();
+		return arg -> addUsuarioRunner();
 	}
-	
+
 	/**
-	 * Método que crea una lista con Usuarios para su posterior inserción en la base de datos
+	 * Método que crea una lista con Usuarios para su posterior inserción en la base
+	 * de datos
 	 */
-	private void meterUsuarioRunner() {
+	private void addUsuarioRunner() {
 
 		List<Usuario> list_user = new ArrayList<>();
 
@@ -41,8 +47,41 @@ public class Runner {
 		list_user.add(new Usuario("Pelayo", "Mellas", "salma@hotmail.com", "awitademadrid", true, "Salma"));
 		list_user.add(new Usuario("Garcia", "Muro", "jose@hotmail.com", "shreckriko", true, "Jose"));
 		list_user.add(new Usuario("Perez", "Gonzales", "david@hotmail.com", "violinistacion", true, "David"));
+		list_user.add(new Usuario("Perez", "Jobs", "sergio@hotmail.com", "haterapple", true, "Sergio"));
+		list_user.add(new Usuario("Volvo", "Gonzales", "marta@hotmail.com", "comopega", true, "Marta"));
 
 		user.saveAll(list_user);
+
+	}
+
+	@Profile("Testing")
+	@Bean
+	public ApplicationRunner meterDirector() {
+
+		return arg -> addRolRunner();
+	}
+
+	private void addRolRunner() {
+
+		List<Rol> list_rol = new ArrayList<>();
+
+		list_rol.add(new Rol("ver_proyecto"));
+
+		list_rol.add(new Rol("agregar_proyecto"));
+
+		list_rol.add(new Rol("borrar_proyecto"));
+
+		list_rol.add(new Rol("ver_empleados"));
+		
+		list_rol.add(new Rol("agregar_empleados"));
+		
+		list_rol.add(new Rol("borrar_empleados"));
+		
+		list_rol.add(new Rol("encargar_proyecto"));
+		
+		list_rol.add(new Rol("verificar_proyecto"));
+		
+		rol.saveAll(list_rol);
 
 	}
 

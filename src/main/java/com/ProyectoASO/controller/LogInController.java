@@ -22,7 +22,6 @@ import com.ProyectoASO.jwt.JwtUtility;
 import com.ProyectoASO.service.LogInService;
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/auth")
 public class LogInController {
 	@Autowired
 	private AuthenticationManager authManager;

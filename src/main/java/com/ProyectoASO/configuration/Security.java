@@ -57,10 +57,8 @@ public class Security extends WebSecurityConfigurerAdapter {
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()//Determinamos que el servidor funcione sin sesion
 		
 		.exceptionHandling().authenticationEntryPoint(new JwtEntryPoint()).and()//Handling de error en la autenticacion
-		
 		.authorizeRequests()
 			.antMatchers(HttpMethod.POST,"/login").permitAll()//Metodos autorizado sin login.
-			.antMatchers(HttpMethod.POST,"/register").permitAll()
 			.and().authorizeRequests()
 			.anyRequest().authenticated().and();//todas las demas necesitan token JWT para acceder.
 		
@@ -71,7 +69,7 @@ public class Security extends WebSecurityConfigurerAdapter {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("*").allowedOrigins("*");
+				registry.addMapping("/**");
 			}
 		};
 	}

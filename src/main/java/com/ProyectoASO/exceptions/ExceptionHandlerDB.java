@@ -2,10 +2,12 @@ package com.ProyectoASO.exceptions;
 
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
-
+@ControllerAdvice
 public class ExceptionHandlerDB extends RuntimeException{
 
 	private static final long serialVersionUID = -5434494296736918119L;

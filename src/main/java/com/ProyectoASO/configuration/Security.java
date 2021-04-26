@@ -15,8 +15,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.ProyectoASO.filters.JwtFilter;
+import com.ProyectoASO.jwt.JwtEntryPoint;
+import com.ProyectoASO.jwt.JwtFilter;
 import com.ProyectoASO.service.LogInService;
 import com.ProyectoASO.service.UserService;
 @Configuration
@@ -26,31 +32,46 @@ public class Security extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private LogInService logInService;
 	
+	@Autowired
+	JwtFilter jwtFilter;
 	
+	@Bean
+	public AuthenticationManager getAuthenticationManager() throws Exception {
+		return super.authenticationManagerBean();
+	}
 	
 //	@Bean
 //	public BCryptPasswordEncoder getBCryptPasswordEncoder() {
 //		return new BCryptPasswordEncoder();
 //	}
 	
-	@SuppressWarnings("deprecation")
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(logInService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+		auth.userDetailsService(logInService).passwordEncoder(NoOpPasswordEncoder.getInstance());//TODO realizar encriptacion de contrasenyas
 	}
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.httpBasic().disable()
-		.csrf().disable()
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+		http.csrf().disable().cors().and()//Habilitamos CORS para que el front se pueda comunicar con el Back, desactivamos CSRF
+		
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()//Determinamos que el servidor funcione sin sesion
+		
+		.exceptionHandling().authenticationEntryPoint(new JwtEntryPoint()).and()//Handling de error en la autenticacion
 		.authorizeRequests()
-		.antMatchers("/login")
-		.permitAll().anyRequest().authenticated();
-		//http.addFilterAfter(new JwtFilter(), UsernamePasswordAuthenticationFilter.class);
+			.antMatchers(HttpMethod.POST,"/login").permitAll()//Metodos autorizado sin login.
+			.and().authorizeRequests()
+			.anyRequest().authenticated().and();//todas las demas necesitan token JWT para acceder.
+		
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);//Filtro que permite autenticacion y autorizacion a traves de token JWT
 	}
 	@Bean
-	public AuthenticationManager getAuthenticationManager() throws Exception {
-		return super.authenticationManagerBean();
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**");
+			}
+		};
 	}
 }
 

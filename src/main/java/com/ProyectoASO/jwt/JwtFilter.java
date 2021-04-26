@@ -1,4 +1,4 @@
-package com.ProyectoASO.filters;
+package com.ProyectoASO.jwt;
 
 import java.io.IOException;
 
@@ -16,10 +16,9 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.ProyectoASO.configuration.JwtUtility;
 import com.ProyectoASO.service.LogInService;
 import com.ProyectoASO.service.UserService;
-
+@Component
 public class JwtFilter extends OncePerRequestFilter {
 	@Autowired
 	JwtUtility jwtUtil;
@@ -30,7 +29,6 @@ public class JwtFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String cabeceraAuth= request.getHeader("Authorization");
-		System.out.println("do Filter..........................................");
 		String email= null;
 		String jwt = null;
 		
@@ -45,8 +43,9 @@ public class JwtFilter extends OncePerRequestFilter {
 				upat.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(upat);
 			}
-			filterChain.doFilter(request, response);
+			
 		}
+		filterChain.doFilter(request, response);
 	}
 	
 

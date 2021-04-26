@@ -1,4 +1,4 @@
-package com.ProyectoASO.configuration;
+package com.ProyectoASO.jwt;
 
 import java.io.Serializable;
 import java.util.Date;

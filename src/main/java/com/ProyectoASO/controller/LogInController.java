@@ -9,6 +9,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,16 +19,17 @@ import com.ProyectoASO.configuration.JwtUtility;
 import com.ProyectoASO.dao.IUsuarioDao;
 import com.ProyectoASO.dto.LoginResponse;
 import com.ProyectoASO.dto.UserLoginDTO;
+import com.ProyectoASO.exceptions.DBException;
 import com.ProyectoASO.service.IUserService;
+import com.ProyectoASO.service.LogInService;
 import com.ProyectoASO.service.UserService;
 @RestController
-@RequestMapping("/api")
 public class LogInController {
 	@Autowired
 	private AuthenticationManager authManager;
 	
 	@Autowired
-	UserService userService;
+	LogInService logInService;
 	
 	@Autowired
 	JwtUtility jwtUtil;
@@ -37,12 +39,17 @@ public class LogInController {
 		try {
 			authManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.getEmail(), userLogin.getPassword()));
 		}catch (BadCredentialsException e) {
-			throw new Exception("Email o contraseña incorrecta.");
+			throw new DBException("Email o contraseña incorrecta.", HttpStatus.UNAUTHORIZED);
 		}
-		final UserDetails userDetails= userService.loadUserByUsername(userLogin.getEmail());
+		final UserDetails userDetails= logInService.loadUserByUsername(userLogin.getEmail());
 		
-		final String jwt = jwtUtil.generateToken(userDetails);
+		final String jwt = "Bearer "+jwtUtil.generateToken(userDetails);
 		return new ResponseEntity<>(new LoginResponse(jwt), HttpStatus.OK);
+	}
+	
+	@GetMapping("/hello")
+	public ResponseEntity<String> logIn2() throws Exception{
+		return new ResponseEntity<>("Hola munod", HttpStatus.OK);
 	}
 
 }

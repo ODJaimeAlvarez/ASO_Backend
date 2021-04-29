@@ -40,8 +40,8 @@ public class Usuario {
 	@Column(name = "activo")
 	private Boolean activo;
 
-	@OneToMany(mappedBy = "usuario")
-	Set<rol_usuario> rol;
+//	@OneToMany(mappedBy = "usuario")
+//	Set<rol_usuario> rol;
 	
 	public Usuario() {
 	}

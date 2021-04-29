@@ -23,16 +23,16 @@ public class Rol {
 	@Column(name = "rol")
 	private String rolType;
 
-	@OneToMany(mappedBy = "rol")
-	Set<rol_usuario> usuario;
+//	@OneToMany(mappedBy = "rol")
+//	Set<rol_usuario> usuario;
 	
-	public Set<rol_usuario> getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Set<rol_usuario> usuario) {
-		this.usuario = usuario;
-	}
+//	public Set<rol_usuario> getUsuario() {
+//		return usuario;
+//	}
+//
+//	public void setUsuario(Set<rol_usuario> usuario) {
+//		this.usuario = usuario;
+//	}
 
 	public Rol() {
 	}

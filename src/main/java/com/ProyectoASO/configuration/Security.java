@@ -58,7 +58,7 @@ public class Security extends WebSecurityConfigurerAdapter {
 		
 		.exceptionHandling().authenticationEntryPoint(new JwtEntryPoint()).and()//Handling de error en la autenticacion
 		.authorizeRequests()
-			.antMatchers(HttpMethod.POST,"/login").permitAll()//Metodos autorizado sin login.
+			.antMatchers(HttpMethod.POST,"/api/auth/**").permitAll()//Metodos autorizado sin login.
 			.and().authorizeRequests()
 			.anyRequest().authenticated().and();//todas las demas necesitan token JWT para acceder.
 		

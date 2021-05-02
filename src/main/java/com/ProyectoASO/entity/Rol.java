@@ -63,6 +63,14 @@ public class Rol {
 	public void setRol(String rolType) {
 		this.rolType = rolType;
 	}
+
+	public String getRolType() {
+		return rolType;
+	}
+
+	public void setRolType(String rolType) {
+		this.rolType = rolType;
+	}
 	
 	
 }

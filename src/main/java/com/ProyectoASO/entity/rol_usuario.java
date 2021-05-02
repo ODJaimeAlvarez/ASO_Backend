@@ -13,41 +13,41 @@ public class rol_usuario {
 	
 	@ManyToOne
 	@JoinColumn(name = "fk_id_rol")
-	Integer id_rol;
+	Rol id_rol;
 
 	
 	@ManyToOne
 	@JoinColumn(name = "fk_id_usuario")
-	Integer id_usuario;
+	Usuario id_usuario;
 
 	public rol_usuario() {
 		
 	}
 	
 
-	public rol_usuario(Integer id_rol, Integer id_usuario) {
+	public rol_usuario(Rol id_rol, Usuario id_usuario) {
 		super();
 		this.id_rol = id_rol;
 		this.id_usuario = id_usuario;
 	}
 
 
-	public Integer getId_rol() {
+	public Rol getId_rol() {
 		return id_rol;
 	}
 
 
-	public void setId_rol(Integer id_rol) {
+	public void setId_rol(Rol id_rol) {
 		this.id_rol = id_rol;
 	}
 
 
-	public Integer getId_usuario() {
+	public Usuario getId_usuario() {
 		return id_usuario;
 	}
 
 
-	public void setId_usuario(Integer id_usuario) {
+	public void setId_usuario(Usuario id_usuario) {
 		this.id_usuario = id_usuario;
 	}
 }

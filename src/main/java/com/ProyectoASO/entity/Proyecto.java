@@ -14,14 +14,24 @@ import com.ProyectoASO.enums.Progreso;
 @Table(name = "proyecto", uniqueConstraints = @UniqueConstraint(columnNames = { "nombre" }))
 public class Proyecto {
 
+	
+	/**
+	 * Almacena el identificador del proyecto
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_proyecto")
-	private Integer id;
+	private Integer id_proyecto;
 
+	/**
+	 * Almacena el nombre del proyecto
+	 */
 	@Column(name = "nombre", nullable = false)
 	private String nombre_proyecto;
 
+	/**
+	 * Almacena el progreso en el que se encuentra el proyecto
+	 */
 	@Column(name = "progreso", nullable = false)
 	private Progreso progreso;
 
@@ -33,7 +43,7 @@ public class Proyecto {
 
 	public Proyecto(Integer id, String nombre_proyecto, Progreso progreso, String descripcion) {
 		super();
-		this.id = id;
+		this.id_proyecto = id;
 		this.nombre_proyecto = nombre_proyecto;
 		this.progreso = progreso;
 		this.descripcion = descripcion;
@@ -47,11 +57,11 @@ public class Proyecto {
 	}
 
 	public Integer getId() {
-		return id;
+		return id_proyecto;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.id_proyecto = id;
 	}
 
 	public String getNombre_proyecto() {

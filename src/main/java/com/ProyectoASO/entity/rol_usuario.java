@@ -1,14 +1,20 @@
 package com.ProyectoASO.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
-@Entity
-@Table(name = "rol_usuario")
+//@Entity
+//@Table(name = "rol_usuario")
 public class rol_usuario {
+/*	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
 	
 	@ManyToOne
@@ -50,4 +56,5 @@ public class rol_usuario {
 	public void setId_usuario(Usuario id_usuario) {
 		this.id_usuario = id_usuario;
 	}
+	*/
 }

@@ -39,19 +39,8 @@ public class Usuario {
 	@Column(name = "activo")
 	private Boolean activo;
 
-	@OneToMany(mappedBy = "usuario")
-	Set<rol_usuario> rol;
-
 	@OneToMany
 	private List<Jornada> jornada = new ArrayList<>();
-
-	public Set<rol_usuario> getRol() {
-		return rol;
-	}
-
-	public void setRol(Set<rol_usuario> rol) {
-		this.rol = rol;
-	}
 
 	public List<Jornada> getJornada() {
 		return jornada;
@@ -141,7 +130,5 @@ public class Usuario {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
 
 }

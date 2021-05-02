@@ -18,6 +18,7 @@ public class LogInService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Usuario user= userService.buscarPorcorreo(email);
+		
 		return new User(user.getCorreo(),user.getPasswd(),new ArrayList<>());
 	}
 }

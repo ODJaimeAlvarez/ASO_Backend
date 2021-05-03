@@ -6,10 +6,18 @@ import com.ProyectoASO.dto.ProyectoDTO;
 import com.ProyectoASO.entity.Proyecto;
 @Component
 public class ProyectoConverter implements IConverter<Proyecto, ProyectoDTO>{
-//TODO esperando ProgresoDTO y conversor
+	
+	private ProgresoEnumConverter converterEnum;
+	
+	
+	public ProyectoConverter(ProgresoEnumConverter converterEnum) {
+		this.converterEnum = converterEnum;
+	}
+
+
 	@Override
 	public ProyectoDTO apply(Proyecto t) {
-		return new ProyectoDTO(t.getId(),t.getNombre_proyecto(), t.getDescripcion());
+		return new ProyectoDTO(t.getId(),t.getNombre_proyecto(),converterEnum.convert(t.getProgreso()), t.getDescripcion());
 	}
 
 }

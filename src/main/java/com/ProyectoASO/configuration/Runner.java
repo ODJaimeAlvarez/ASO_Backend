@@ -51,19 +51,22 @@ public class Runner {
 	private void addUsuarioRunner() {
 
 		List<Usuario> list_user = new ArrayList<>();
-
+		List<Rol> list_rol = new ArrayList<>();
+		List<Proyecto> list_proyecto= new ArrayList<>();
+		
 		list_user.add(new Usuario("Martos", "Lopez", "adri@hotmail.com", encoder.encode("uwuwu"), true, "Adrian"));
 		list_user.add(new Usuario("De Jaime", "Alvarez", "oscar@hotmail.com", encoder.encode("uwito"), true, "Oscar"));
 		list_user.add(new Usuario("Pelayo", "Mellas", "salma@hotmail.com", encoder.encode("awitademadrid"), true, "Salma"));
 		list_user.add(new Usuario("Garcia", "Muro", "jose@hotmail.com", encoder.encode("shreckriko"), true, "Jose"));
 		list_user.add(new Usuario("Perez", "Gonzales", "david@hotmail.com", encoder.encode("violinistacion"), true, "David"));
 		list_user.add(new Usuario("Perez", "Jobs", "sergio@hotmail.com", encoder.encode("haterapple"), true, "Sergio"));
-		list_user.add(new Usuario("Volvo", "Gonzales", "marta@hotmail.com", encoder.encode("comopega"), true, "Marta"));
-		List<Rol> list_rol = new ArrayList<>();
+		list_user.add(new Usuario("Volvo", "Gonzales", "marta@hotmail.com", encoder.encode("comopega"), true, "Marta"));		
 		user.saveAll(list_user);
+		
 		proyecto.save(new Proyecto("HOOOOLLAAA", Progreso.ACEPTADO, "TESTING"));
 		proyecto.save(new Proyecto("HOOOOLLAAA1", Progreso.ACEPTADO, "TESTING2"));
 		proyecto.save(new Proyecto("HOOOOLLAAA2", Progreso.ACEPTADO, "TESTING3"));
+		
 		list_rol.add(new Rol("ver_proyecto"));
 		list_rol.add(new Rol("agregar_proyecto"));
 		list_rol.add(new Rol("borrar_proyecto"));
@@ -74,6 +77,11 @@ public class Runner {
 		list_rol.add(new Rol("verificar_proyecto"));
 		rol.saveAll(list_rol);
 		
-
+		list_proyecto.add(new Proyecto("primer proyecto",Progreso.ACEPTADO,"este es el primer proyecto"));
+		list_proyecto.add(new Proyecto("segundo proyecto",Progreso.EN_CURSO,"este es el segundo proyecto"));
+		list_proyecto.add(new Proyecto("tercer proyecto",Progreso.FINALIZADO,"este es el tercer proyecto"));
+		list_proyecto.add(new Proyecto("cuarto proyecto",Progreso.INICIADO,"este es el cuarto proyecto"));
+		
+		
 	}
 }

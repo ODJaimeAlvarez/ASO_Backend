@@ -8,6 +8,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.ProyectoASO.dao.IProyectoDao;
 import com.ProyectoASO.dao.IRolDao;
@@ -32,6 +33,9 @@ public class Runner {
 
 	@Autowired
 	IRolDao rol;
+	
+	@Autowired
+	BCryptPasswordEncoder encoder;
 
 	@Profile("Testing")
 	@Bean
@@ -48,20 +52,19 @@ public class Runner {
 
 		List<Usuario> list_user = new ArrayList<>();
 
-		list_user.add(new Usuario("Martos", "Lopez", "adri@hotmail.com", "uwuwu", true, "Adrian"));
-		list_user.add(new Usuario("De Jaime", "Alvarez", "oscar@hotmail.com", "uwito", true, "Oscar"));
-		list_user.add(new Usuario("Pelayo", "Mellas", "salma@hotmail.com", "awitademadrid", true, "Salma"));
-		list_user.add(new Usuario("Garcia", "Muro", "jose@hotmail.com", "shreckriko", true, "Jose"));
-		list_user.add(new Usuario("Perez", "Gonzales", "david@hotmail.com", "violinistacion", true, "David"));
-		list_user.add(new Usuario("Perez", "Jobs", "sergio@hotmail.com", "haterapple", true, "Sergio"));
-		list_user.add(new Usuario("Volvo", "Gonzales", "marta@hotmail.com", "comopega", true, "Marta"));
+		list_user.add(new Usuario("Martos", "Lopez", "adri@hotmail.com", encoder.encode("uwuwu"), true, "Adrian"));
+		list_user.add(new Usuario("De Jaime", "Alvarez", "oscar@hotmail.com", encoder.encode("uwito"), true, "Oscar"));
+		list_user.add(new Usuario("Pelayo", "Mellas", "salma@hotmail.com", encoder.encode("awitademadrid"), true, "Salma"));
+		list_user.add(new Usuario("Garcia", "Muro", "jose@hotmail.com", encoder.encode("shreckriko"), true, "Jose"));
+		list_user.add(new Usuario("Perez", "Gonzales", "david@hotmail.com", encoder.encode("violinistacion"), true, "David"));
+		list_user.add(new Usuario("Perez", "Jobs", "sergio@hotmail.com", encoder.encode("haterapple"), true, "Sergio"));
+		list_user.add(new Usuario("Volvo", "Gonzales", "marta@hotmail.com", encoder.encode("comopega"), true, "Marta"));
 		List<Rol> list_rol = new ArrayList<>();
 		user.saveAll(list_user);
 		proyecto.save(new Proyecto("HOOOOLLAAA", Progreso.ACEPTADO, "TESTING"));
 		proyecto.save(new Proyecto("HOOOOLLAAA1", Progreso.ACEPTADO, "TESTING2"));
 		proyecto.save(new Proyecto("HOOOOLLAAA2", Progreso.ACEPTADO, "TESTING3"));
-		
-		/*list_rol.add(new Rol("ver_proyecto"));
+		list_rol.add(new Rol("ver_proyecto"));
 		list_rol.add(new Rol("agregar_proyecto"));
 		list_rol.add(new Rol("borrar_proyecto"));
 		list_rol.add(new Rol("ver_empleados"));
@@ -69,7 +72,7 @@ public class Runner {
 		list_rol.add(new Rol("borrar_empleados"));
 		list_rol.add(new Rol("encargar_proyecto"));
 		list_rol.add(new Rol("verificar_proyecto"));
-		rol.saveAll(list_rol);*/
+		rol.saveAll(list_rol);
 		
 
 	}

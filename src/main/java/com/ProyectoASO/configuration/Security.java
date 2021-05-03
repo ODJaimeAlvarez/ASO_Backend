@@ -40,15 +40,15 @@ public class Security extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 	
-//	@Bean
-//	public BCryptPasswordEncoder getBCryptPasswordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
+	@Bean
+	public BCryptPasswordEncoder getBCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 	
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(logInService).passwordEncoder(NoOpPasswordEncoder.getInstance());//TODO realizar encriptacion de contrasenyas
+		auth.userDetailsService(logInService).passwordEncoder(getBCryptPasswordEncoder());//TODO realizar encriptacion de contrasenyas
 	}
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

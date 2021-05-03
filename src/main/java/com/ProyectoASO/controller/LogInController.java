@@ -43,6 +43,7 @@ public class LogInController {
 		final UserDetails userDetails= logInService.loadUserByUsername(userLogin.getEmail());
 		
 		final String jwt = "Bearer "+jwtUtil.generateToken(userDetails);
+
 		return new ResponseEntity<>(new LoginResponse(jwt), HttpStatus.OK);
 	}
 	

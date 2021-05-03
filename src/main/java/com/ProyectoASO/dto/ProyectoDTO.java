@@ -13,15 +13,17 @@ public class ProyectoDTO implements Serializable {
 	@JsonProperty(value = "nombre")
 	private String nombre;
 	
-	//TODO converter de progreso
+	@JsonProperty(value = "estado")
+	private ProgresoDTO estado;
 	
 	@JsonProperty(value = "descripcion")
 	private String descripcion;
 
-	public ProyectoDTO(Integer id, String nombre, String descripcion) {
+	public ProyectoDTO(Integer id, String nombre, ProgresoDTO estado, String descripcion) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
+		this.estado=estado;
 		this.descripcion = descripcion;
 	}
 
@@ -29,10 +31,19 @@ public class ProyectoDTO implements Serializable {
 		super();
 	}
 
-	public ProyectoDTO(String nombre, String descripcion) {
+	public ProyectoDTO(String nombre, ProgresoDTO estado, String descripcion) {
 		super();
 		this.nombre = nombre;
+		this.estado=estado;
 		this.descripcion = descripcion;
+	}
+
+	public ProgresoDTO getEstado() {
+		return estado;
+	}
+
+	public void setEstado(ProgresoDTO estado) {
+		this.estado = estado;
 	}
 
 	public Integer getId() {

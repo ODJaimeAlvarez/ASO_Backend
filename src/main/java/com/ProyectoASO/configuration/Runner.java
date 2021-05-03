@@ -52,7 +52,7 @@ public class Runner {
 
 		List<Usuario> list_user = new ArrayList<>();
 		List<Rol> list_rol = new ArrayList<>();
-		List<Proyecto> list_proyecto= new ArrayList<>();
+		
 		
 		list_user.add(new Usuario("Martos", "Lopez", "adri@hotmail.com", encoder.encode("uwuwu"), true, "Adrian"));
 		list_user.add(new Usuario("De Jaime", "Alvarez", "oscar@hotmail.com", encoder.encode("uwito"), true, "Oscar"));
@@ -77,11 +77,14 @@ public class Runner {
 		list_rol.add(new Rol("verificar_proyecto"));
 		rol.saveAll(list_rol);
 		
+		
+		List<Proyecto> list_proyecto= new ArrayList<>();
 		list_proyecto.add(new Proyecto("primer proyecto",Progreso.ACEPTADO,"este es el primer proyecto"));
 		list_proyecto.add(new Proyecto("segundo proyecto",Progreso.EN_CURSO,"este es el segundo proyecto"));
 		list_proyecto.add(new Proyecto("tercer proyecto",Progreso.FINALIZADO,"este es el tercer proyecto"));
 		list_proyecto.add(new Proyecto("cuarto proyecto",Progreso.INICIADO,"este es el cuarto proyecto"));
 		
+		proyecto.saveAll(list_proyecto);
 		
 	}
 }

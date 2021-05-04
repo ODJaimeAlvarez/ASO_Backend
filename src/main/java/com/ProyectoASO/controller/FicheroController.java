@@ -41,9 +41,9 @@ public class FicheroController {
 	public ResponseEntity<FicheroDTO> getById(@PathVariable Integer id){
 		return new ResponseEntity<>(ficheroService.getById(id),HttpStatus.OK);
 	}
-	@GetMapping
-	public ResponseEntity<List<FicheroDTO>> getByProyecto(@RequestBody ProyectoDTO proyecto) throws FileSystemException{
-		return new ResponseEntity<>(ficheroService.getByProyecto(proyecto),HttpStatus.OK);
+	@GetMapping("/proyect/{id}")
+	public ResponseEntity<List<FicheroDTO>> getByProyecto(@PathVariable Integer id) throws FileSystemException{
+		return new ResponseEntity<>(ficheroService.getByProyecto(id),HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/{id}")
@@ -57,7 +57,7 @@ public class FicheroController {
 	}
 	
 	@GetMapping("/file/{id}")
-	public ResponseEntity<Resource> getByProyecto(@PathVariable Integer id) throws FileSystemException{
+	public ResponseEntity<Resource> download(@PathVariable Integer id) throws FileSystemException{
 		return ficheroService.downloadFile(id);
 	}
 	

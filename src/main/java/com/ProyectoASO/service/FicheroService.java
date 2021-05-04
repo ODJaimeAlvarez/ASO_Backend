@@ -111,8 +111,9 @@ public class FicheroService implements IFicheroService{
 	}
 
 	@Override
-	public List<FicheroDTO> getByProyecto(ProyectoDTO proyecto) {
-		return converter.convert(ficheroRepository.findByProyecto(convertProyectoDTO.convert(proyecto)));
+	public List<FicheroDTO> getByProyecto(Integer id) {
+		Proyecto proyect = convertProyectoDTO.convert(proyectoService.getById(id));
+		return converter.convert(ficheroRepository.findByProyecto(proyect));
 	}
 
 }

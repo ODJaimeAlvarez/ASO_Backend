@@ -63,7 +63,7 @@ public class Fichero {
 		this.uri = uri;
 		this.nombre_fichero = nombre_fichero;
 		this.fecha_mod = fecha_mod;
-
+		this.proyecto= proyecto;
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class Fichero {
 		this.uri = uri;
 		this.nombre_fichero = nombre_fichero;
 		this.fecha_mod = fecha_mod;
-
+		this.proyecto= proyecto;
 	}
 
 	/**

@@ -24,5 +24,5 @@ public interface IFicheroService {
 	
 	public ResponseEntity<Resource> downloadFile(Integer id) throws FileSystemException;
 	
-	public List<FicheroDTO> getByProyecto(ProyectoDTO proyecto) throws FileSystemException;
+	public List<FicheroDTO> getByProyecto(Integer id) throws FileSystemException;
 }

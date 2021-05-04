@@ -6,7 +6,6 @@ spring:
     name: ASO_Backend
   datasource:
     url: jdbc:mysql://localhost/proyecto_final?useSSL=false&allowPublicKeyRetrieval=true
-
     username: root
     password: root
     driver-class-name: org.mariadb.jdbc.Driver
@@ -26,3 +25,6 @@ logging:
      debug
 jwt:
   secret: holamundo
+
+files:
+  route: C:\\proyectoASOFiles

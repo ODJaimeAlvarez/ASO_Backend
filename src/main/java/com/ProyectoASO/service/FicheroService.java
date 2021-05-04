@@ -66,7 +66,7 @@ public class FicheroService implements IFicheroService{
 		fileSave.setFecha_mod(Date.from(Instant.now()));
 		fileSave.setNombre_fichero(file.getOriginalFilename());
 		fileSave.setProyecto(proyecto);
-		String uriFile=ruta+"\\"+fileSave.getProyecto().getNombre_proyecto();
+		String uriFile=ruta+"\\"+fileSave.getProyecto().getNombre_proyecto().replaceAll(" ", "_");
 		fileSave.setUri(uriFile);
 		if(!Files.exists(Paths.get(ruta))) {
 			fileStorageService.init();
@@ -82,9 +82,9 @@ public class FicheroService implements IFicheroService{
 	public FicheroDTO updateFile(Integer idFile, MultipartFile file) throws FileSystemException {
 		Fichero fileToUpdate=ficheroRepository.findById(idFile)
 				.orElseThrow(()->new DBException("El fichero con id "+idFile+" no se encuentra.", HttpStatus.NOT_FOUND));
-		fileStorageService.delete(fileToUpdate.getNombre_fichero(), fileToUpdate.getUri());
+		fileStorageService.delete(fileToUpdate.getNombre_fichero(), fileToUpdate.getUri()); 
 		
-		String uriFile=ruta+"\\"+fileToUpdate.getProyecto().getNombre_proyecto();
+		String uriFile=ruta+"\\"+fileToUpdate.getProyecto().getNombre_proyecto().replaceAll(" ", "_");
 		fileToUpdate.setFecha_mod(Date.from(Instant.now()));
 		fileToUpdate.setUri(uriFile);
 		fileToUpdate.setNombre_fichero(file.getOriginalFilename());

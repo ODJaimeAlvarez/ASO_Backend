@@ -1,6 +1,12 @@
 package com.ProyectoASO.configuration;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +16,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.ProyectoASO.dao.IFicheroDao;
 import com.ProyectoASO.dao.IProyectoDao;
 import com.ProyectoASO.dao.IRolDao;
 import com.ProyectoASO.dao.IUsuarioDao;
+import com.ProyectoASO.entity.Fichero;
 import com.ProyectoASO.entity.Proyecto;
 import com.ProyectoASO.entity.Rol;
 import com.ProyectoASO.entity.Usuario;
 import com.ProyectoASO.enums.Progreso;
+import com.ProyectoASO.exceptions.FileSystemException;
+import com.ProyectoASO.service.IFileStorageService;
 
 /*
  * Es una clase que se ejecuta al ejecutarse el programa de Spring, una de sus utilidades es introducir valores 
@@ -35,6 +45,12 @@ public class Runner {
 	IRolDao rol;
 	
 	@Autowired
+	IFicheroDao ficheroDao;
+	
+	@Autowired
+	IFileStorageService fsS;
+	
+	@Autowired
 	BCryptPasswordEncoder encoder;
 
 	@Profile("Testing")
@@ -47,12 +63,13 @@ public class Runner {
 	/**
 	 * Método que crea una lista con Usuarios para su posterior inserción en la base
 	 * de datos
+	 * @throws FileSystemException 
 	 */
 	private void addUsuarioRunner() {
 
 		List<Usuario> list_user = new ArrayList<>();
 		List<Rol> list_rol = new ArrayList<>();
-		
+		List<Fichero> listFicheros= new ArrayList<>();
 		
 		list_user.add(new Usuario("Martos", "Lopez", "adri@hotmail.com", encoder.encode("uwuwu"), true, "Adrian"));
 		list_user.add(new Usuario("De Jaime", "Alvarez", "oscar@hotmail.com", encoder.encode("uwito"), true, "Oscar"));
@@ -63,9 +80,6 @@ public class Runner {
 		list_user.add(new Usuario("Volvo", "Gonzales", "marta@hotmail.com", encoder.encode("comopega"), true, "Marta"));		
 		user.saveAll(list_user);
 		
-		proyecto.save(new Proyecto("HOOOOLLAAA", Progreso.ACEPTADO, "TESTING"));
-		proyecto.save(new Proyecto("HOOOOLLAAA1", Progreso.ACEPTADO, "TESTING2"));
-		proyecto.save(new Proyecto("HOOOOLLAAA2", Progreso.ACEPTADO, "TESTING3"));
 		
 		list_rol.add(new Rol("ver_proyecto"));
 		list_rol.add(new Rol("agregar_proyecto"));
@@ -84,7 +98,37 @@ public class Runner {
 		list_proyecto.add(new Proyecto("tercer proyecto",Progreso.FINALIZADO,"este es el tercer proyecto"));
 		list_proyecto.add(new Proyecto("cuarto proyecto",Progreso.INICIADO,"este es el cuarto proyecto"));
 		
+		
 		proyecto.saveAll(list_proyecto);
+		
+		listFicheros.add(new Fichero("C:\\proyectoASOFiles\\primer_proyecto", "Datos_Importantes.txt", Date.from(Instant.now()), list_proyecto.get(0)));
+		listFicheros.add(new Fichero("C:\\proyectoASOFiles\\primer_proyecto", "cuentas.txt", Date.from(Instant.now()), list_proyecto.get(0)));
+		listFicheros.add(new Fichero("C:\\proyectoASOFiles\\tercer_proyecto", "Datos_Importantes.txt", Date.from(Instant.now()), list_proyecto.get(2)));
+		listFicheros.add(new Fichero("C:\\proyectoASOFiles\\cuarto_proyecto", "Datos_Importantes.txt", Date.from(Instant.now()), list_proyecto.get(3)));
+		ficheroDao.saveAll(listFicheros);
+		
+		try {
+			fsS.init();
+			fsS.init("primer_proyecto");
+			fsS.init("tercer_proyecto");
+			fsS.init("cuarto_proyecto");
+		} catch (FileSystemException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		String hola= "hola";
+		try {
+			Files.write(Paths.get("C:\\proyectoASOFiles\\primer_proyecto\\Datos_Importantes.txt"), hola.getBytes(), StandardOpenOption.CREATE,StandardOpenOption.WRITE);
+			Files.write(Paths.get("C:\\proyectoASOFiles\\primer_proyecto\\cuentas.txt"), hola.getBytes(), StandardOpenOption.CREATE,StandardOpenOption.WRITE);
+			Files.write(Paths.get("C:\\proyectoASOFiles\\tercer_proyecto\\Datos_Importantes.txt"), hola.getBytes(), StandardOpenOption.CREATE,StandardOpenOption.WRITE);
+			Files.write(Paths.get("C:\\proyectoASOFiles\\cuarto_proyecto\\Datos_Importantes.txt"), hola.getBytes(), StandardOpenOption.CREATE,StandardOpenOption.WRITE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 }

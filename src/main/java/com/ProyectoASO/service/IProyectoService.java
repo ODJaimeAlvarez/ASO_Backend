@@ -7,6 +7,7 @@ import com.ProyectoASO.dto.ProyectoDTO;
 public interface IProyectoService {
 	
 	public List<ProyectoDTO> getAllProyectos();
+	public ProyectoDTO getById(Integer id);
 	
 
 }

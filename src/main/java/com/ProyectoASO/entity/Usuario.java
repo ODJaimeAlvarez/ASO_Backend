@@ -39,16 +39,7 @@ public class Usuario {
 	@Column(name = "activo")
 	private Boolean activo;
 
-	@OneToMany
-	private List<Jornada> jornada = new ArrayList<>();
 
-	public List<Jornada> getJornada() {
-		return jornada;
-	}
-
-	public void setJornada(List<Jornada> jornada) {
-		this.jornada = jornada;
-	}
 
 	public Usuario() {
 	}

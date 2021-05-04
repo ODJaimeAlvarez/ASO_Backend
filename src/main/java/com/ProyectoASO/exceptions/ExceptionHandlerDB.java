@@ -18,4 +18,10 @@ public class ExceptionHandlerDB extends RuntimeException{
 				.put("Error", e.getMessage()).toString();
 		return new ResponseEntity<>(error, e.getEstado());
 	}
+	@ExceptionHandler(FileSystemException.class)
+	public ResponseEntity<String> fileSystemException(final FileSystemException e, final WebRequest request) {
+		final String error = new JSONObject()
+				.put("Error", e.getMessage()).toString();
+		return new ResponseEntity<>(error, e.getEstado());
+	}
 }

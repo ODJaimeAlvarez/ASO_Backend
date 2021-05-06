@@ -57,6 +57,10 @@ public class UserService implements IUserService {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	protected Usuario getUserByIdEntity(Integer id) {
+		return usuarioRepository.findById(id).orElseThrow(()-> new DBException("No existe un usuario con id "+id, HttpStatus.NOT_FOUND));
+	}
 
 	@Override
 	public Usuario buscarPorcorreo(String correo) {

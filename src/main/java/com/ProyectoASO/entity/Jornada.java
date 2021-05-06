@@ -19,51 +19,72 @@ public class Jornada {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_jornada")
-	private Integer id_jornada;
+	private Integer idJornada;
 
 	@Column(name = "fecha", nullable = false)
-	private Date nombre_proyecto;
+	private Date fechaJornada;
 
 	@Column(name = "hora_inicio", nullable = false)
-	private Time hora_inicio;
+	private Time horaInicio;
 
 	@Column(name = "hora_fin", nullable = true)
-	private Time hora_fin;
+	private Time horaFin;
+
+	@Column(name = "iniciada", nullable = false)
+	private Boolean iniciada;
 
 	@ManyToOne
 	@JoinColumn(name = "fk_id_usuario")
 	private Usuario user;
 
-	public Integer getId() {
-		return id_jornada;
+	public Jornada() {
 	}
 
-	public void setId(Integer id) {
-		this.id_jornada = id;
+	public Jornada(Integer idJornada, Date fechaJornada, Time horaInicio, Time horaFin, Usuario user) {
+		this.idJornada = idJornada;
+		this.fechaJornada = fechaJornada;
+		this.horaInicio = horaInicio;
+		this.horaFin = horaFin;
+		this.user = user;
 	}
 
-	public Date getNombre_proyecto() {
-		return nombre_proyecto;
+	public Jornada(Date fechaJornada, Time horaInicio, Time horaFin, Usuario user) {
+		this.fechaJornada = fechaJornada;
+		this.horaInicio = horaInicio;
+		this.horaFin = horaFin;
+		this.user = user;
 	}
 
-	public void setNombre_proyecto(Date nombre_proyecto) {
-		this.nombre_proyecto = nombre_proyecto;
+	public Integer getIdJornada() {
+		return idJornada;
 	}
 
-	public Time getHora_inicio() {
-		return hora_inicio;
+	public void setIdJornada(Integer idJornada) {
+		this.idJornada = idJornada;
 	}
 
-	public void setHora_inicio(Time hora_inicio) {
-		this.hora_inicio = hora_inicio;
+	public Date getFechaJornada() {
+		return fechaJornada;
 	}
 
-	public Time getHora_fin() {
-		return hora_fin;
+	public void setFechaJornada(Date fechaJornada) {
+		this.fechaJornada = fechaJornada;
 	}
 
-	public void setHora_fin(Time hora_fin) {
-		this.hora_fin = hora_fin;
+	public Time getHoraInicio() {
+		return horaInicio;
+	}
+
+	public void setHoraInicio(Time horaInicio) {
+		this.horaInicio = horaInicio;
+	}
+
+	public Time getHoraFin() {
+		return horaFin;
+	}
+
+	public void setHoraFin(Time horaFin) {
+		this.horaFin = horaFin;
 	}
 
 	public Usuario getUser() {
@@ -73,7 +94,12 @@ public class Jornada {
 	public void setUser(Usuario user) {
 		this.user = user;
 	}
-	
-	
-	
+
+	public Boolean getIniciada() {
+		return iniciada;
+	}
+
+	public void setIniciada(Boolean iniciada) {
+		this.iniciada = iniciada;
+	}
 }

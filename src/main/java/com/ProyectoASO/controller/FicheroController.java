@@ -28,7 +28,6 @@ public class FicheroController {
 	
 	private IFicheroService ficheroService;
 	
-	
 	public FicheroController(IFicheroService ficheroService) {
 		this.ficheroService = ficheroService;
 	}
@@ -41,7 +40,7 @@ public class FicheroController {
 	public ResponseEntity<FicheroDTO> getById(@PathVariable Integer id){
 		return new ResponseEntity<>(ficheroService.getById(id),HttpStatus.OK);
 	}
-	@GetMapping("/proyect/{id}")
+	@GetMapping("/project/{id}")
 	public ResponseEntity<List<FicheroDTO>> getByProyecto(@PathVariable Integer id) throws FileSystemException{
 		return new ResponseEntity<>(ficheroService.getByProyecto(id),HttpStatus.OK);
 	}

@@ -15,7 +15,6 @@ import com.ProyectoASO.service.IProyectoService;
 
 @RestController
 @RequestMapping("/api/proyecto")
-@CrossOrigin(origins = "*")
 public class ProyectoController {
 	
 	private IProyectoService proyectoService;

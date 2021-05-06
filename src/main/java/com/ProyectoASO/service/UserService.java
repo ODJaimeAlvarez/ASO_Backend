@@ -60,6 +60,6 @@ public class UserService implements IUserService {
 
 	@Override
 	public Usuario buscarPorcorreo(String correo) {
-		return usuarioRepository.findByCorreo(correo);
+		return usuarioRepository.findByCorreo(correo).orElseThrow(()-> new DBException("No existe un usuario con correo "+correo, HttpStatus.NOT_FOUND));
 	}
 }

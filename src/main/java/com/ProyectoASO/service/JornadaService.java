@@ -37,9 +37,8 @@ public class JornadaService implements IJornadaService {
 
 	@Override
 	public List<JornadaDTO> getAllByUser(Integer userID) {
-		// TODO Pensar como gestionar el obtener las jornadas de un usuario en
-		// especifico, necesario para FRONT
-		return null;
+		Usuario userFind = usuarioService.getUserByIdEntity(userID);
+		return jornadaConverter.convert(jornadaDao.findByUser(userFind));
 	}
 
 	@Override

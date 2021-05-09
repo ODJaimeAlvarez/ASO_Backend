@@ -11,9 +11,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.springframework.security.core.GrantedAuthority;
+
 @Entity
 @Table(name = "rol", uniqueConstraints = @UniqueConstraint(columnNames = {"rol"}))
-public class Rol {
+public class Rol{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,31 +23,20 @@ public class Rol {
 	private Integer id;
 	
 	@Column(name = "rol")
-	private String rolType;
-
-//	@OneToMany(mappedBy = "rol")
-//	Set<rol_usuario> usuario;
-	
-//	public Set<rol_usuario> getUsuario() {
-//		return usuario;
-//	}
-//
-//	public void setUsuario(Set<rol_usuario> usuario) {
-//		this.usuario = usuario;
-//	}
+	private String rol;
 
 	public Rol() {
 	}
 
-	public Rol(Integer id, String rolType) {
+	public Rol(Integer id, String rol) {
 		super();
 		this.id = id;
-		this.rolType = rolType;
+		this.rol = rol;
 	}
 
-	public Rol(String rolType) {
+	public Rol(String rol) {
 		super();
-		this.rolType = rolType;
+		this.rol = rol;
 	}
 
 	public Integer getId() {
@@ -57,20 +48,11 @@ public class Rol {
 	}
 
 	public String getRol() {
-		return rolType;
+		return rol;
 	}
 
-	public void setRol(String rolType) {
-		this.rolType = rolType;
-	}
-
-	public String getRolType() {
-		return rolType;
-	}
-
-	public void setRolType(String rolType) {
-		this.rolType = rolType;
-	}
-	
+	public void setRol(String rol) {
+		this.rol = rol;
+	}	
 	
 }

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.ProyectoASO.jwt.JwtEntryPoint;
 import com.ProyectoASO.jwt.JwtFilter;
+import com.ProyectoASO.jwt.TokenDetails;
 import com.ProyectoASO.service.LogInService;
 @Configuration
 @EnableWebSecurity
@@ -66,6 +67,11 @@ public class Security extends WebSecurityConfigurerAdapter {
 				registry.addMapping("/**");
 			}
 		};
+	}
+	
+	@Bean 
+	public TokenDetails getTokenDetails() {
+		return new TokenDetails();
 	}
 }
 

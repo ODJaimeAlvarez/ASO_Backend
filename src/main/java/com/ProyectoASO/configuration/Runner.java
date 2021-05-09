@@ -96,8 +96,6 @@ public class Runner {
 		List<RolUsuario> listUserRole= new ArrayList<>();
 		
 		for(Usuario u : list_user) {
-			listUserRole.add(new RolUsuario( list_rol.get(0),u));
-			listUserRole.add(new RolUsuario( list_rol.get(1),u));
 			listUserRole.add(new RolUsuario( list_rol.get(2),u));
 		}
 		

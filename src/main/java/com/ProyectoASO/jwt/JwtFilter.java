@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.Filter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,13 +16,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.ProyectoASO.service.LogInService;
-import com.ProyectoASO.service.UserService;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 	@Autowired
 	JwtUtility jwtUtil;
 	@Autowired
 	LogInService logInService;
+	@Autowired
+	TokenDetails token;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -42,6 +42,9 @@ public class JwtFilter extends OncePerRequestFilter {
 				UsernamePasswordAuthenticationToken upat= new UsernamePasswordAuthenticationToken(jwt, null, user.getAuthorities());
 				upat.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(upat);
+				
+				token.setEmail(jwtUtil.getEmailFronToken(jwt));
+				token.setAuth(jwtUtil.getAuthFromToken(jwt));
 			}
 			
 		}

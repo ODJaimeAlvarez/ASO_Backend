@@ -19,11 +19,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.ProyectoASO.dao.IFicheroDao;
 import com.ProyectoASO.dao.IProyectoDao;
 import com.ProyectoASO.dao.IRolDao;
+import com.ProyectoASO.dao.IRolUsuarioDao;
 import com.ProyectoASO.dao.IUsuarioDao;
 import com.ProyectoASO.entity.Fichero;
 import com.ProyectoASO.entity.Proyecto;
 import com.ProyectoASO.entity.Rol;
 import com.ProyectoASO.entity.Usuario;
+import com.ProyectoASO.entity.RolUsuario;
 import com.ProyectoASO.enums.Progreso;
 import com.ProyectoASO.exceptions.FileSystemException;
 import com.ProyectoASO.service.IFileStorageService;
@@ -37,6 +39,9 @@ public class Runner {
 
 	@Autowired
 	IUsuarioDao user;
+	
+	@Autowired
+	IRolUsuarioDao rolUser;
 	
 	@Autowired
 	IProyectoDao proyecto;
@@ -81,16 +86,22 @@ public class Runner {
 		user.saveAll(list_user);
 		
 		
-		list_rol.add(new Rol("ver_proyecto"));
-		list_rol.add(new Rol("agregar_proyecto"));
-		list_rol.add(new Rol("borrar_proyecto"));
-		list_rol.add(new Rol("ver_empleados"));
-		list_rol.add(new Rol("agregar_empleados"));
-		list_rol.add(new Rol("borrar_empleados"));
-		list_rol.add(new Rol("encargar_proyecto"));
-		list_rol.add(new Rol("verificar_proyecto"));
+		list_rol.add(new Rol("DIRECTOR"));
+		list_rol.add(new Rol("CLIENTE"));
+		list_rol.add(new Rol("EMPLEADO"));
+		
+		
 		rol.saveAll(list_rol);
 		
+		List<RolUsuario> listUserRole= new ArrayList<>();
+		
+		for(Usuario u : list_user) {
+			listUserRole.add(new RolUsuario( list_rol.get(0),u));
+			listUserRole.add(new RolUsuario( list_rol.get(1),u));
+			listUserRole.add(new RolUsuario( list_rol.get(2),u));
+		}
+		
+		rolUser.saveAll(listUserRole);
 		
 		List<Proyecto> list_proyecto= new ArrayList<>();
 		list_proyecto.add(new Proyecto("primer proyecto",Progreso.ACEPTADO,"este es el primer proyecto"));

@@ -1,14 +1,17 @@
 package com.ProyectoASO.jwt;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -38,6 +41,10 @@ public class JwtUtility implements Serializable{
 	public String getEmailFronToken(String token) {
 		return getClaimFromToken(token, Claims::getSubject);
 	}
+	public List<String> getAuthFromToken(String token) {
+		final Claims claims = getAllClaimsFromToken(token);
+		return claims.get("auth",List.class);
+	}
 	/*
 	 * Conseguir fecha de caducidad del token
 	 */
@@ -53,15 +60,18 @@ public class JwtUtility implements Serializable{
 		return expiration.before(new Date());
 	}
 	/*
-	 * Generar token no los valores recibido de userDetails
+	 * Generar token con los valores recibido de userDetails
 	 */
 	public String generateToken(UserDetails userDetails) {
 		Map<String, Object> claims = new HashMap<>();
-		return doGenerateToken(claims, userDetails.getUsername());
+		List<String> autorities= new ArrayList<>();
+		userDetails.getAuthorities().stream().forEach((auth)-> autorities.add(auth.getAuthority()));
+		claims.put("auth",autorities);
+		return doGenerateToken(claims, userDetails);
 	}
 	
-	private String doGenerateToken(Map<String, Object> claims, String subject) {
-		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+	private String doGenerateToken(Map<String, Object> claims, UserDetails subject) {
+		return Jwts.builder().setClaims(claims).setSubject(subject.getUsername()).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + VALIDEZ * 1000))
 				.signWith(SignatureAlgorithm.HS512, clave).compact();
 	}

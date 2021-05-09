@@ -17,6 +17,7 @@ import com.ProyectoASO.dao.IUsuarioDao;
 import com.ProyectoASO.dto.UsuarioDTO;
 import com.ProyectoASO.entity.Usuario;
 import com.ProyectoASO.exceptions.DBException;
+import com.ProyectoASO.jwt.TokenDetails;
 @Service
 public class UserService implements IUserService {
 	@Autowired
@@ -24,9 +25,13 @@ public class UserService implements IUserService {
 	
 	@Autowired
 	UsuarioConverter usuarioConverter;
+	
+	@Autowired
+	TokenDetails token;
 
 	@Override
 	public List<UsuarioDTO> getAllUsers() {
+		System.out.println(token.getEmail());
 		return usuarioConverter.convert(usuarioRepository.findAll());
 	}
 

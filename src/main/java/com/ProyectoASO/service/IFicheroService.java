@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ProyectoASO.dto.FicheroDTO;
-import com.ProyectoASO.dto.ProyectoDTO;
 import com.ProyectoASO.exceptions.FileSystemException;
 
 public interface IFicheroService {

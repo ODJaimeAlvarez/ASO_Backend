@@ -9,17 +9,17 @@ import com.ProyectoASO.converter.ProyectoConverter;
 import com.ProyectoASO.dao.IProyectoDao;
 import com.ProyectoASO.dto.ProyectoDTO;
 import com.ProyectoASO.exceptions.DBException;
+import com.ProyectoASO.jwt.TokenDetails;
 @Service
-public class ProyectoService implements IProyectoService {
+public class ProyectoService extends BaseService implements IProyectoService {
 	private IProyectoDao proyectoDao;
 	private ProyectoConverter converter;
 	
-	public ProyectoService(IProyectoDao proyectoDao, ProyectoConverter converter) {
-		super();
+	public ProyectoService(TokenDetails token, IProyectoDao proyectoDao, ProyectoConverter converter) {
+		super(token);
 		this.proyectoDao = proyectoDao;
 		this.converter = converter;
 	}
-
 
 	@Override
 	public List<ProyectoDTO> getAllProyectos() {

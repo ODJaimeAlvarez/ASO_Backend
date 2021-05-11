@@ -1,15 +1,12 @@
 package com.ProyectoASO.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.stereotype.Service;
 
 import com.ProyectoASO.converter.UsuarioConverter;
@@ -19,24 +16,26 @@ import com.ProyectoASO.entity.Usuario;
 import com.ProyectoASO.exceptions.DBException;
 import com.ProyectoASO.jwt.TokenDetails;
 @Service
-public class UserService implements IUserService {
-	@Autowired
-	IUsuarioDao usuarioRepository;
+public class UserService extends BaseService implements IUserService {
+	private IUsuarioDao usuarioRepository;
+	private UsuarioConverter usuarioConverter;
 	
-	@Autowired
-	UsuarioConverter usuarioConverter;
 	
-	@Autowired
-	TokenDetails token;
+	public UserService(TokenDetails token, IUsuarioDao usuarioRepository, UsuarioConverter usuarioConverter) {
+		super(token);
+		this.usuarioRepository = usuarioRepository;
+		this.usuarioConverter = usuarioConverter;
+	}
 
 	@Override
 	public List<UsuarioDTO> getAllUsers() {
-		System.out.println(token.getEmail());
+		checkAuthority(List.of("DIRECTOR"));
 		return usuarioConverter.convert(usuarioRepository.findAll());
 	}
 
 	@Override
 	public UsuarioDTO getUserById(Integer id) {
+		checkAuthority(List.of("DIRECTOR"));
 		Optional<Usuario> findedUser= usuarioRepository.findById(id);
 		
 		if(findedUser.isPresent()) {
@@ -47,19 +46,19 @@ public class UserService implements IUserService {
 
 	@Override
 	public UsuarioDTO saveUser(UsuarioDTO user) {
-		// TODO Auto-generated method stub
+		checkAuthority(List.of("DIRECTOR"));
 		return null;
 	}
 
 	@Override
 	public UsuarioDTO updateUser(Long id, UsuarioDTO user) {
-		// TODO Auto-generated method stub
+		checkAuthority(List.of("DIRECTOR"));
 		return null;
 	}
 
 	@Override
 	public void deleteUserById(Integer id) {
-		// TODO Auto-generated method stub
+		checkAuthority(List.of("DIRECTOR"));
 		
 	}
 	

@@ -1,8 +1,10 @@
 package com.ProyectoASO.service;
 
 import java.sql.Time;
+import java.text.DecimalFormat;
 import java.time.Instant;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -15,34 +17,53 @@ import com.ProyectoASO.dto.JornadaDTO;
 import com.ProyectoASO.entity.Jornada;
 import com.ProyectoASO.entity.Usuario;
 import com.ProyectoASO.jwt.JwtUtility;
+import com.ProyectoASO.jwt.TokenDetails;
 @Service
-public class JornadaService implements IJornadaService {
+public class JornadaService extends BaseService implements IJornadaService {
 
 	private IJornadaDao jornadaDao;
 	private JornadaConverter jornadaConverter;
 	private UserService usuarioService;
 	private JwtUtility jwtUtils;
 
-	public JornadaService(IJornadaDao jornadaDao, JornadaConverter jornadaConverter, UserService usuarioService,JwtUtility jwtUtils) {
+	
+	public JornadaService(TokenDetails token, IJornadaDao jornadaDao, JornadaConverter jornadaConverter,
+			UserService usuarioService, JwtUtility jwtUtils) {
+		super(token);
 		this.jornadaDao = jornadaDao;
 		this.jornadaConverter = jornadaConverter;
 		this.usuarioService = usuarioService;
-		this.jwtUtils=jwtUtils;
+		this.jwtUtils = jwtUtils;
 	}
 
 	@Override
 	public List<JornadaDTO> getAll() {
+		checkAuthority(List.of("DIRECTOR"));
 		return jornadaConverter.convert(jornadaDao.findAll());
 	}
 
 	@Override
 	public List<JornadaDTO> getAllByUser(Integer userID) {
+		checkAuthority(List.of("DIRECTOR"));
 		Usuario userFind = usuarioService.getUserByIdEntity(userID);
-		return jornadaConverter.convert(jornadaDao.findByUser(userFind));
+		final List<JornadaDTO> listJornada= jornadaConverter.convert(jornadaDao.findByUser(userFind));
+		final List<JornadaDTO> listJornadaResul=new ArrayList<>();
+		
+		for(JornadaDTO jor : listJornada) {
+			if(jor.getHoraFin()!=null) {
+				Long timediffLong=jor.getHoraFin().getTime()-jor.getHoraInicio().getTime();
+				System.out.println(timediffLong);
+				Double timediff=((double)Math.round((double)timediffLong/36000)/100);
+				jor.setTotal(timediff);
+				listJornadaResul.add(jor);
+			}		
+		}
+		return listJornadaResul;
 	}
 
 	@Override
 	public String jornadaManager(String token) {
+		checkAuthority(List.of("EMPLEADO","DIRECTOR"));
 		String  email = jwtUtils.getEmailFronToken(token.substring(7));
 		Usuario user = usuarioService.buscarPorcorreo(email);
 		Optional<Jornada> findJornada = jornadaDao.findByUserAndIniciada(user, true);
@@ -66,6 +87,7 @@ public class JornadaService implements IJornadaService {
 
 	@Override
 	public JornadaDTO getInicioJornada(String token) {
+		checkAuthority(List.of("EMPLEADO","DIRECTOR"));
 		String email = jwtUtils.getEmailFronToken(token.substring(7));
 		Usuario user = usuarioService.buscarPorcorreo(email);
 		return jornadaConverter.convert(jornadaDao.findByUserAndIniciada(user, true).orElse(null));

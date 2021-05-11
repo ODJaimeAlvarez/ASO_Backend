@@ -1,15 +1,10 @@
 package com.ProyectoASO.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -38,33 +33,39 @@ public class Usuario {
 
 	@Column(name = "activo")
 	private Boolean activo;
+	
+	@Column(name = "cargo")
+	private String cargo;
 
 
 
 	public Usuario() {
 	}
 
-	public Usuario(String apellido1, String apellido2, String correo, String passwd, Boolean activo, String nombre) {
-		super();
+	
+	public Usuario(String nombre, String apellido1, String apellido2, String correo, String passwd, Boolean activo,
+			String cargo) {
+		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.correo = correo;
 		this.passwd = passwd;
 		this.activo = activo;
-		this.nombre = nombre;
+		this.cargo = cargo;
 	}
 
-	public Usuario(Integer id, String apellido1, String apellido2, String correo, String passwd, Boolean activo,
-			String nombre) {
-		super();
+	public Usuario(Integer id, String nombre, String apellido1, String apellido2, String correo, String passwd,
+			Boolean activo, String cargo) {
 		this.id = id;
+		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.correo = correo;
 		this.passwd = passwd;
 		this.activo = activo;
-		this.nombre = nombre;
+		this.cargo = cargo;
 	}
+
 
 	public Integer getId() {
 		return id;

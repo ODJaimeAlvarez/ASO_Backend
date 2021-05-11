@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 import com.ProyectoASO.dto.ProyectoDTO;
 import com.ProyectoASO.entity.Proyecto;
-import com.ProyectoASO.enums.Progreso;
 @Component
 public class ProyectoDTOConverter implements IConverter<ProyectoDTO, Proyecto> {
 	private ProgresoEnumBDConverter converterEnum;

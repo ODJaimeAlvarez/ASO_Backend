@@ -1,7 +1,5 @@
 package com.ProyectoASO.controller;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,15 +20,18 @@ import com.ProyectoASO.service.LogInService;
 @RestController
 @RequestMapping("/api/auth")
 public class LogInController {
-	@Autowired
 	private AuthenticationManager authManager;
+	private LogInService logInService;
+	private JwtUtility jwtUtil;
 	
-	@Autowired
-	LogInService logInService;
-	
-	@Autowired
-	JwtUtility jwtUtil;
-	
+	public LogInController(AuthenticationManager authManager, LogInService logInService, JwtUtility jwtUtil) {
+		this.authManager = authManager;
+		this.logInService = logInService;
+		this.jwtUtil = jwtUtil;
+	}
+
+
+
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> logIn(@RequestBody UserLoginDTO userLogin) throws Exception{
 		try {

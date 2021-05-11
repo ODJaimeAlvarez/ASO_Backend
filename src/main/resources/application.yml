@@ -6,7 +6,7 @@ spring:
     name: ASO_Backend
   datasource:
     url: jdbc:mysql://localhost/proyecto_final?useSSL=false&allowPublicKeyRetrieval=true
-    username: root
+    username: ProyectoASO
     password: root
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:

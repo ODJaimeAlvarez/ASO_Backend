@@ -19,41 +19,44 @@ import com.ProyectoASO.converter.FicheroDTOConverter;
 import com.ProyectoASO.converter.ProyectoDTOConverter;
 import com.ProyectoASO.dao.IFicheroDao;
 import com.ProyectoASO.dto.FicheroDTO;
-import com.ProyectoASO.dto.ProyectoDTO;
+
 import com.ProyectoASO.entity.Fichero;
 import com.ProyectoASO.entity.Proyecto;
+
 import com.ProyectoASO.exceptions.DBException;
 import com.ProyectoASO.exceptions.FileSystemException;
+import com.ProyectoASO.jwt.TokenDetails;
 @Service
-public class FicheroService implements IFicheroService{
+public class FicheroService extends BaseService implements IFicheroService {
 	
 	private IFileStorageService fileStorageService;
 	private IProyectoService proyectoService;
 	private IFicheroDao ficheroRepository;
 	private FicheroConverter converter;
-	private FicheroDTOConverter converterDTO;
 	private ProyectoDTOConverter convertProyectoDTO;
 	@Value("${files.route}")
 	String ruta;
 	
 
-	public FicheroService(IFileStorageService fileStorageService, IFicheroDao ficheroRepository,IProyectoService proyectoService,
+	public FicheroService(TokenDetails token,IFileStorageService fileStorageService, IFicheroDao ficheroRepository,IProyectoService proyectoService,
 			FicheroConverter converter, FicheroDTOConverter converterDTO, ProyectoDTOConverter convertProyectoDTO) {
+		super(token);
 		this.fileStorageService = fileStorageService;
 		this.ficheroRepository = ficheroRepository;
 		this.proyectoService=proyectoService;
 		this.converter = converter;
-		this.converterDTO = converterDTO;
 		this.convertProyectoDTO=convertProyectoDTO;
 	}
 
 	@Override
 	public List<FicheroDTO> getAll() {
+		checkAuthority(List.of("EMPLEADO","DIRECTOR"));
 		return converter.convert(ficheroRepository.findAll());
 	}
 
 	@Override
 	public FicheroDTO getById(Integer id) {
+		checkAuthority(List.of("EMPLEADO","DIRECTOR"));
 		return converter.convert(ficheroRepository.findById(id)
 				.orElseThrow(()->new DBException("El fichero con id "+id+" no se encuentra.", HttpStatus.NOT_FOUND)));
 	}
@@ -61,6 +64,7 @@ public class FicheroService implements IFicheroService{
 	
 	@Override
 	public FicheroDTO save(Integer idProyecto, MultipartFile file) throws FileSystemException {
+		checkAuthority(List.of("EMPLEADO","DIRECTOR"));
 		Proyecto proyecto= convertProyectoDTO.convert(proyectoService.getById(idProyecto));
 		Fichero fileSave = new Fichero();
 		fileSave.setFecha_mod(Date.from(Instant.now()));
@@ -80,6 +84,7 @@ public class FicheroService implements IFicheroService{
 
 	@Override
 	public FicheroDTO updateFile(Integer idFile, MultipartFile file) throws FileSystemException {
+		checkAuthority(List.of("EMPLEADO","DIRECTOR"));
 		Fichero fileToUpdate=ficheroRepository.findById(idFile)
 				.orElseThrow(()->new DBException("El fichero con id "+idFile+" no se encuentra.", HttpStatus.NOT_FOUND));
 		fileStorageService.delete(fileToUpdate.getNombre_fichero(), fileToUpdate.getUri()); 
@@ -94,6 +99,7 @@ public class FicheroService implements IFicheroService{
 
 	@Override
 	public ResponseEntity<String> delete(Integer id) throws FileSystemException {
+		checkAuthority(List.of("EMPLEADO","DIRECTOR"));
 		Fichero fileToUpdate=ficheroRepository.findById(id)
 				.orElseThrow(()->new DBException("El fichero con id "+id+" no se encuentra.", HttpStatus.NOT_FOUND));
 		fileStorageService.delete(fileToUpdate.getNombre_fichero(), fileToUpdate.getUri());
@@ -104,6 +110,7 @@ public class FicheroService implements IFicheroService{
 
 	@Override
 	public ResponseEntity<Resource> downloadFile(Integer id) throws FileSystemException {
+		checkAuthority(List.of("EMPLEADO","DIRECTOR"));
 		HttpHeaders headerFile= new HttpHeaders();
 		Fichero fileName =ficheroRepository.findById(id).orElseThrow(()->new DBException("No se encuentra el archivo solicitado.", HttpStatus.NOT_FOUND));
 		headerFile.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+fileName.getNombre_fichero()+"\"");
@@ -112,6 +119,7 @@ public class FicheroService implements IFicheroService{
 
 	@Override
 	public List<FicheroDTO> getByProyecto(Integer id) {
+		checkAuthority(List.of("EMPLEADO","DIRECTOR"));
 		Proyecto proyect = convertProyectoDTO.convert(proyectoService.getById(id));
 		return converter.convert(ficheroRepository.findByProyecto(proyect));
 	}

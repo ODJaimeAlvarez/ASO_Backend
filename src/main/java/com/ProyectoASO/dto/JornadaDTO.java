@@ -16,7 +16,7 @@ public class JornadaDTO {
 	@JsonProperty(value = "hora_fin")
 	private Time horaFin;
 	@JsonProperty(value = "total")
-	private Double total;
+	private String total;
 	
 
 	public JornadaDTO() {
@@ -68,11 +68,11 @@ public class JornadaDTO {
 		this.horaFin = horaFin;
 	}
 
-	public Double getTotal() {
+	public String getTotal() {
 		return total;
 	}
 
-	public void setTotal(Double total) {
+	public void setTotal(String total) {
 		this.total = total;
 	}
 

@@ -52,11 +52,12 @@ public class JornadaService extends BaseService implements IJornadaService {
 		for(JornadaDTO jor : listJornada) {
 			if(jor.getHoraFin()!=null) {
 				Long timediffLong=jor.getHoraFin().getTime()-jor.getHoraInicio().getTime();
-				System.out.println(timediffLong);
-				Double timediff=((double)Math.round((double)timediffLong/36000)/100);
-				jor.setTotal(timediff);
+				double timediff=((double)Math.round((double)timediffLong/36000)/100);
+				int horas= (int)timediff;
+				int minutos= ((int)Math.round(((double)((double)timediff-horas)*60)));
+				jor.setTotal(horas+"h y "+minutos+"min");
 				listJornadaResul.add(jor);
-			}		
+			}
 		}
 		return listJornadaResul;
 	}

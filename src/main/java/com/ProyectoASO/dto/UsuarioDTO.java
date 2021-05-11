@@ -24,12 +24,15 @@ public class UsuarioDTO implements Serializable {
 	@JsonProperty(value = "correo")
 	private String correo;
 	
+	@JsonProperty(value = "cargo")
+	private String cargo;
+	
 	@JsonProperty(value = "activo")
 	private Boolean activo;
 
 	public UsuarioDTO() {}
 
-	public UsuarioDTO(Integer id, String nombre, String apellido1, String apellido2, String correo, Boolean activo) {
+	public UsuarioDTO(Integer id, String nombre, String apellido1, String apellido2, String correo, String cargo, Boolean activo) {
 		super();
 		this.id = id;
 		this.nombre=nombre;
@@ -37,14 +40,16 @@ public class UsuarioDTO implements Serializable {
 		this.apellido2 = apellido2;
 		this.correo = correo;
 		this.activo = activo;
+		this.cargo=cargo;
 	}
 
-	public UsuarioDTO(String nombre, String apellido1, String apellido2, String correo, Boolean activo) {
+	public UsuarioDTO(String nombre, String apellido1, String apellido2, String correo, String cargo, Boolean activo) {
 		super();
 		this.nombre=nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.correo = correo;
+		this.cargo=cargo;
 		this.activo = activo;
 	}
 
@@ -86,6 +91,22 @@ public class UsuarioDTO implements Serializable {
 
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
 	}
 	
 	

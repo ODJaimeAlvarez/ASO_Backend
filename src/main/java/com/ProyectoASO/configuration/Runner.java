@@ -152,9 +152,7 @@ public class Runner {
 		Jornada j5=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:12:15"),Time.valueOf("14:49:00"),list_user_normalize.get(1));
 		j5.setIniciada(Boolean.FALSE);
 		jornada_list.add(j5);
-		Jornada j6=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("7:58:00"),null,list_user_normalize.get(1));
-		j6.setIniciada(Boolean.TRUE);
-		jornada_list.add(j6);
+		
 		
 		Jornada j7=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:01:25"),Time.valueOf("15:00:00"),list_user_normalize.get(0));
 		j7.setIniciada(Boolean.FALSE);
@@ -171,9 +169,7 @@ public class Runner {
 		Jornada j11=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:00:00"),Time.valueOf("13:18:00"),list_user_normalize.get(0));
 		j11.setIniciada(Boolean.FALSE);
 		jornada_list.add(j11);
-		Jornada j12=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:00:00"),null,list_user_normalize.get(0));
-		j12.setIniciada(Boolean.TRUE);
-		jornada_list.add(j12);
+		
 		
 		jornadaDao.saveAll(jornada_list);
 		

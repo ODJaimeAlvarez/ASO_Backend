@@ -12,9 +12,9 @@ public class JornadaDTO {
 	@JsonProperty(value = "fecha_jornada")
 	private Date fechaJornada;
 	@JsonProperty(value = "hora_inicio")
-	private Time horaInicio;
+	private String horaInicio;
 	@JsonProperty(value = "hora_fin")
-	private Time horaFin;
+	private String horaFin;
 	@JsonProperty(value = "total")
 	private String total;
 	
@@ -22,18 +22,12 @@ public class JornadaDTO {
 	public JornadaDTO() {
 	}
 
-	public JornadaDTO(Date fechaJornada, Time horaInicio, Time horaFin) {
-		this.fechaJornada = fechaJornada;
-		this.horaInicio = horaInicio;
-		this.horaFin = horaFin;
-		
-	}
 
-	public JornadaDTO(Integer id, Date fechaJornada, Time horaInicio, Time horaFin) {
-		this.id = id;
+	public JornadaDTO(Date fechaJornada, String horaInicio, String horaFin, String total) {
 		this.fechaJornada = fechaJornada;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
+		this.total = total;
 	}
 
 	public Integer getId() {
@@ -52,22 +46,7 @@ public class JornadaDTO {
 		this.fechaJornada = fechaJornada;
 	}
 
-	public Time getHoraInicio() {
-		return horaInicio;
-	}
-
-	public void setHoraInicio(Time horaInicio) {
-		this.horaInicio = horaInicio;
-	}
-
-	public Time getHoraFin() {
-		return horaFin;
-	}
-
-	public void setHoraFin(Time horaFin) {
-		this.horaFin = horaFin;
-	}
-
+	
 	public String getTotal() {
 		return total;
 	}
@@ -75,5 +54,23 @@ public class JornadaDTO {
 	public void setTotal(String total) {
 		this.total = total;
 	}
+	
+	public String getHoraInicio() {
+		return horaInicio;
+	}
 
+
+	public void setHoraInicio(String horaInicio) {
+		this.horaInicio = horaInicio;
+	}
+
+
+	public String getHoraFin() {
+		return horaFin;
+	}
+
+
+	public void setHoraFin(String horaFin) {
+		this.horaFin = horaFin;
+	}
 }

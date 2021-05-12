@@ -11,7 +11,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.ProyectoASO.converter.JornadaConverter;
 import com.ProyectoASO.dao.IJornadaDao;
 import com.ProyectoASO.dto.JornadaDTO;
 import com.ProyectoASO.entity.Jornada;
@@ -22,16 +21,14 @@ import com.ProyectoASO.jwt.TokenDetails;
 public class JornadaService extends BaseService implements IJornadaService {
 
 	private IJornadaDao jornadaDao;
-	private JornadaConverter jornadaConverter;
 	private UserService usuarioService;
 	private JwtUtility jwtUtils;
 
 	
-	public JornadaService(TokenDetails token, IJornadaDao jornadaDao, JornadaConverter jornadaConverter,
+	public JornadaService(TokenDetails token, IJornadaDao jornadaDao,
 			UserService usuarioService, JwtUtility jwtUtils) {
 		super(token);
 		this.jornadaDao = jornadaDao;
-		this.jornadaConverter = jornadaConverter;
 		this.usuarioService = usuarioService;
 		this.jwtUtils = jwtUtils;
 	}
@@ -39,24 +36,30 @@ public class JornadaService extends BaseService implements IJornadaService {
 	@Override
 	public List<JornadaDTO> getAll() {
 		checkAuthority(List.of("DIRECTOR"));
-		return jornadaConverter.convert(jornadaDao.findAll());
+		final List<JornadaDTO> listFormatted= new ArrayList();
+		for(Jornada jor: jornadaDao.findAll()) {
+			listFormatted.add(new JornadaDTO(jor.getFechaJornada(), jor.getHoraInicio().toString(), (jor.getFechaJornada()!= null ? jor.getHoraInicio().toString() : "-"), null));
+		}
+		return listFormatted;
 	}
 
 	@Override
 	public List<JornadaDTO> getAllByUser(Integer userID) {
 		checkAuthority(List.of("DIRECTOR"));
 		Usuario userFind = usuarioService.getUserByIdEntity(userID);
-		final List<JornadaDTO> listJornada= jornadaConverter.convert(jornadaDao.findByUser(userFind));
+		final List<Jornada> listJornada= jornadaDao.findByUser(userFind);
 		final List<JornadaDTO> listJornadaResul=new ArrayList<>();
 		
-		for(JornadaDTO jor : listJornada) {
+		for(Jornada jor : listJornada) {
 			if(jor.getHoraFin()!=null) {
 				Long timediffLong=jor.getHoraFin().getTime()-jor.getHoraInicio().getTime();
 				double timediff=((double)Math.round((double)timediffLong/36000)/100);
 				int horas= (int)timediff;
 				int minutos= ((int)Math.round(((double)((double)timediff-horas)*60)));
-				jor.setTotal(horas+"h y "+minutos+"min");
-				listJornadaResul.add(jor);
+				String total=horas+"h y "+minutos+"min";
+				listJornadaResul.add(new JornadaDTO(jor.getFechaJornada(),jor.getHoraInicio().toString(),jor.getHoraFin().toString(),total));
+			}else {
+				listJornadaResul.add(new JornadaDTO(jor.getFechaJornada(),jor.getHoraInicio().toString(),"-","-"));
 			}
 		}
 		return listJornadaResul;
@@ -91,7 +94,8 @@ public class JornadaService extends BaseService implements IJornadaService {
 		checkAuthority(List.of("EMPLEADO","DIRECTOR"));
 		String email = jwtUtils.getEmailFronToken(token.substring(7));
 		Usuario user = usuarioService.buscarPorcorreo(email);
-		return jornadaConverter.convert(jornadaDao.findByUserAndIniciada(user, true).orElse(null));
+		Jornada jor = jornadaDao.findByUserAndIniciada(user, true).orElse(null); 
+		return jor != null ? new JornadaDTO(jor.getFechaJornada(), jor.getHoraInicio().toString(), (jor.getFechaJornada()!= null ? jor.getHoraInicio().toString() : "-"), "-") : null ;
 	}
 
 }

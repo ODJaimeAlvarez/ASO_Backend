@@ -19,8 +19,7 @@ class AsoBackendApplicationTests {
 	
 	@Test
 	void contextLoads() {
-		userRepo.save(new Usuario("a","a","a","a",false,"a"));
-		rolRepo.save(new Rol("Hola"));
+		
 		
 	}
 

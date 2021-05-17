@@ -14,19 +14,19 @@ public class ExceptionHandlerDB extends RuntimeException{
 	@ExceptionHandler(DBException.class)
 	public ResponseEntity<String> dBException(final DBException e, final WebRequest request) {
 		final String error = new JSONObject()
-				.put("DataBase Error", e.getMessage()).toString();
+				.put("Error", e.getMessage()).toString();
 		return new ResponseEntity<>(error, e.getEstado());
 	}
 	@ExceptionHandler(FileSystemException.class)
 	public ResponseEntity<String> fileSystemException(final FileSystemException e, final WebRequest request) {
 		final String error = new JSONObject()
-				.put("File System Error", e.getMessage()).toString();
+				.put("FileSystemError", e.getMessage()).toString();
 		return new ResponseEntity<>(error, e.getEstado());
 	}
 	@ExceptionHandler(AuthoritiesException.class)
 	public ResponseEntity<String> authoritiesException(final AuthoritiesException e, final WebRequest request) {
 		final String error = new JSONObject()
-				.put("Authorization Error", e.getMessage()).toString();
+				.put("AuthorizationError", e.getMessage()).toString();
 		return new ResponseEntity<>(error, e.getEstado());
 	}
 }

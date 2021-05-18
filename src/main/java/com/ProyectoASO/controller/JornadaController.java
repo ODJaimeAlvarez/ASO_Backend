@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ProyectoASO.dto.JornadaDTO;
+import com.ProyectoASO.responses.JornadaManagerResponse;
 import com.ProyectoASO.responses.MethodResponse;
 import com.ProyectoASO.service.IJornadaService;
 
@@ -30,7 +31,7 @@ public class JornadaController {
 	}
 	
 	@PostMapping("/jornadaManager")
-	public ResponseEntity<MethodResponse> jornadaManager(@RequestHeader(name = "Authorization") String jwt){
+	public ResponseEntity<JornadaManagerResponse> jornadaManager(@RequestHeader(name = "Authorization") String jwt){
 		return jornadaService.jornadaManager(jwt);
 	}
 	@GetMapping("/{id}")

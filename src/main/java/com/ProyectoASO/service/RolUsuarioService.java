@@ -29,11 +29,11 @@ public class RolUsuarioService implements IRolUsuarioService {
 	}
 
 	@Override
-	public void changeRolesToUser(Usuario user, List<Rol> roles) {
-		// TODO Auto-generated method stub
-		
+	public void saveRolUser(Usuario user, Rol roles) {
+		rolUsuarioDao.save(new RolUsuario(roles, user));
 	}
 
+	
 	
 
 }

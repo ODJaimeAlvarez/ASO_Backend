@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ProyectoASO.dto.UsuarioDTO;
 import com.ProyectoASO.service.UserService;
 
-@RestController
-@RequestMapping("/api/usuarios")
+
 public class UsuarioController {
 	
 	private UserService usuarioService;
@@ -22,7 +21,7 @@ public class UsuarioController {
 		this.usuarioService = usuarioService;
 	}
 
-	@GetMapping
+	/*@GetMapping
 	public ResponseEntity<List<UsuarioDTO>> getAll(){
 		return new ResponseEntity<>(usuarioService.getAllUsers(), HttpStatus.OK);
 	}
@@ -30,5 +29,5 @@ public class UsuarioController {
 	@GetMapping("/{id}")
 	public ResponseEntity<UsuarioDTO>getById(@PathVariable Integer id){
 		return new ResponseEntity<>(usuarioService.getUserById(id), HttpStatus.OK);
-	}
+	}*/
 }

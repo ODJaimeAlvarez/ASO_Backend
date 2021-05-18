@@ -2,7 +2,10 @@ package com.ProyectoASO.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.ProyectoASO.dto.JornadaDTO;
+import com.ProyectoASO.responses.MethodResponse;
 
 public interface IJornadaService {
 	
@@ -10,7 +13,7 @@ public interface IJornadaService {
 	
 	public List<JornadaDTO> getAllByUser(Integer userID);
 	
-	public String jornadaManager(String token);
+	public ResponseEntity<MethodResponse> jornadaManager(String token);
 	
 	public JornadaDTO getInicioJornada(String token);
 	

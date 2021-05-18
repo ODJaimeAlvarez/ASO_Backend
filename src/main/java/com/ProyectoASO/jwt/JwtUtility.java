@@ -22,7 +22,7 @@ public class JwtUtility implements Serializable{
 
 	private static final long serialVersionUID = 8901966693934998645L;
 	
-	public static final long VALIDEZ = 5*60*60;
+	public static final long VALIDEZ = 48*60*60;
 	
 	@Value("${jwt.secret}")
 	private String clave;

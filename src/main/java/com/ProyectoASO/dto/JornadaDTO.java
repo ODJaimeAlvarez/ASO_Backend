@@ -21,7 +21,13 @@ public class JornadaDTO {
 
 	public JornadaDTO() {
 	}
-
+	public JornadaDTO(Integer id,Date fechaJornada, String horaInicio, String horaFin, String total) {
+		this.id=id;
+		this.fechaJornada = fechaJornada;
+		this.horaInicio = horaInicio;
+		this.horaFin = horaFin;
+		this.total = total;
+	}
 
 	public JornadaDTO(Date fechaJornada, String horaInicio, String horaFin, String total) {
 		this.fechaJornada = fechaJornada;

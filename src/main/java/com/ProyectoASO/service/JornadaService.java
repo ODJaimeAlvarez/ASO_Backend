@@ -9,28 +9,34 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ProyectoASO.dao.IJornadaDao;
 import com.ProyectoASO.dto.JornadaDTO;
+import com.ProyectoASO.entity.Empleado;
 import com.ProyectoASO.entity.Jornada;
 import com.ProyectoASO.entity.Usuario;
 import com.ProyectoASO.jwt.JwtUtility;
 import com.ProyectoASO.jwt.TokenDetails;
+import com.ProyectoASO.responses.MethodResponse;
 @Service
 public class JornadaService extends BaseService implements IJornadaService {
 
 	private IJornadaDao jornadaDao;
+	private final EmpleadoService empleadoService;
 	private UserService usuarioService;
 	private JwtUtility jwtUtils;
 
 	
 	public JornadaService(TokenDetails token, IJornadaDao jornadaDao,
-			UserService usuarioService, JwtUtility jwtUtils) {
+			UserService usuarioService, JwtUtility jwtUtils, EmpleadoService empleadoService) {
 		super(token);
 		this.jornadaDao = jornadaDao;
 		this.usuarioService = usuarioService;
 		this.jwtUtils = jwtUtils;
+		this.empleadoService=empleadoService;
 	}
 
 	@Override
@@ -47,7 +53,8 @@ public class JornadaService extends BaseService implements IJornadaService {
 	public List<JornadaDTO> getAllByUser(Integer userID) {
 		checkAuthority(List.of("DIRECTOR"));
 		Usuario userFind = usuarioService.getUserByIdEntity(userID);
-		final List<Jornada> listJornada= jornadaDao.findByUser(userFind);
+		Empleado emp= empleadoService.getEmpleadoByUser(userFind);
+		final List<Jornada> listJornada= jornadaDao.findByEmpleado(emp);
 		final List<JornadaDTO> listJornadaResul=new ArrayList<>();
 		
 		for(Jornada jor : listJornada) {
@@ -57,20 +64,21 @@ public class JornadaService extends BaseService implements IJornadaService {
 				int horas= (int)timediff;
 				int minutos= ((int)Math.round(((double)((double)timediff-horas)*60)));
 				String total=horas+"h y "+minutos+"min";
-				listJornadaResul.add(new JornadaDTO(jor.getFechaJornada(),jor.getHoraInicio().toString(),jor.getHoraFin().toString(),total));
+				listJornadaResul.add(new JornadaDTO(jor.getIdJornada(),jor.getFechaJornada(),jor.getHoraInicio().toString(),jor.getHoraFin().toString(),total));
 			}else {
-				listJornadaResul.add(new JornadaDTO(jor.getFechaJornada(),jor.getHoraInicio().toString(),"-","-"));
+				listJornadaResul.add(new JornadaDTO(jor.getIdJornada(),jor.getFechaJornada(),jor.getHoraInicio().toString(),"-","-"));
 			}
 		}
 		return listJornadaResul;
 	}
 
 	@Override
-	public String jornadaManager(String token) {
+	public ResponseEntity<MethodResponse> jornadaManager(String token) {
 		checkAuthority(List.of("EMPLEADO","DIRECTOR"));
 		String  email = jwtUtils.getEmailFronToken(token.substring(7));
 		Usuario user = usuarioService.buscarPorcorreo(email);
-		Optional<Jornada> findJornada = jornadaDao.findByUserAndIniciada(user, true);
+		Empleado emp= empleadoService.getEmpleadoByUser(user);
+		Optional<Jornada> findJornada = jornadaDao.findByEmpleadoAndIniciada(emp, true);
 		Jornada jornada;
 		String estado;
 		if (findJornada.isPresent()) {
@@ -81,12 +89,12 @@ public class JornadaService extends BaseService implements IJornadaService {
 			estado="La jornada ha sido finalizada.";
 		} else {
 			// Abre Jornada
-			jornada = new Jornada(Date.from(Instant.now()), Time.valueOf(LocalTime.now()), null, user);
+			jornada = new Jornada(Date.from(Instant.now()), Time.valueOf(LocalTime.now()), null, emp);
 			jornada.setIniciada(true);
 			estado="La jornada ha sido iniciada.";
 		}
 		jornadaDao.save(jornada);
-		return estado;
+		return new ResponseEntity<>(new MethodResponse(estado),HttpStatus.OK);
 	}
 
 	@Override
@@ -94,8 +102,9 @@ public class JornadaService extends BaseService implements IJornadaService {
 		checkAuthority(List.of("EMPLEADO","DIRECTOR"));
 		String email = jwtUtils.getEmailFronToken(token.substring(7));
 		Usuario user = usuarioService.buscarPorcorreo(email);
-		Jornada jor = jornadaDao.findByUserAndIniciada(user, true).orElse(null); 
-		return jor != null ? new JornadaDTO(jor.getFechaJornada(), jor.getHoraInicio().toString(), (jor.getFechaJornada()!= null ? jor.getHoraInicio().toString() : "-"), "-") : null ;
+		Empleado emp= empleadoService.getEmpleadoByUser(user);
+		Jornada jor = jornadaDao.findByEmpleadoAndIniciada(emp, true).orElse(null); 
+		return jor != null ? new JornadaDTO(jor.getIdJornada(), jor.getFechaJornada(), jor.getHoraInicio().toString(), (jor.getFechaJornada()!= null ? jor.getHoraInicio().toString() : "-"), "-") : null ;
 	}
 
 }

@@ -45,19 +45,19 @@ public class UserService extends BaseService implements IUserService {
 	}
 
 	@Override
-	public UsuarioDTO saveUser(UsuarioDTO user) {
+	public Usuario saveUser(Usuario user) {
 		checkAuthority(List.of("DIRECTOR"));
 		return null;
 	}
 
 	@Override
-	public UsuarioDTO updateUser(Long id, UsuarioDTO user) {
+	public Usuario updateUser(Integer id, Usuario user) {
 		checkAuthority(List.of("DIRECTOR"));
 		return null;
 	}
 
 	@Override
-	public void deleteUserById(Integer id) {
+	public void deActivateUser(Integer id) {
 		checkAuthority(List.of("DIRECTOR"));
 		
 	}

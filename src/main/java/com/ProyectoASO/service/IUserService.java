@@ -11,11 +11,11 @@ public interface IUserService {
 	
 	public UsuarioDTO getUserById(Integer id);
 	
-	public UsuarioDTO saveUser(UsuarioDTO user);
+	public Usuario saveUser(Usuario user);
 	
-	public UsuarioDTO updateUser(Long id, UsuarioDTO user);
+	public Usuario updateUser(Integer id, Usuario user);
 	
-	public void deleteUserById(Integer id);
+	public void deActivateUser(Integer id);
 	
 	public Usuario buscarPorcorreo(String correo);
 

@@ -9,5 +9,7 @@ public interface IRolUsuarioService {
 
 	public List<Rol> getRolesByUser(Usuario user);
 	
-	public void changeRolesToUser(Usuario user, List<Rol> roles);
+	public void saveRolUser(Usuario user, Rol roles);
+	
+	
 }

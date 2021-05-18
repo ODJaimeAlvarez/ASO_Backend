@@ -34,25 +34,25 @@ public class Jornada {
 	private Boolean iniciada;
 
 	@ManyToOne
-	@JoinColumn(name = "fk_id_usuario")
-	private Usuario user;
+	@JoinColumn(name = "fk_id_empleado")
+	private Empleado empleado;
 
 	public Jornada() {
 	}
 
-	public Jornada(Integer idJornada, Date fechaJornada, Time horaInicio, Time horaFin, Usuario user) {
+	public Jornada(Integer idJornada, Date fechaJornada, Time horaInicio, Time horaFin, Empleado empleado) {
 		this.idJornada = idJornada;
 		this.fechaJornada = fechaJornada;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
-		this.user = user;
+		this.empleado = empleado;
 	}
 
-	public Jornada(Date fechaJornada, Time horaInicio, Time horaFin, Usuario user) {
+	public Jornada(Date fechaJornada, Time horaInicio, Time horaFin, Empleado empleado) {
 		this.fechaJornada = fechaJornada;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
-		this.user = user;
+		this.empleado = empleado;
 	}
 
 	public Integer getIdJornada() {
@@ -87,12 +87,12 @@ public class Jornada {
 		this.horaFin = horaFin;
 	}
 
-	public Usuario getUser() {
-		return user;
+	public Empleado getUser() {
+		return empleado;
 	}
 
-	public void setUser(Usuario user) {
-		this.user = user;
+	public void setUser(Empleado empleado) {
+		this.empleado = empleado;
 	}
 
 	public Boolean getIniciada() {

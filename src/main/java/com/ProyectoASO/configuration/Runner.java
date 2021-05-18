@@ -19,12 +19,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.ProyectoASO.dao.EmpleadoDao;
 import com.ProyectoASO.dao.IFicheroDao;
 import com.ProyectoASO.dao.IJornadaDao;
 import com.ProyectoASO.dao.IProyectoDao;
 import com.ProyectoASO.dao.IRolDao;
 import com.ProyectoASO.dao.IRolUsuarioDao;
 import com.ProyectoASO.dao.IUsuarioDao;
+import com.ProyectoASO.entity.Empleado;
 import com.ProyectoASO.entity.Fichero;
 import com.ProyectoASO.entity.Jornada;
 import com.ProyectoASO.entity.Proyecto;
@@ -48,10 +50,12 @@ public class Runner {
 	private IFicheroDao ficheroDao;
 	private IFileStorageService fsS;
 	private IJornadaDao jornadaDao;
+	//private IClienteDao clienteDao;
+	private EmpleadoDao empleadoDao;
 	BCryptPasswordEncoder encoder;
 	
 	public Runner(IUsuarioDao user, IRolUsuarioDao rolUser, IProyectoDao proyecto, IRolDao rol, IFicheroDao ficheroDao,
-			IFileStorageService fsS, IJornadaDao jornadaDao, BCryptPasswordEncoder encoder) {
+			IFileStorageService fsS, IJornadaDao jornadaDao, EmpleadoDao empleadoDao, BCryptPasswordEncoder encoder) {
 		this.user = user;
 		this.rolUser = rolUser;
 		this.proyecto = proyecto;
@@ -59,6 +63,7 @@ public class Runner {
 		this.ficheroDao = ficheroDao;
 		this.fsS = fsS;
 		this.jornadaDao = jornadaDao;
+		this.empleadoDao=empleadoDao;
 		this.encoder = encoder;
 	}
 
@@ -80,12 +85,16 @@ public class Runner {
 		List<Usuario> list_user_normalize = new ArrayList<>();
 		List<Rol> list_rol = new ArrayList<>();
 		List<Fichero> listFicheros= new ArrayList<>();
+		List<Empleado> listEmp= new ArrayList<>();
 		
-		
-		list_user_normalize.add(new Usuario("DIRECTOR" ,"DIRECTOR", "DIRECTOR", "director@aso.com", encoder.encode("director"), true,"JEFE DE EMPRESA"));
-		list_user_normalize.add(new Usuario("EMPLEADO","EMPLEADO", "EMPLEADO", "empleado@aso.com", encoder.encode("empleado"), true, "DESARROLLADOR"));
-		list_user_normalize.add(new Usuario("CLIENTE","CLIENTE", "CLIENTE", "cliente@aso.com", encoder.encode("cliente"), true, "CLI.INDRA"));
+		list_user_normalize.add(new Usuario("director@aso.com", encoder.encode("director"), true));
+		list_user_normalize.add(new Usuario("empleado@aso.com", encoder.encode("empleado"), true));
+		list_user_normalize.add(new Usuario("cliente@aso.com", encoder.encode("cliente"), true));
 		user.saveAll(list_user_normalize);
+		
+		listEmp.add(empleadoDao.save(new Empleado("Juan Carlos", "Alvarez", "Martinez", "Director",list_user_normalize.get(0))));
+		listEmp.add(empleadoDao.save(new Empleado("Andrea", "Fernandez", "del Alba", "Developer",list_user_normalize.get(1))));
+		
 		
 		
 		list_rol.add(new Rol("DIRECTOR"));
@@ -137,36 +146,36 @@ public class Runner {
 			e.printStackTrace();
 		}
 		List<Jornada> jornada_list= new ArrayList<>();
-		Jornada j1=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:00:25"),Time.valueOf("14:30:00"),list_user_normalize.get(1));
+		Jornada j1=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:00:25"),Time.valueOf("14:30:00"),listEmp.get(1));
 		j1.setIniciada(Boolean.FALSE);
 		jornada_list.add(j1);
-		Jornada j2=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:10:00"),Time.valueOf("14:31:00"),list_user_normalize.get(1));
+		Jornada j2=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:10:00"),Time.valueOf("14:31:00"),listEmp.get(1));
 		j2.setIniciada(Boolean.FALSE);
 		jornada_list.add(j2);
-		Jornada j3=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:05:30"),Time.valueOf("14:29:00"),list_user_normalize.get(1));
+		Jornada j3=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:05:30"),Time.valueOf("14:29:00"),listEmp.get(1));
 		j3.setIniciada(Boolean.FALSE);
 		jornada_list.add(j3);
-		Jornada j4=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:02:10"),Time.valueOf("14:18:00"),list_user_normalize.get(1));
+		Jornada j4=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:02:10"),Time.valueOf("14:18:00"),listEmp.get(1));
 		j4.setIniciada(Boolean.FALSE);
 		jornada_list.add(j4);
-		Jornada j5=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:12:15"),Time.valueOf("14:49:00"),list_user_normalize.get(1));
+		Jornada j5=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:12:15"),Time.valueOf("14:49:00"),listEmp.get(1));
 		j5.setIniciada(Boolean.FALSE);
 		jornada_list.add(j5);
 		
 		
-		Jornada j7=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:01:25"),Time.valueOf("15:00:00"),list_user_normalize.get(0));
+		Jornada j7=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:01:25"),Time.valueOf("15:00:00"),listEmp.get(0));
 		j7.setIniciada(Boolean.FALSE);
 		jornada_list.add(j7);
-		Jornada j8=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:07:02"),Time.valueOf("16:00:00"),list_user_normalize.get(0));
+		Jornada j8=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:07:02"),Time.valueOf("16:00:00"),listEmp.get(0));
 		j8.setIniciada(Boolean.FALSE);
 		jornada_list.add(j8);
-		Jornada j9=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:02:37"),Time.valueOf("16:17:00"),list_user_normalize.get(0));
+		Jornada j9=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:02:37"),Time.valueOf("16:17:00"),listEmp.get(0));
 		j9.setIniciada(Boolean.FALSE);
 		jornada_list.add(j9);
-		Jornada j10=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:24:02"),Time.valueOf("12:50:00"),list_user_normalize.get(0));
+		Jornada j10=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:24:02"),Time.valueOf("12:50:00"),listEmp.get(0));
 		j10.setIniciada(Boolean.FALSE);
 		jornada_list.add(j10);
-		Jornada j11=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:00:00"),Time.valueOf("13:18:00"),list_user_normalize.get(0));
+		Jornada j11=new Jornada(java.sql.Date.valueOf(LocalDate.now()),Time.valueOf("8:00:00"),Time.valueOf("13:18:00"),listEmp.get(0));
 		j11.setIniciada(Boolean.FALSE);
 		jornada_list.add(j11);
 		

@@ -5,12 +5,14 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.ProyectoASO.entity.Empleado;
 import com.ProyectoASO.entity.Jornada;
 import com.ProyectoASO.entity.Usuario;
 
 public interface IJornadaDao extends JpaRepository<Jornada, Integer> {
 	
-	public Optional<Jornada> findByUserAndIniciada(Usuario user, Boolean iniciada);
-	public List<Jornada> findByUser(Usuario user);
+	public Optional<Jornada> findByEmpleadoAndIniciada(Empleado emp, Boolean iniciada);
+	
+	public List<Jornada> findByEmpleado(Empleado emp);
 
 }

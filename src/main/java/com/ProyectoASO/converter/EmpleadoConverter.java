@@ -9,7 +9,7 @@ public class EmpleadoConverter implements IConverter<Empleado, EmpleadoDTO> {
 
 	@Override
 	public EmpleadoDTO apply(Empleado t) {
-		return new EmpleadoDTO(t.getId(), t.getNombre(), t.getApellido1(), t.getApellido2(), t.getPuesto());
+		return new EmpleadoDTO(t.getId(), t.getNombre(), t.getApellido1(), t.getApellido2(), t.getPuesto(), t.getUsuario().getActivo(),t.getUsuario().getCorreo());
 	}
 
 }

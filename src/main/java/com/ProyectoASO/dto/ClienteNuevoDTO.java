@@ -1,8 +1,9 @@
 package com.ProyectoASO.dto;
 
+import com.ProyectoASO.entity.Usuario;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ClienteDTO {
+public class ClienteNuevoDTO {
 
 	@JsonProperty(value = "id")
 	private Integer id;
@@ -14,30 +15,41 @@ public class ClienteDTO {
 	private String apellido2;
 	@JsonProperty(value = "empresa")
 	private String empresa;
-	@JsonProperty(value = "activo")
-	private Boolean active;
 	@JsonProperty(value = "correo")
 	private String correo;
+	@JsonProperty(value = "contraseña")
+	private String contraseña;
 
-	public ClienteDTO(Integer id, String nombre, String apellido1, String apellido2, String empresa, Boolean active,
-			String correo) {
+	public ClienteNuevoDTO() {
+	}
+
+	public ClienteNuevoDTO(String nombre, String apellido1, String apellido2, String empresa, String correo,
+			String contraseña) {
+		this.nombre = nombre;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
+		this.empresa = empresa;
+		this.correo = correo;
+		this.contraseña = contraseña;
+	}
+
+	public ClienteNuevoDTO(Integer id, String nombre, String apellido1, String apellido2, String empresa, String correo,
+			String contraseña) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.empresa = empresa;
-		this.active = active;
 		this.correo = correo;
+		this.contraseña = contraseña;
 	}
 
-	public ClienteDTO(String nombre, String apellido1, String apellido2, String empresa, Boolean active,
-			String correo) {
-		this.nombre = nombre;
-		this.apellido1 = apellido1;
-		this.apellido2 = apellido2;
+	public String getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(String empresa) {
 		this.empresa = empresa;
-		this.active = active;
-		this.correo = correo;
 	}
 
 	public Integer getId() {
@@ -72,28 +84,20 @@ public class ClienteDTO {
 		this.apellido2 = apellido2;
 	}
 
-	public String getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(String empresa) {
-		this.empresa = empresa;
-	}
-
-	public Boolean getActive() {
-		return active;
-	}
-
-	public void setActive(Boolean active) {
-		this.active = active;
-	}
-
 	public String getCorreo() {
 		return correo;
 	}
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
+	}
+
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
 	}
 
 }

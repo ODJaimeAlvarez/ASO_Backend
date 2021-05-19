@@ -17,6 +17,8 @@ public interface IUserService {
 	
 	public void deActivateUser(Integer id);
 	
+	public void activateUser(Integer id);
+	
 	public Usuario buscarPorcorreo(String correo);
 
 }

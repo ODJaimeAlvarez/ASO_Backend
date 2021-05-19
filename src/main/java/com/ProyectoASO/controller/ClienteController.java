@@ -11,35 +11,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ProyectoASO.dto.EmpleadoDTO;
+import com.ProyectoASO.dto.ClienteDTO;
 import com.ProyectoASO.responses.MethodResponse;
-import com.ProyectoASO.service.IEmpleadoService;
+import com.ProyectoASO.service.IClienteService;
+
 
 @RestController
-@RequestMapping("/api/empleados")
-public class EmpleadoController {
-	private IEmpleadoService empleadoService;
+@RequestMapping("/api/cliente")
+public class ClienteController {
 	
-	public EmpleadoController(IEmpleadoService empleadoService) {
-		this.empleadoService = empleadoService;
-	}
+private IClienteService clienteService;
+	
+	
+	public ClienteController(IClienteService clienteService) {
+	this.clienteService = clienteService;
+}
 
 	@GetMapping
-	public ResponseEntity<List<EmpleadoDTO>> getAll(){
-		return new ResponseEntity<>(empleadoService.getAll(), HttpStatus.OK);
+	public ResponseEntity<List<ClienteDTO>> getAll(){
+		return new ResponseEntity<>(clienteService.getAll(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<EmpleadoDTO>getById(@PathVariable Integer id){
-		return new ResponseEntity<>(empleadoService.getById(id), HttpStatus.OK);
+	public ResponseEntity<ClienteDTO>getById(@PathVariable Integer id){
+		return new ResponseEntity<>(clienteService.getById(id), HttpStatus.OK);
 	}
 	@PutMapping("/alta")
 	public ResponseEntity<MethodResponse> activate(@RequestBody Integer id){
-		return empleadoService.activate(id);
+		return clienteService.activate(id);
 	}
 
 	@PutMapping("/baja")
 	public ResponseEntity<MethodResponse>deActivate(@RequestBody Integer id){
-		return empleadoService.deActivate(id);
+		return clienteService.deActivate(id);
 	}
 }

@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.ProyectoASO.dto.ClienteDTO;
+import com.ProyectoASO.dto.ClienteNuevoDTO;
 import com.ProyectoASO.dto.LoginResponse;
 import com.ProyectoASO.dto.UserLoginDTO;
 import com.ProyectoASO.exceptions.DBException;
 import com.ProyectoASO.jwt.JwtUtility;
+import com.ProyectoASO.service.IClienteService;
 import com.ProyectoASO.service.LogInService;
 @RestController
 @RequestMapping("/api/auth")
@@ -24,10 +26,13 @@ public class LogInController {
 	private LogInService logInService;
 	private JwtUtility jwtUtil;
 	
-	public LogInController(AuthenticationManager authManager, LogInService logInService, JwtUtility jwtUtil) {
+	private IClienteService clienteservice;
+	
+	public LogInController(AuthenticationManager authManager, LogInService logInService, JwtUtility jwtUtil,IClienteService clienteservice) {
 		this.authManager = authManager;
 		this.logInService = logInService;
 		this.jwtUtil = jwtUtil;
+		this.clienteservice=clienteservice;
 	}
 
 
@@ -47,4 +52,8 @@ public class LogInController {
 		return new ResponseEntity<>(new LoginResponse("Bearer "+jwt,jwtUtil.getEmailFronToken(jwt),jwtUtil.getAuthFromToken(jwt)), HttpStatus.OK);
 	}
 
+	@PostMapping("/register")
+	public ResponseEntity<ClienteDTO> register(@RequestBody ClienteNuevoDTO newClient){
+		return new ResponseEntity<>(clienteservice.save(newClient),HttpStatus.OK);
+	}
 }

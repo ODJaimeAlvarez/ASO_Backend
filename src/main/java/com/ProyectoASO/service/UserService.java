@@ -4,9 +4,9 @@ package com.ProyectoASO.service;
 import java.util.List;
 import java.util.Optional;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ProyectoASO.converter.UsuarioConverter;
@@ -19,6 +19,9 @@ import com.ProyectoASO.jwt.TokenDetails;
 public class UserService extends BaseService implements IUserService {
 	private IUsuarioDao usuarioRepository;
 	private UsuarioConverter usuarioConverter;
+	
+	@Autowired
+	BCryptPasswordEncoder crypt;
 	
 	
 	public UserService(TokenDetails token, IUsuarioDao usuarioRepository, UsuarioConverter usuarioConverter) {
@@ -46,8 +49,10 @@ public class UserService extends BaseService implements IUserService {
 
 	@Override
 	public Usuario saveUser(Usuario user) {
-		checkAuthority(List.of("DIRECTOR"));
-		return null;
+		//checkAuthority(List.of("DIRECTOR"));
+		System.out.println(user.getPasswd());
+		user.setPasswd(crypt.encode(user.getPasswd()));
+		return usuarioRepository.save(user);
 	}
 
 	@Override
@@ -59,7 +64,17 @@ public class UserService extends BaseService implements IUserService {
 	@Override
 	public void deActivateUser(Integer id) {
 		checkAuthority(List.of("DIRECTOR"));
-		
+		Usuario user= usuarioRepository.findById(id).orElseThrow(()-> new DBException("Usuario con id "+id+" no encontrado.", HttpStatus.NOT_FOUND));
+		user.setActivo(false);
+		usuarioRepository.save(user);
+	}
+	
+	@Override
+	public void activateUser(Integer id) {
+		checkAuthority(List.of("DIRECTOR"));
+		Usuario user= usuarioRepository.findById(id).orElseThrow(()-> new DBException("Usuario con id "+id+" no encontrado.", HttpStatus.NOT_FOUND));
+		user.setActivo(false);
+		usuarioRepository.save(user);
 	}
 	
 	protected Usuario getUserByIdEntity(Integer id) {

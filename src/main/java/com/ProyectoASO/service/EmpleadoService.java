@@ -48,10 +48,10 @@ public class EmpleadoService extends BaseService implements IEmpleadoService {
 
 	@Override
 	public EmpleadoDTO save(EmpleadoNuevoDTO emp) {
-		Usuario user = usuarioService.saveUser(emp.getUsuario());
+		Usuario user = usuarioService.saveUser(new Usuario(emp.getCorreo(), emp.getContraseña(), true));
 		rolUsuarioService.saveRolUser(user, emp.getRol());
 		return converter.convert(empleadoRepository
-				.save(new Empleado(emp.getNombre(), emp.getApellido1(), emp.getApellido2(), emp.getPuesto(), user)));
+				.save(new Empleado(emp.getNombre(), emp.getApellido1(), emp.getApellido2(), emp.getCargo(), user)));
 	}
 
 	@Override

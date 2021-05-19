@@ -14,32 +14,40 @@ public class EmpleadoNuevoDTO {
 	private String apellido1;
 	@JsonProperty(value = "apellido2")
 	private String apellido2;
-	@JsonProperty(value = "puesto")
-	private String puesto;
-	@JsonProperty(value = "usuario")
-	private Usuario usuario;
+	@JsonProperty(value = "cargo")
+	private String cargo;
+	@JsonProperty(value = "correo")
+	private String correo;
+	@JsonProperty(value = "contraseña")
+	private String contraseña;
 	@JsonProperty(value = "rol")
 	private Rol rol;
 
-	public EmpleadoNuevoDTO(Integer id, String nombre, String apellido1, String apellido2, String puesto,
-			Usuario usuario, Rol rol) {
+	public EmpleadoNuevoDTO(String nombre, String apellido1, String apellido2, String cargo, String correo,
+			String contraseña, Rol rol) {
+		this.nombre = nombre;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
+		this.cargo = cargo;
+		this.correo = correo;
+		this.contraseña = contraseña;
+		this.rol = rol;
+	}
+
+	public EmpleadoNuevoDTO(Integer id, String nombre, String apellido1, String apellido2, String cargo, String correo,
+			String contraseña, Rol rol) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
-		this.puesto = puesto;
-		this.usuario = usuario;
+		this.cargo = cargo;
+		this.correo = correo;
+		this.contraseña = contraseña;
 		this.rol = rol;
 	}
 
-	public EmpleadoNuevoDTO(String nombre, String apellido1, String apellido2, String puesto, Usuario usuario,
-			Rol rol) {
-		this.nombre = nombre;
-		this.apellido1 = apellido1;
-		this.apellido2 = apellido2;
-		this.puesto = puesto;
-		this.usuario = usuario;
-		this.rol = rol;
+	public EmpleadoNuevoDTO() {
+
 	}
 
 	public Integer getId() {
@@ -74,20 +82,12 @@ public class EmpleadoNuevoDTO {
 		this.apellido2 = apellido2;
 	}
 
-	public String getPuesto() {
-		return puesto;
+	public String getCargo() {
+		return cargo;
 	}
 
-	public void setPuesto(String puesto) {
-		this.puesto = puesto;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
 	}
 
 	public Rol getRol() {
@@ -96,6 +96,22 @@ public class EmpleadoNuevoDTO {
 
 	public void setRol(Rol rol) {
 		this.rol = rol;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
 	}
 
 }

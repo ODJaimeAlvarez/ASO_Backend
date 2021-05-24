@@ -1,10 +1,9 @@
 package com.ProyectoASO.dto;
 
-import com.ProyectoASO.entity.Rol;
 import com.ProyectoASO.entity.Usuario;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class EmpleadoNuevoDTO {
+public class ClienteNuevoDTO {
 
 	@JsonProperty(value = "id")
 	private Integer id;
@@ -14,48 +13,52 @@ public class EmpleadoNuevoDTO {
 	private String apellido1;
 	@JsonProperty(value = "apellido2")
 	private String apellido2;
-	@JsonProperty(value = "cargo")
-	private String cargo;
+	@JsonProperty(value = "empresa")
+	private String empresa;
+	@JsonProperty(value = "telefono",required = false)
+	private String telefono;
+	@JsonProperty(value = "direccion",required = false)
+	private String direccion;
 	@JsonProperty(value = "correo")
 	private String correo;
-	@JsonProperty(value = "telefono", required = true)
-	private String telefono;
-	@JsonProperty(value = "direccion", required = true)
-	private String direccion;
 	@JsonProperty(value = "contraseña")
 	private String contraseña;
-	@JsonProperty(value = "rol")
-	private Rol rol;
 
-	public EmpleadoNuevoDTO(String nombre, String apellido1, String apellido2, String cargo, String correo,
-			String telefono, String direccion, String contraseña, Rol rol) {
+	
+	public ClienteNuevoDTO(String nombre, String apellido1, String apellido2, String empresa, String telefono,
+			String direccion, String correo, String contraseña) {
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
-		this.cargo = cargo;
-		this.correo = correo;
+		this.empresa = empresa;
 		this.telefono = telefono;
 		this.direccion = direccion;
+		this.correo = correo;
 		this.contraseña = contraseña;
-		this.rol = rol;
 	}
 
-	public EmpleadoNuevoDTO(Integer id, String nombre, String apellido1, String apellido2, String cargo, String correo,
-			String telefono, String direccion, String contraseña, Rol rol) {
+	public ClienteNuevoDTO(Integer id, String nombre, String apellido1, String apellido2, String empresa,
+			String telefono, String direccion, String correo, String contraseña) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
-		this.cargo = cargo;
-		this.correo = correo;
+		this.empresa = empresa;
 		this.telefono = telefono;
 		this.direccion = direccion;
+		this.correo = correo;
 		this.contraseña = contraseña;
-		this.rol = rol;
 	}
 
-	public EmpleadoNuevoDTO() {
+	public ClienteNuevoDTO() {
+	}
 
+	public String getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(String empresa) {
+		this.empresa = empresa;
 	}
 
 	public Integer getId() {
@@ -90,22 +93,6 @@ public class EmpleadoNuevoDTO {
 		this.apellido2 = apellido2;
 	}
 
-	public String getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
-
-	public Rol getRol() {
-		return rol;
-	}
-
-	public void setRol(Rol rol) {
-		this.rol = rol;
-	}
-
 	public String getCorreo() {
 		return correo;
 	}
@@ -137,4 +124,5 @@ public class EmpleadoNuevoDTO {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+
 }

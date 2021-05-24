@@ -1,5 +1,6 @@
 package com.ProyectoASO.dto;
 
+import com.ProyectoASO.entity.FotoUsuarios;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ClienteDTO {
@@ -14,20 +15,69 @@ public class ClienteDTO {
 	private String apellido2;
 	@JsonProperty(value = "empresa")
 	private String empresa;
+	@JsonProperty(value = "activo")
+	private Boolean active;
+	@JsonProperty(value = "correo")
+	private String correo;
+	@JsonProperty(value = "telefono")
+	private String telefono;
+	@JsonProperty(value = "direccion")
+	private String direccion;
+	@JsonProperty(value = "fotoPerfil")
+	private FotoUsuarios fotoPerfil;
 
-	public ClienteDTO(Integer id, String nombre, String apellido1, String apellido2, String empresa) {
+	public ClienteDTO() {
+	}
+
+	public ClienteDTO(String nombre, String apellido1, String apellido2, String empresa, Boolean active, String correo,
+			String telefono, String direccion, FotoUsuarios fotoPerfil) {
+		this.nombre = nombre;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
+		this.empresa = empresa;
+		this.active = active;
+		this.correo = correo;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.fotoPerfil = fotoPerfil;
+	}
+
+	public ClienteDTO(Integer id, String nombre, String apellido1, String apellido2, String empresa, Boolean active,
+			String correo, String telefono, String direccion, FotoUsuarios fotoPerfil) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.empresa = empresa;
+		this.active = active;
+		this.correo = correo;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.fotoPerfil = fotoPerfil;
 	}
 
-	public ClienteDTO(String nombre, String apellido1, String apellido2, String empresa) {
-		this.nombre = nombre;
-		this.apellido1 = apellido1;
-		this.apellido2 = apellido2;
-		this.empresa = empresa;
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public FotoUsuarios getFotoPerfil() {
+		return fotoPerfil;
+	}
+
+	public void setFotoPerfil(FotoUsuarios fotoPerfil) {
+		this.fotoPerfil = fotoPerfil;
 	}
 
 	public Integer getId() {
@@ -68,6 +118,22 @@ public class ClienteDTO {
 
 	public void setEmpresa(String empresa) {
 		this.empresa = empresa;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
 }

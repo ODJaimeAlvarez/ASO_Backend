@@ -23,16 +23,14 @@ public class EmpleadoService extends BaseService implements IEmpleadoService {
 
 	private final EmpleadoDao empleadoRepository;
 	private final EmpleadoConverter converter;
-	private final EmpleadoDTOConverter converterDTO;
 	private final UserService usuarioService;
 	private final RolUsuarioService rolUsuarioService;
 
 	public EmpleadoService(TokenDetails token, EmpleadoDao empleadoRepository, EmpleadoConverter converter,
-			EmpleadoDTOConverter converterDTO, UserService usuarioService, RolUsuarioService rolUsuarioService) {
+			UserService usuarioService, RolUsuarioService rolUsuarioService) {
 		super(token);
 		this.empleadoRepository = empleadoRepository;
 		this.converter = converter;
-		this.converterDTO = converterDTO;
 		this.usuarioService = usuarioService;
 		this.rolUsuarioService = rolUsuarioService;
 	}
@@ -50,10 +48,10 @@ public class EmpleadoService extends BaseService implements IEmpleadoService {
 
 	@Override
 	public EmpleadoDTO save(EmpleadoNuevoDTO emp) {
-		Usuario user = usuarioService.saveUser(emp.getUsuario());
+		Usuario user = usuarioService.saveUser(new Usuario(emp.getCorreo(), emp.getContraseña(), true));
 		rolUsuarioService.saveRolUser(user, emp.getRol());
 		return converter.convert(empleadoRepository
-				.save(new Empleado(emp.getNombre(), emp.getApellido1(), emp.getApellido2(), emp.getPuesto(), user)));
+				.save(new Empleado(emp.getNombre(), emp.getApellido1(), emp.getApellido2(), emp.getCargo(),emp.getTelefono(),emp.getDireccion(),null,null ,user)));
 	}
 
 	@Override
@@ -69,8 +67,24 @@ public class EmpleadoService extends BaseService implements IEmpleadoService {
 		usuarioService.deActivateUser(emp.getUsuario().getId());
 		return new ResponseEntity<>(new MethodResponse("El usuario con id "+id+" ha sido dado de baja"),HttpStatus.OK);
 	}
+	
+	@Override
+	public ResponseEntity<MethodResponse> activate(Integer id) {
+		Empleado emp= empleadoRepository.findById(id).orElseThrow(
+				() -> new DBException("El empleado con id " + id + " no esta en la bbdd.", HttpStatus.NOT_FOUND));
+		usuarioService.activateUser(emp.getUsuario().getId());
+		return new ResponseEntity<>(new MethodResponse("El usuario con id "+id+" ha sido dado de alta"),HttpStatus.OK);
+	}
+	
 	protected Empleado getEmpleadoByUser(Usuario user) {
 		return empleadoRepository.findByUsuario(user).orElseThrow(()->new DBException("El empleado no esta en la bbdd.", HttpStatus.NOT_FOUND));
 	}
+
+	@Override
+	public EmpleadoDTO getPerfil() {
+		Usuario user= usuarioService.buscarPorcorreo(getToken().getEmail());
+		return converter.convert(empleadoRepository.findByUsuario(user).orElseThrow(()->new DBException("El empleado no esta en la bbdd.", HttpStatus.NOT_FOUND)));
+	}
+	
 
 }

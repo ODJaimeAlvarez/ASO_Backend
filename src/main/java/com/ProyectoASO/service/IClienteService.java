@@ -21,4 +21,6 @@ public interface IClienteService {
 	public ResponseEntity<MethodResponse> deActivate(Integer id);
 	
 	public ResponseEntity<MethodResponse> activate(Integer id);
+	
+	public ClienteDTO getPerfil();
 }

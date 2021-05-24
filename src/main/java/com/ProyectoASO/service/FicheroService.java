@@ -22,7 +22,8 @@ import com.ProyectoASO.dto.FicheroDTO;
 
 import com.ProyectoASO.entity.Fichero;
 import com.ProyectoASO.entity.Proyecto;
-
+import com.ProyectoASO.entity.ProyectoUsuario;
+import com.ProyectoASO.entity.Usuario;
 import com.ProyectoASO.exceptions.DBException;
 import com.ProyectoASO.exceptions.FileSystemException;
 import com.ProyectoASO.jwt.TokenDetails;
@@ -59,6 +60,7 @@ public class FicheroService extends BaseService implements IFicheroService {
 		checkAuthority(List.of("EMPLEADO","DIRECTOR"));
 		return converter.convert(ficheroRepository.findById(id)
 				.orElseThrow(()->new DBException("El fichero con id "+id+" no se encuentra.", HttpStatus.NOT_FOUND)));
+		
 	}
 	
 	

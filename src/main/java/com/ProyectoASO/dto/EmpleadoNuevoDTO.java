@@ -18,30 +18,38 @@ public class EmpleadoNuevoDTO {
 	private String cargo;
 	@JsonProperty(value = "correo")
 	private String correo;
+	@JsonProperty(value = "telefono", required = true)
+	private String telefono;
+	@JsonProperty(value = "direccion", required = true)
+	private String direccion;
 	@JsonProperty(value = "contraseña")
 	private String contraseña;
 	@JsonProperty(value = "rol")
 	private Rol rol;
 
 	public EmpleadoNuevoDTO(String nombre, String apellido1, String apellido2, String cargo, String correo,
-			String contraseña, Rol rol) {
+			String telefono, String direccion, String contraseña, Rol rol) {
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.cargo = cargo;
 		this.correo = correo;
+		this.telefono = telefono;
+		this.direccion = direccion;
 		this.contraseña = contraseña;
 		this.rol = rol;
 	}
 
 	public EmpleadoNuevoDTO(Integer id, String nombre, String apellido1, String apellido2, String cargo, String correo,
-			String contraseña, Rol rol) {
+			String telefono, String direccion, String contraseña, Rol rol) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.cargo = cargo;
 		this.correo = correo;
+		this.telefono = telefono;
+		this.direccion = direccion;
 		this.contraseña = contraseña;
 		this.rol = rol;
 	}
@@ -114,4 +122,19 @@ public class EmpleadoNuevoDTO {
 		this.contraseña = contraseña;
 	}
 
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 }

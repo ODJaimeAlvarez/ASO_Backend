@@ -51,7 +51,7 @@ public class EmpleadoService extends BaseService implements IEmpleadoService {
 		Usuario user = usuarioService.saveUser(new Usuario(emp.getCorreo(), emp.getContraseña(), true));
 		rolUsuarioService.saveRolUser(user, emp.getRol());
 		return converter.convert(empleadoRepository
-				.save(new Empleado(emp.getNombre(), emp.getApellido1(), emp.getApellido2(), emp.getCargo(), user)));
+				.save(new Empleado(emp.getNombre(), emp.getApellido1(), emp.getApellido2(), emp.getCargo(),emp.getTelefono(),emp.getDireccion(),null,null ,user)));
 	}
 
 	@Override
@@ -79,5 +79,12 @@ public class EmpleadoService extends BaseService implements IEmpleadoService {
 	protected Empleado getEmpleadoByUser(Usuario user) {
 		return empleadoRepository.findByUsuario(user).orElseThrow(()->new DBException("El empleado no esta en la bbdd.", HttpStatus.NOT_FOUND));
 	}
+
+	@Override
+	public EmpleadoDTO getPerfil() {
+		Usuario user= usuarioService.buscarPorcorreo(getToken().getEmail());
+		return converter.convert(empleadoRepository.findByUsuario(user).orElseThrow(()->new DBException("El empleado no esta en la bbdd.", HttpStatus.NOT_FOUND)));
+	}
+	
 
 }

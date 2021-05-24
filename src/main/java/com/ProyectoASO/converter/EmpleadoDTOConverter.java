@@ -11,8 +11,8 @@ public class EmpleadoDTOConverter implements IConverter<EmpleadoDTO, Empleado> {
 	public Empleado apply(EmpleadoDTO t) {
 
 		return t.getId() != null
-				? new Empleado(t.getId(), t.getNombre(), t.getApellido1(), t.getApellido2(), t.getCargo())
-				: new Empleado(t.getNombre(), t.getApellido1(), t.getApellido2(), t.getCargo());
+				? new Empleado(t.getId(), t.getNombre(), t.getApellido1(), t.getApellido2(), t.getCargo(),t.getTelefono(),t.getDireccion(),t.getDescripcion(),t.getFotoPerfil())
+				: new Empleado(t.getNombre(), t.getApellido1(), t.getApellido2(),t.getCargo(),t.getTelefono(),t.getDireccion(),t.getDescripcion(),t.getFotoPerfil());
 	}
 
 }

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,44 +25,90 @@ public class Cliente {
 	private String apellido2;
 	@Column(name = "empresa")
 	private String empresa;
+	@Column(name = "telefono",nullable = true)
+	private String telefono;
+	@Column(name = "direccion",nullable = true)
+	private String direccion;
 	@OneToOne
 	private Usuario usuario;
+	@OneToOne
+	@JoinColumn(name = "fk_id_foto",nullable = true)
+	private FotoUsuarios foto;
 
-	public Cliente(Integer id, String nombre, String apellido1, String apellido2, String empresa, Usuario usuario) {
-		this.id = id;
-		this.nombre = nombre;
-		this.apellido1 = apellido1;
-		this.apellido2 = apellido2;
-		this.empresa = empresa;
-		this.usuario = usuario;
-	}
-
-	public Cliente(String nombre, String apellido1, String apellido2, String empresa) {
-		super();
-		this.nombre = nombre;
-		this.apellido1 = apellido1;
-		this.apellido2 = apellido2;
-		this.empresa = empresa;
-	}
-
-	public Cliente(Integer id, String nombre, String apellido1, String apellido2, String empresa) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.apellido1 = apellido1;
-		this.apellido2 = apellido2;
-		this.empresa = empresa;
-	}
-
-	public Cliente(String nombre, String apellido1, String apellido2, String empresa, Usuario usuario) {
-		this.nombre = nombre;
-		this.apellido1 = apellido1;
-		this.apellido2 = apellido2;
-		this.empresa = empresa;
-		this.usuario = usuario;
-	}
-
+	
 	public Cliente() {
+	}
+	
+	public Cliente(String nombre, String apellido1, String apellido2, String empresa, String telefono, String direccion,
+			 FotoUsuarios foto) {
+		this.nombre = nombre;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
+		this.empresa = empresa;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.foto = foto;
+	}
+
+	public Cliente(Integer id, String nombre, String apellido1, String apellido2, String empresa, String telefono,
+			String direccion, FotoUsuarios foto) {
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
+		this.empresa = empresa;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.foto = foto;
+	}
+
+	public Cliente(String nombre, String apellido1, String apellido2, String empresa, String telefono, String direccion,
+			Usuario usuario, FotoUsuarios foto) {
+		this.nombre = nombre;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
+		this.empresa = empresa;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.usuario = usuario;
+		this.foto = foto;
+	}
+
+	public Cliente(Integer id, String nombre, String apellido1, String apellido2, String empresa, String telefono,
+			String direccion, Usuario usuario, FotoUsuarios foto) {
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
+		this.empresa = empresa;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.usuario = usuario;
+		this.foto = foto;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public FotoUsuarios getFoto() {
+		return foto;
+	}
+
+	public void setFoto(FotoUsuarios foto) {
+		this.foto = foto;
 	}
 
 	public Integer getId() {

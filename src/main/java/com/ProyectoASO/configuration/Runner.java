@@ -23,6 +23,7 @@ import com.ProyectoASO.dao.EmpleadoDao;
 import com.ProyectoASO.dao.IFicheroDao;
 import com.ProyectoASO.dao.IJornadaDao;
 import com.ProyectoASO.dao.IProyectoDao;
+import com.ProyectoASO.dao.IProyectoUsuario;
 import com.ProyectoASO.dao.IRolDao;
 import com.ProyectoASO.dao.IRolUsuarioDao;
 import com.ProyectoASO.dao.IUsuarioDao;
@@ -30,6 +31,7 @@ import com.ProyectoASO.entity.Empleado;
 import com.ProyectoASO.entity.Fichero;
 import com.ProyectoASO.entity.Jornada;
 import com.ProyectoASO.entity.Proyecto;
+import com.ProyectoASO.entity.ProyectoUsuario;
 import com.ProyectoASO.entity.Rol;
 import com.ProyectoASO.entity.Usuario;
 import com.ProyectoASO.entity.RolUsuario;
@@ -53,9 +55,13 @@ public class Runner {
 	//private IClienteDao clienteDao;
 	private EmpleadoDao empleadoDao;
 	BCryptPasswordEncoder encoder;
+	private IProyectoUsuario proyectouserdao;
 	
+	
+
 	public Runner(IUsuarioDao user, IRolUsuarioDao rolUser, IProyectoDao proyecto, IRolDao rol, IFicheroDao ficheroDao,
-			IFileStorageService fsS, IJornadaDao jornadaDao, EmpleadoDao empleadoDao, BCryptPasswordEncoder encoder) {
+			IFileStorageService fsS, IJornadaDao jornadaDao, EmpleadoDao empleadoDao, BCryptPasswordEncoder encoder,
+			IProyectoUsuario proyectouserdao) {
 		this.user = user;
 		this.rolUser = rolUser;
 		this.proyecto = proyecto;
@@ -63,8 +69,9 @@ public class Runner {
 		this.ficheroDao = ficheroDao;
 		this.fsS = fsS;
 		this.jornadaDao = jornadaDao;
-		this.empleadoDao=empleadoDao;
+		this.empleadoDao = empleadoDao;
 		this.encoder = encoder;
+		this.proyectouserdao = proyectouserdao;
 	}
 
 	@Profile("Testing")
@@ -87,13 +94,15 @@ public class Runner {
 		List<Fichero> listFicheros= new ArrayList<>();
 		List<Empleado> listEmp= new ArrayList<>();
 		
+		
 		list_user_normalize.add(new Usuario("director@aso.com", encoder.encode("director"), true));
 		list_user_normalize.add(new Usuario("empleado@aso.com", encoder.encode("empleado"), true));
 		list_user_normalize.add(new Usuario("cliente@aso.com", encoder.encode("cliente"), true));
 		user.saveAll(list_user_normalize);
 		
-		listEmp.add(empleadoDao.save(new Empleado("Juan Carlos", "Alvarez", "Martinez", "Director",list_user_normalize.get(0))));
-		listEmp.add(empleadoDao.save(new Empleado("Andrea", "Fernandez", "del Alba", "Developer",list_user_normalize.get(1))));
+		
+		listEmp.add(empleadoDao.save(new Empleado("Juan Carlos", "Alvarez", "Martinez", "Director","666777888","Calle la presilla 54","El mandamas de la empresa",null,list_user_normalize.get(0))));
+		listEmp.add(empleadoDao.save(new Empleado("Andrea", "Fernandez", "del Alba", "Developer","677888999","Calle de los rios 2","Por aqui desarrollando",null,list_user_normalize.get(1))));
 		
 		
 		
@@ -116,7 +125,15 @@ public class Runner {
 		list_proyecto.add(new Proyecto("cuarto proyecto",Progreso.INICIADO,"este es el cuarto proyecto"));
 		
 		
+		
+		
 		proyecto.saveAll(list_proyecto);
+		
+		for(Proyecto p : list_proyecto)
+		proyectouserdao.save(new ProyectoUsuario(p, list_user_normalize.get(0)));
+		
+		proyectouserdao.save(new ProyectoUsuario(list_proyecto.get(0), list_user_normalize.get(1)));
+		proyectouserdao.save(new ProyectoUsuario(list_proyecto.get(1), list_user_normalize.get(1)));
 		
 		listFicheros.add(new Fichero("C:\\proyectoASOFiles\\primer_proyecto", "Datos_Importantes.txt", Date.from(Instant.now()), list_proyecto.get(0)));
 		listFicheros.add(new Fichero("C:\\proyectoASOFiles\\primer_proyecto", "cuentas.txt", Date.from(Instant.now()), list_proyecto.get(0)));

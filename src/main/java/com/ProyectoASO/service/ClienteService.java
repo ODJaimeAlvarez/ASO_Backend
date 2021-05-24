@@ -49,11 +49,11 @@ public class ClienteService extends BaseService implements IClienteService {
 
 	
 	@Override
-	public ClienteDTO save(ClienteNuevoDTO emp) {//TODO recuperar rol de bbdd roles
+	public ClienteDTO save(ClienteNuevoDTO emp) {
 		Usuario user = usuarioService.saveUser(new Usuario(emp.getCorreo(), emp.getContraseña(), true));
 		rolUsuarioService.saveRolUser(user, new Rol(2,"CLIENTE"));
 		return converter.convert(clienteRepository
-				.save(new Cliente(emp.getNombre(), emp.getApellido1(), emp.getApellido2(), emp.getEmpresa(), user)));
+				.save(new Cliente(emp.getNombre(), emp.getApellido1(), emp.getApellido2(), emp.getEmpresa(),emp.getTelefono(),emp.getDireccion(), user,null)));
 	}
 
 	@Override
@@ -76,6 +76,12 @@ public class ClienteService extends BaseService implements IClienteService {
 				() -> new DBException("El cliente con id " + id + " no esta en la bbdd.", HttpStatus.NOT_FOUND));
 		usuarioService.activateUser(cli.getUsuario().getId());
 		return new ResponseEntity<>(new MethodResponse("El cliente con id "+id+" ha sido dado de alta"),HttpStatus.OK);
+	}
+
+	@Override
+	public ClienteDTO getPerfil() {
+		Usuario user= usuarioService.buscarPorcorreo(getToken().getEmail());
+		return converter.convert(clienteRepository.findByUsuario(user).orElseThrow(()->new DBException("El cliente no esta en la bbdd.", HttpStatus.NOT_FOUND)));
 	}
 	
 	

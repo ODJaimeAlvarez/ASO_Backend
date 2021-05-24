@@ -15,33 +15,42 @@ public class ClienteNuevoDTO {
 	private String apellido2;
 	@JsonProperty(value = "empresa")
 	private String empresa;
+	@JsonProperty(value = "telefono",required = false)
+	private String telefono;
+	@JsonProperty(value = "direccion",required = false)
+	private String direccion;
 	@JsonProperty(value = "correo")
 	private String correo;
 	@JsonProperty(value = "contraseña")
 	private String contraseña;
 
-	public ClienteNuevoDTO() {
-	}
-
-	public ClienteNuevoDTO(String nombre, String apellido1, String apellido2, String empresa, String correo,
-			String contraseña) {
+	
+	public ClienteNuevoDTO(String nombre, String apellido1, String apellido2, String empresa, String telefono,
+			String direccion, String correo, String contraseña) {
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.empresa = empresa;
+		this.telefono = telefono;
+		this.direccion = direccion;
 		this.correo = correo;
 		this.contraseña = contraseña;
 	}
 
-	public ClienteNuevoDTO(Integer id, String nombre, String apellido1, String apellido2, String empresa, String correo,
-			String contraseña) {
+	public ClienteNuevoDTO(Integer id, String nombre, String apellido1, String apellido2, String empresa,
+			String telefono, String direccion, String correo, String contraseña) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.empresa = empresa;
+		this.telefono = telefono;
+		this.direccion = direccion;
 		this.correo = correo;
 		this.contraseña = contraseña;
+	}
+
+	public ClienteNuevoDTO() {
 	}
 
 	public String getEmpresa() {
@@ -98,6 +107,22 @@ public class ClienteNuevoDTO {
 
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 }

@@ -25,33 +25,45 @@ public class Cliente {
 	private String apellido2;
 	@Column(name = "empresa")
 	private String empresa;
-	@Column(name = "telefono",nullable = true)
+	@Column(name = "telefono", nullable = true)
 	private String telefono;
-	@Column(name = "direccion",nullable = true)
+	@Column(name = "direccion", nullable = true)
 	private String direccion;
+	@Column(name = "descripcion", nullable = true)
+	private String descripcion;
+	@Column(name = "pais")
+	private String pais;
+	@Column(name = "cuidad")
+	private String ciudad;
+	@Column(name = "CP")
+	private String codigoPostal;
 	@OneToOne
 	private Usuario usuario;
 	@OneToOne
-	@JoinColumn(name = "fk_id_foto",nullable = true)
+	@JoinColumn(name = "fk_id_foto", nullable = true)
 	private FotoUsuarios foto;
 
-	
 	public Cliente() {
 	}
-	
-	public Cliente(String nombre, String apellido1, String apellido2, String empresa, String telefono, String direccion,
-			 FotoUsuarios foto) {
+
+	public Cliente(String nombre, String apellido1, String apellido2, String empresa, String telefono, String direccion,String descripcion,
+			String pais, String ciudad, String codigoPostal, Usuario usuario, FotoUsuarios foto) {
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.empresa = empresa;
 		this.telefono = telefono;
 		this.direccion = direccion;
+		this.descripcion=descripcion;
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.codigoPostal = codigoPostal;
+		this.usuario = usuario;
 		this.foto = foto;
 	}
 
 	public Cliente(Integer id, String nombre, String apellido1, String apellido2, String empresa, String telefono,
-			String direccion, FotoUsuarios foto) {
+			String direccion,String descripcion, String pais, String ciudad, String codigoPostal, Usuario usuario, FotoUsuarios foto) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
@@ -59,23 +71,31 @@ public class Cliente {
 		this.empresa = empresa;
 		this.telefono = telefono;
 		this.direccion = direccion;
+		this.descripcion=descripcion;
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.codigoPostal = codigoPostal;
+		this.usuario = usuario;
 		this.foto = foto;
 	}
 
-	public Cliente(String nombre, String apellido1, String apellido2, String empresa, String telefono, String direccion,
-			Usuario usuario, FotoUsuarios foto) {
+	public Cliente(String nombre, String apellido1, String apellido2, String empresa, String telefono, String direccion,String descripcion,
+			String pais, String ciudad, String codigoPostal, FotoUsuarios foto) {
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.empresa = empresa;
 		this.telefono = telefono;
 		this.direccion = direccion;
-		this.usuario = usuario;
+		this.descripcion=descripcion;
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.codigoPostal = codigoPostal;
 		this.foto = foto;
 	}
 
 	public Cliente(Integer id, String nombre, String apellido1, String apellido2, String empresa, String telefono,
-			String direccion, Usuario usuario, FotoUsuarios foto) {
+			String direccion,String descripcion, String pais, String ciudad, String codigoPostal, FotoUsuarios foto) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
@@ -83,7 +103,10 @@ public class Cliente {
 		this.empresa = empresa;
 		this.telefono = telefono;
 		this.direccion = direccion;
-		this.usuario = usuario;
+		this.descripcion=descripcion;
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.codigoPostal = codigoPostal;
 		this.foto = foto;
 	}
 
@@ -157,6 +180,38 @@ public class Cliente {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 }

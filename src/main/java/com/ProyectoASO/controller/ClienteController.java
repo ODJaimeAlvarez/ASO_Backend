@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ProyectoASO.dto.ClienteDTO;
+import com.ProyectoASO.dto.EmpleadoDTO;
 import com.ProyectoASO.responses.MethodResponse;
 import com.ProyectoASO.service.IClienteService;
 
@@ -36,6 +37,12 @@ private IClienteService clienteService;
 	public ResponseEntity<ClienteDTO>getById(@PathVariable Integer id){
 		return new ResponseEntity<>(clienteService.getById(id), HttpStatus.OK);
 	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<ClienteDTO> update(@PathVariable Integer id,@RequestBody ClienteDTO cliente){
+		return new ResponseEntity<>(clienteService.update(id, cliente),HttpStatus.OK);
+	}
+	
 	@PutMapping("/alta")
 	public ResponseEntity<MethodResponse> activate(@RequestBody Integer id){
 		return clienteService.activate(id);

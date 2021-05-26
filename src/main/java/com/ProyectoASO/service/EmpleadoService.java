@@ -51,13 +51,23 @@ public class EmpleadoService extends BaseService implements IEmpleadoService {
 		Usuario user = usuarioService.saveUser(new Usuario(emp.getCorreo(), emp.getContraseña(), true));
 		rolUsuarioService.saveRolUser(user, emp.getRol());
 		return converter.convert(empleadoRepository
-				.save(new Empleado(emp.getNombre(), emp.getApellido1(), emp.getApellido2(), emp.getCargo(),emp.getTelefono(),emp.getDireccion(),null,null ,user)));
+				.save(new Empleado(emp.getNombre(), emp.getApellido1(), emp.getApellido2(), emp.getCargo(),
+						emp.getTelefono(),emp.getDireccion(),emp.getCiudad(),emp.getPais(),emp.getCodigoPostal(),null,null ,user)));
 	}
 
 	@Override
-	public EmpleadoDTO update(Integer id, EmpleadoNuevoDTO emp) {
-		// TODO Auto-generated method stub
-		return null;
+	public EmpleadoDTO update(Integer id, EmpleadoDTO emp) {
+		Empleado empUpdate = empleadoRepository.findById(id).orElseThrow(() -> new DBException("El empleado con id " + id + " no esta en la bbdd.", HttpStatus.NOT_FOUND));
+		empUpdate.setNombre(emp.getNombre());
+		empUpdate.setApellido1(emp.getApellido1());
+		empUpdate.setApellido2(emp.getApellido2());
+		empUpdate.setTelefono(emp.getTelefono());
+		empUpdate.setDireccion(emp.getDireccion());
+		empUpdate.setDescripcion(emp.getDescripcion());
+		empUpdate.setPais(emp.getPais());
+		empUpdate.setCiudad(emp.getCiudad());
+		empUpdate.setCodigoPostal(emp.getCodigoPostal());
+		return converter.convert(empleadoRepository.save(empUpdate));
 	}
 
 	@Override

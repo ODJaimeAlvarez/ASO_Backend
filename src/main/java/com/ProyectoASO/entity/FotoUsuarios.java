@@ -1,6 +1,5 @@
 package com.ProyectoASO.entity;
 
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,16 +17,8 @@ public class FotoUsuarios {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_foto")
 	private Integer id;
-
-	/**
-	 * Almacena la ruta del fichero
-	 */
 	@Column(name = "URI")
 	private String uri;
-
-	/**
-	 * Almacena el nombre que tendrá el fichero
-	 */
 	@Column(name = "nombre", nullable = false)
 	private String nombreFoto;
 

@@ -101,8 +101,8 @@ public class Runner {
 		user.saveAll(list_user_normalize);
 		
 		
-		listEmp.add(empleadoDao.save(new Empleado("Juan Carlos", "Alvarez", "Martinez", "Director","666777888","Calle la presilla 54","El mandamas de la empresa",null,list_user_normalize.get(0))));
-		listEmp.add(empleadoDao.save(new Empleado("Andrea", "Fernandez", "del Alba", "Developer","677888999","Calle de los rios 2","Por aqui desarrollando",null,list_user_normalize.get(1))));
+		listEmp.add(empleadoDao.save(new Empleado("Juan Carlos", "Alvarez", "Martinez", "Director","666777888","Calle la presilla 54","El mandamas de la empresa",null,null,null,null,list_user_normalize.get(0))));
+		listEmp.add(empleadoDao.save(new Empleado("Andrea", "Fernandez", "del Alba", "Developer","677888999","Calle de los rios 2","Por aqui desarrollando",null,null,null,null,list_user_normalize.get(1))));
 		
 		
 		

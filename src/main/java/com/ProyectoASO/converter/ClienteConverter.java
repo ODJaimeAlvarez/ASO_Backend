@@ -11,7 +11,7 @@ public class ClienteConverter implements IConverter<Cliente, ClienteDTO> {
 	public ClienteDTO apply(Cliente t) {
 		
 		return new ClienteDTO(t.getId(), t.getNombre(), t.getApellido1(), t.getApellido2(), t.getEmpresa(),
-				t.getUsuario().getActivo(),t.getUsuario().getCorreo(),t.getTelefono(),t.getDireccion(),t.getFoto());
+				t.getUsuario().getActivo(),t.getUsuario().getCorreo(),t.getTelefono(),t.getDireccion(),t.getDescripcion(),t.getPais(),t.getCiudad(),t.getCodigoPostal(),t.getFoto());
 	}
 
 }

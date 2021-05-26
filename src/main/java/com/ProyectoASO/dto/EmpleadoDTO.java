@@ -25,6 +25,12 @@ public class EmpleadoDTO {
 	private String direccion;
 	@JsonProperty(value = "descripcion")
 	private String descripcion;
+	@JsonProperty(value = "pais")
+	private String pais;
+	@JsonProperty(value = "cuidad")
+	private String ciudad;
+	@JsonProperty(value = "CP")
+	private String codigoPostal;
 	@JsonProperty(value = "fotoPerfil")
 	private FotoUsuarios fotoPerfil;
 
@@ -32,7 +38,8 @@ public class EmpleadoDTO {
 	}
 
 	public EmpleadoDTO(String nombre, String apellido1, String apellido2, String cargo, Boolean activo, String correo,
-			String telefono, String direccion, String descripcion, FotoUsuarios fotoPerfil) {
+			String telefono, String direccion, String descripcion, String pais, String ciudad, String codigoPostal,
+			FotoUsuarios fotoPerfil) {
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
@@ -42,11 +49,15 @@ public class EmpleadoDTO {
 		this.telefono = telefono;
 		this.direccion = direccion;
 		this.descripcion = descripcion;
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.codigoPostal = codigoPostal;
 		this.fotoPerfil = fotoPerfil;
 	}
 
 	public EmpleadoDTO(Integer id, String nombre, String apellido1, String apellido2, String cargo, Boolean activo,
-			String correo, String telefono, String direccion, String descripcion, FotoUsuarios fotoPerfil) {
+			String correo, String telefono, String direccion, String descripcion, String pais, String ciudad,
+			String codigoPostal, FotoUsuarios fotoPerfil) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
@@ -57,6 +68,9 @@ public class EmpleadoDTO {
 		this.telefono = telefono;
 		this.direccion = direccion;
 		this.descripcion = descripcion;
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.codigoPostal = codigoPostal;
 		this.fotoPerfil = fotoPerfil;
 	}
 
@@ -146,6 +160,30 @@ public class EmpleadoDTO {
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
 	}
 
 }

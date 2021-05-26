@@ -16,7 +16,7 @@ public interface IEmpleadoService {
 
 	public EmpleadoDTO save(EmpleadoNuevoDTO emp);
 
-	public EmpleadoDTO update(Integer id, EmpleadoNuevoDTO emp);
+	public EmpleadoDTO update(Integer id, EmpleadoDTO emp);
 
 	public ResponseEntity<MethodResponse> deActivate(Integer id);
 	

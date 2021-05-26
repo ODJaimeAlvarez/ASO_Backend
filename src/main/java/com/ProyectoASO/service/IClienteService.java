@@ -16,7 +16,7 @@ public interface IClienteService {
 
 	public ClienteDTO save(ClienteNuevoDTO emp);
 
-	public ClienteDTO update(Integer id, EmpleadoNuevoDTO emp);
+	public ClienteDTO update(Integer id, ClienteDTO emp);
 
 	public ResponseEntity<MethodResponse> deActivate(Integer id);
 	

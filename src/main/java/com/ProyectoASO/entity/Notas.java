@@ -37,6 +37,17 @@ public class Notas {
 		this.usuario = usuario;
 	}
 
+	public Notas(String nombre, String nota) {
+		this.nombre = nombre;
+		this.nota = nota;
+	}
+
+	public Notas(Integer id, String nombre, String nota) {
+		this.id = id;
+		this.nombre = nombre;
+		this.nota = nota;
+	}
+
 	public Notas() {
 	}
 

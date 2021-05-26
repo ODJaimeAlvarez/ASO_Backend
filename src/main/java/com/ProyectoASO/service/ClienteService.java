@@ -10,6 +10,7 @@ import com.ProyectoASO.converter.ClienteConverter;
 import com.ProyectoASO.dao.IClienteDao;
 import com.ProyectoASO.dto.ClienteDTO;
 import com.ProyectoASO.dto.ClienteNuevoDTO;
+import com.ProyectoASO.dto.EmpleadoDTO;
 import com.ProyectoASO.dto.EmpleadoNuevoDTO;
 import com.ProyectoASO.entity.Cliente;
 import com.ProyectoASO.entity.Empleado;
@@ -49,17 +50,26 @@ public class ClienteService extends BaseService implements IClienteService {
 
 	
 	@Override
-	public ClienteDTO save(ClienteNuevoDTO emp) {
-		Usuario user = usuarioService.saveUser(new Usuario(emp.getCorreo(), emp.getContraseña(), true));
+	public ClienteDTO save(ClienteNuevoDTO newCli) {
+		Usuario user = usuarioService.saveUser(new Usuario(newCli.getCorreo(), newCli.getContraseña(), true));
 		rolUsuarioService.saveRolUser(user, new Rol(2,"CLIENTE"));
 		return converter.convert(clienteRepository
-				.save(new Cliente(emp.getNombre(), emp.getApellido1(), emp.getApellido2(), emp.getEmpresa(),emp.getTelefono(),emp.getDireccion(), user,null)));
+				.save(new Cliente(newCli.getNombre(), newCli.getApellido1(), newCli.getApellido2(),
+						newCli.getEmpresa(),newCli.getTelefono(),newCli.getDireccion(),newCli.getDescripcion(),newCli.getCiudad(),newCli.getPais(),newCli.getCodigoPostal(), user,null)));
 	}
 
 	@Override
-	public ClienteDTO update(Integer id, EmpleadoNuevoDTO emp) {
-		// TODO Auto-generated method stub
-		return null;
+	public ClienteDTO update(Integer id, ClienteDTO cli) {
+		Cliente cliUpdate = clienteRepository.findById(id).orElseThrow(() -> new DBException("El cliente con id " + id + " no esta en la bbdd.", HttpStatus.NOT_FOUND));
+		cliUpdate.setNombre(cli.getNombre());
+		cliUpdate.setApellido1(cli.getApellido1());
+		cliUpdate.setApellido2(cli.getApellido2());
+		cliUpdate.setTelefono(cli.getTelefono());
+		cliUpdate.setDireccion(cli.getDireccion());
+		cliUpdate.setPais(cli.getPais());
+		cliUpdate.setCiudad(cli.getCiudad());
+		cliUpdate.setCodigoPostal(cli.getCodigoPostal());
+		return converter.convert(clienteRepository.save(cliUpdate));
 	}
 
 	@Override

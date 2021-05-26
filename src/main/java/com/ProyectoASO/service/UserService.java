@@ -73,7 +73,7 @@ public class UserService extends BaseService implements IUserService {
 	public void activateUser(Integer id) {
 		checkAuthority(List.of("DIRECTOR"));
 		Usuario user= usuarioRepository.findById(id).orElseThrow(()-> new DBException("Usuario con id "+id+" no encontrado.", HttpStatus.NOT_FOUND));
-		user.setActivo(false);
+		user.setActivo(true);
 		usuarioRepository.save(user);
 	}
 	

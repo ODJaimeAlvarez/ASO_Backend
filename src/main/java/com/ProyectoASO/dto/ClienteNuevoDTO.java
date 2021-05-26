@@ -15,30 +15,45 @@ public class ClienteNuevoDTO {
 	private String apellido2;
 	@JsonProperty(value = "empresa")
 	private String empresa;
-	@JsonProperty(value = "telefono",required = false)
+	@JsonProperty(value = "telefono", required = false)
 	private String telefono;
-	@JsonProperty(value = "direccion",required = false)
+	@JsonProperty(value = "direccion", required = false)
 	private String direccion;
+	@JsonProperty(value = "descripcion")
+	private String descripcion;
+	@JsonProperty(value = "pais")
+	private String pais;
+	@JsonProperty(value = "cuidad")
+	private String ciudad;
+	@JsonProperty(value = "CP")
+	private String codigoPostal;
 	@JsonProperty(value = "correo")
 	private String correo;
-	@JsonProperty(value = "contraseña")
+	@JsonProperty(value = "password")
 	private String contraseña;
 
 	
+
 	public ClienteNuevoDTO(String nombre, String apellido1, String apellido2, String empresa, String telefono,
-			String direccion, String correo, String contraseña) {
+			String direccion, String descripcion, String pais, String ciudad, String codigoPostal, String correo,
+			String contraseña) {
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.empresa = empresa;
 		this.telefono = telefono;
 		this.direccion = direccion;
+		this.descripcion = descripcion;
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.codigoPostal = codigoPostal;
 		this.correo = correo;
 		this.contraseña = contraseña;
 	}
 
 	public ClienteNuevoDTO(Integer id, String nombre, String apellido1, String apellido2, String empresa,
-			String telefono, String direccion, String correo, String contraseña) {
+			String telefono, String direccion, String descripcion, String pais, String ciudad, String codigoPostal,
+			String correo, String contraseña) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
@@ -46,6 +61,10 @@ public class ClienteNuevoDTO {
 		this.empresa = empresa;
 		this.telefono = telefono;
 		this.direccion = direccion;
+		this.descripcion = descripcion;
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.codigoPostal = codigoPostal;
 		this.correo = correo;
 		this.contraseña = contraseña;
 	}
@@ -123,6 +142,38 @@ public class ClienteNuevoDTO {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 }

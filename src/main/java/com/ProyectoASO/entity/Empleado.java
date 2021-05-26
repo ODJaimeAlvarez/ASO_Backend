@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "empleado")
 public class Empleado {
@@ -29,10 +31,16 @@ public class Empleado {
 	private String telefono;
 	@Column(name = "direccion")
 	private String direccion;
-	@Column(name = "descripcion",nullable = true)
+	@Column(name = "descripcion", nullable = true)
 	private String descripcion;
+	@Column(name = "pais")
+	private String pais;
+	@Column(name = "cuidad")
+	private String ciudad;
+	@Column(name = "CP")
+	private String codigoPostal;
 	@OneToOne
-	@JoinColumn(name = "fk_id_foto",nullable = true)
+	@JoinColumn(name = "fk_id_foto", nullable = true)
 	private FotoUsuarios foto;
 
 	@OneToOne
@@ -43,7 +51,7 @@ public class Empleado {
 	}
 
 	public Empleado(String nombre, String apellido1, String apellido2, String puesto, String telefono, String direccion,
-			String descripcion, FotoUsuarios foto) {
+			String descripcion, String pais, String ciudad, String codigoPostal, FotoUsuarios foto) {
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
@@ -51,14 +59,14 @@ public class Empleado {
 		this.telefono = telefono;
 		this.direccion = direccion;
 		this.descripcion = descripcion;
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.codigoPostal = codigoPostal;
 		this.foto = foto;
-		
 	}
 
-
-
 	public Empleado(Integer id, String nombre, String apellido1, String apellido2, String puesto, String telefono,
-			String direccion, String descripcion, FotoUsuarios foto) {
+			String direccion, String descripcion, String pais, String ciudad, String codigoPostal, FotoUsuarios foto) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
@@ -67,12 +75,14 @@ public class Empleado {
 		this.telefono = telefono;
 		this.direccion = direccion;
 		this.descripcion = descripcion;
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.codigoPostal = codigoPostal;
 		this.foto = foto;
-		
 	}
 
 	public Empleado(String nombre, String apellido1, String apellido2, String puesto, String telefono, String direccion,
-			String descripcion, FotoUsuarios foto, Usuario usuario) {
+			String descripcion, String pais, String ciudad, String codigoPostal, FotoUsuarios foto, Usuario usuario) {
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
@@ -80,14 +90,16 @@ public class Empleado {
 		this.telefono = telefono;
 		this.direccion = direccion;
 		this.descripcion = descripcion;
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.codigoPostal = codigoPostal;
 		this.foto = foto;
 		this.usuario = usuario;
 	}
 
-
-
 	public Empleado(Integer id, String nombre, String apellido1, String apellido2, String puesto, String telefono,
-			String direccion, String descripcion, FotoUsuarios foto, Usuario usuario) {
+			String direccion, String descripcion, String pais, String ciudad, String codigoPostal, FotoUsuarios foto,
+			Usuario usuario) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
@@ -96,11 +108,12 @@ public class Empleado {
 		this.telefono = telefono;
 		this.direccion = direccion;
 		this.descripcion = descripcion;
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.codigoPostal = codigoPostal;
 		this.foto = foto;
 		this.usuario = usuario;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -185,6 +198,29 @@ public class Empleado {
 	public void setPuesto(String puesto) {
 		this.puesto = puesto;
 	}
-	
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
 
 }

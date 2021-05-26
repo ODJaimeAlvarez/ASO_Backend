@@ -26,7 +26,7 @@ public class ExceptionHandlerDB extends RuntimeException{
 	@ExceptionHandler(AuthoritiesException.class)
 	public ResponseEntity<String> authoritiesException(final AuthoritiesException e, final WebRequest request) {
 		final String error = new JSONObject()
-				.put("AuthorizationError", e.getMessage()).toString();
+				.put("Error", e.getMessage()).toString();
 		return new ResponseEntity<>(error, e.getEstado());
 	}
 }

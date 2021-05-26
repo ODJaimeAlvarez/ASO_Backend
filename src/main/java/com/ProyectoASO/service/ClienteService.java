@@ -66,6 +66,7 @@ public class ClienteService extends BaseService implements IClienteService {
 		cliUpdate.setApellido2(cli.getApellido2());
 		cliUpdate.setTelefono(cli.getTelefono());
 		cliUpdate.setDireccion(cli.getDireccion());
+		cliUpdate.setDescripcion(cli.getDescripcion());
 		cliUpdate.setPais(cli.getPais());
 		cliUpdate.setCiudad(cli.getCiudad());
 		cliUpdate.setCodigoPostal(cli.getCodigoPostal());

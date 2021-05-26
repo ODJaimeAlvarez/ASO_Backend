@@ -10,6 +10,9 @@ public class NotasDTO {
 	@JsonProperty(value = "nota")
 	private String nota;
 
+	public NotasDTO() {
+	}
+
 	public NotasDTO(String nombre, String nota) {
 		this.nombre = nombre;
 		this.nota = nota;

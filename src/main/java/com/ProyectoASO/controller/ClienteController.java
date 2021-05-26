@@ -37,6 +37,10 @@ private IClienteService clienteService;
 	public ResponseEntity<ClienteDTO>getById(@PathVariable Integer id){
 		return new ResponseEntity<>(clienteService.getById(id), HttpStatus.OK);
 	}
+	@GetMapping("/perfil")
+	public ResponseEntity<ClienteDTO>getPerfil(){
+		return new ResponseEntity<>(clienteService.getPerfil(), HttpStatus.OK);
+	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<ClienteDTO> update(@PathVariable Integer id,@RequestBody ClienteDTO cliente){

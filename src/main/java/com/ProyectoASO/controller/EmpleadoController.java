@@ -36,6 +36,11 @@ public class EmpleadoController {
 		return new ResponseEntity<>(empleadoService.getAll(), HttpStatus.OK);
 	}
 	
+	@GetMapping("/perfil")
+	public ResponseEntity<EmpleadoDTO>getPerfil(){
+		return new ResponseEntity<>(empleadoService.getPerfil(), HttpStatus.OK);
+	}
+	
 	@PutMapping("/{id}")
 	public ResponseEntity<EmpleadoDTO> update(@PathVariable Integer id,@RequestBody EmpleadoDTO empleado){
 		return new ResponseEntity<>(empleadoService.update(id, empleado),HttpStatus.OK);

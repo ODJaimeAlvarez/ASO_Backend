@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ProyectoASO.dto.ClienteDTO;
 import com.ProyectoASO.dto.ClienteNuevoDTO;
 import com.ProyectoASO.dto.EmpleadoDTO;
 import com.ProyectoASO.dto.EmpleadoNuevoDTO;
+import com.ProyectoASO.exceptions.FileSystemException;
 import com.ProyectoASO.responses.MethodResponse;
 import com.ProyectoASO.service.IEmpleadoService;
 
@@ -62,5 +65,9 @@ public class EmpleadoController {
 	@PostMapping("/register")
 	public ResponseEntity<EmpleadoDTO> register(@RequestBody EmpleadoNuevoDTO newEmp){
 		return new ResponseEntity<>(empleadoService.save(newEmp),HttpStatus.OK);
+	}
+	@PutMapping("/cambiarFoto/{id}")
+	public ResponseEntity<MethodResponse> save(@PathVariable Integer id, @RequestParam("file") MultipartFile saving) throws FileSystemException{
+		return empleadoService.changePhoto(id, saving);
 	}
 }

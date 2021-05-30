@@ -1,5 +1,6 @@
 package com.ProyectoASO.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,6 +8,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import com.ProyectoASO.dto.LoginResponse;
 import com.ProyectoASO.dto.UserLoginDTO;
 import com.ProyectoASO.exceptions.DBException;
 import com.ProyectoASO.jwt.JwtUtility;
+import com.ProyectoASO.service.EmailService;
 import com.ProyectoASO.service.IClienteService;
 import com.ProyectoASO.service.LogInService;
 @RestController
@@ -27,6 +30,10 @@ public class LogInController {
 	private AuthenticationManager authManager;
 	private LogInService logInService;
 	private JwtUtility jwtUtil;
+	@Autowired
+	private EmailService emailService;
+	
+	
 	
 	private IClienteService clienteservice;
 	
@@ -36,7 +43,6 @@ public class LogInController {
 		this.jwtUtil = jwtUtil;
 		this.clienteservice=clienteservice;
 	}
-
 
 
 	@PostMapping("/login")

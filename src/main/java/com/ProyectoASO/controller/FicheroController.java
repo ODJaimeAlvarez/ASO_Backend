@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ProyectoASO.dto.FicheroDTO;
 import com.ProyectoASO.exceptions.FileSystemException;
 import com.ProyectoASO.service.IFicheroService;
+import com.ProyectoASO.service.IFotoPerfilService;
 
 @RestController
 @RequestMapping("/api/files")
@@ -31,21 +32,18 @@ import com.ProyectoASO.service.IFicheroService;
 public class FicheroController {
 	
 	private IFicheroService ficheroService;
-	/**
-	 * Contructor de la clase.
-	 * @param ficheroService
-	 */
-	public FicheroController(IFicheroService ficheroService) {
+	private IFotoPerfilService fotoPerfilService;
+	
+	public FicheroController(IFicheroService ficheroService, IFotoPerfilService fotoPerfilService) {
 		this.ficheroService = ficheroService;
+		this.fotoPerfilService = fotoPerfilService;
 	}
-	/**
-	 * 
-	 * @return respuesta 
-	 */
+	
 	@GetMapping("/all")
 	public ResponseEntity<List<FicheroDTO>> getAll() {
 		return new ResponseEntity<>(ficheroService.getAll(),HttpStatus.OK);
 	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<FicheroDTO> getById(@PathVariable Integer id){
 		return new ResponseEntity<>(ficheroService.getById(id),HttpStatus.OK);
@@ -68,6 +66,11 @@ public class FicheroController {
 	@GetMapping("/file/{id}")
 	public ResponseEntity<Resource> download(@PathVariable Integer id) throws FileSystemException{
 		return ficheroService.downloadFile(id);
+	}
+	
+	@GetMapping("/fotoUsuario/{id}")
+	public ResponseEntity<Resource> downloadPhotoUser(@PathVariable Integer id) throws FileSystemException{
+		return fotoPerfilService.downloadPhoto(id);
 	}
 	
 	@DeleteMapping("/{id}")

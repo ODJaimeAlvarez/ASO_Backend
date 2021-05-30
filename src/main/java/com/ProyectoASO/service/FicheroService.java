@@ -24,6 +24,7 @@ import com.ProyectoASO.entity.Fichero;
 import com.ProyectoASO.entity.Proyecto;
 import com.ProyectoASO.entity.ProyectoUsuario;
 import com.ProyectoASO.entity.Usuario;
+import com.ProyectoASO.exceptions.AuthoritiesException;
 import com.ProyectoASO.exceptions.DBException;
 import com.ProyectoASO.exceptions.FileSystemException;
 import com.ProyectoASO.jwt.TokenDetails;
@@ -80,7 +81,7 @@ public class FicheroService extends BaseService implements IFicheroService {
 		if(!Files.exists(Paths.get(uriFile))) {
 			fileStorageService.init(uriFile);
 		}
-		fileStorageService.saveFile(file, uriFile);
+		fileStorageService.saveFile(file, uriFile,file.getOriginalFilename());
 		return converter.convert(ficheroRepository.save(fileSave));
 	}
 
@@ -95,7 +96,7 @@ public class FicheroService extends BaseService implements IFicheroService {
 		fileToUpdate.setFecha_mod(Date.from(Instant.now()));
 		fileToUpdate.setUri(uriFile);
 		fileToUpdate.setNombre_fichero(file.getOriginalFilename());
-		fileStorageService.saveFile(file, uriFile);
+		fileStorageService.saveFile(file, uriFile,file.getOriginalFilename());
 		return converter.convert(ficheroRepository.save(fileToUpdate));
 	}
 

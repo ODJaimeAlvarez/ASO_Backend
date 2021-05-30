@@ -35,7 +35,7 @@ public class Empleado {
 	private String descripcion;
 	@Column(name = "pais")
 	private String pais;
-	@Column(name = "cuidad")
+	@Column(name = "ciudad")
 	private String ciudad;
 	@Column(name = "CP")
 	private String codigoPostal;

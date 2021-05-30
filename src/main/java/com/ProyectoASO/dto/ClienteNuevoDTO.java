@@ -23,7 +23,7 @@ public class ClienteNuevoDTO {
 	private String descripcion;
 	@JsonProperty(value = "pais")
 	private String pais;
-	@JsonProperty(value = "cuidad")
+	@JsonProperty(value = "ciudad")
 	private String ciudad;
 	@JsonProperty(value = "CP")
 	private String codigoPostal;

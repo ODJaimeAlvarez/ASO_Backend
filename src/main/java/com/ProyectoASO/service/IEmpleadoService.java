@@ -3,10 +3,12 @@ package com.ProyectoASO.service;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ProyectoASO.dto.ClienteDTO;
 import com.ProyectoASO.dto.EmpleadoDTO;
 import com.ProyectoASO.dto.EmpleadoNuevoDTO;
+import com.ProyectoASO.exceptions.FileSystemException;
 import com.ProyectoASO.responses.MethodResponse;
 
 public interface IEmpleadoService {
@@ -24,4 +26,5 @@ public interface IEmpleadoService {
 	
 	public EmpleadoDTO getPerfil();
 
+	public ResponseEntity<MethodResponse> changePhoto(Integer id, MultipartFile photo) throws FileSystemException;
 }

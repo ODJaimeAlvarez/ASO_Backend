@@ -26,7 +26,7 @@ public class EmpleadoNuevoDTO {
 	private String direccion;
 	@JsonProperty(value = "pais", required = true)
 	private String pais;
-	@JsonProperty(value = "cuidad", required = true)
+	@JsonProperty(value = "ciudad", required = true)
 	private String ciudad;
 	@JsonProperty(value = "CP", required = true)
 	private String codigoPostal;

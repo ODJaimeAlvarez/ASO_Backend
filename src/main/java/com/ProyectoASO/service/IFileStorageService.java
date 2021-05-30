@@ -15,6 +15,6 @@ public interface IFileStorageService{
 	
 	public void delete(String name,String dirPath) throws FileSystemException;
 	
-	public void saveFile(MultipartFile file,String dirPath) throws FileSystemException;
+	public void saveFile(MultipartFile file,String dirPath, String name) throws FileSystemException;
 
 }

@@ -68,9 +68,9 @@ public class FileStorageService implements IFileStorageService{
 	}
 
 	@Override
-	public void saveFile(MultipartFile file, String dirPath) throws FileSystemException {
+	public void saveFile(MultipartFile file, String dirPath, String name) throws FileSystemException {
 		try {
-			Files.copy(file.getInputStream(), Paths.get(path).resolve(dirPath).resolve(file.getOriginalFilename()));
+			Files.copy(file.getInputStream(), Paths.get(path).resolve(dirPath).resolve(name));
 		}catch (FileAlreadyExistsException e) {
 			e.printStackTrace();
 			throw new FileSystemException("Error guardar el archivo, el archivo ya existe.", HttpStatus.CONFLICT);

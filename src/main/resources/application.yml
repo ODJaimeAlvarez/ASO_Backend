@@ -25,6 +25,8 @@ logging:
      debug
 jwt:
   secret: holamundo
+encription:
+  secret: holamundo
 
 files:
   route: C:\\proyectoASOFiles

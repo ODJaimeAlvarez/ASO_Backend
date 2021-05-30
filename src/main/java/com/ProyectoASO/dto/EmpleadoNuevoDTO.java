@@ -20,6 +20,8 @@ public class EmpleadoNuevoDTO {
 	private String correo;
 	@JsonProperty(value = "telefono", required = true)
 	private String telefono;
+	@JsonProperty(value = "descripcion")
+	private String descripcion;
 	@JsonProperty(value = "direccion", required = true)
 	private String direccion;
 	@JsonProperty(value = "pais", required = true)
@@ -34,20 +36,26 @@ public class EmpleadoNuevoDTO {
 	private Rol rol;
 
 	public EmpleadoNuevoDTO(String nombre, String apellido1, String apellido2, String cargo, String correo,
-			String telefono, String direccion, String contraseña, Rol rol) {
+			String telefono, String descripcion, String direccion, String pais, String ciudad, String codigoPostal,
+			String contraseña, Rol rol) {
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.cargo = cargo;
 		this.correo = correo;
 		this.telefono = telefono;
+		this.descripcion = descripcion;
 		this.direccion = direccion;
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.codigoPostal = codigoPostal;
 		this.contraseña = contraseña;
 		this.rol = rol;
 	}
 
 	public EmpleadoNuevoDTO(Integer id, String nombre, String apellido1, String apellido2, String cargo, String correo,
-			String telefono, String direccion, String contraseña, Rol rol) {
+			String telefono, String descripcion, String direccion, String pais, String ciudad, String codigoPostal,
+			String contraseña, Rol rol) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
@@ -55,7 +63,11 @@ public class EmpleadoNuevoDTO {
 		this.cargo = cargo;
 		this.correo = correo;
 		this.telefono = telefono;
+		this.descripcion = descripcion;
 		this.direccion = direccion;
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.codigoPostal = codigoPostal;
 		this.contraseña = contraseña;
 		this.rol = rol;
 	}
@@ -166,5 +178,13 @@ public class EmpleadoNuevoDTO {
 
 	public void setCodigoPostal(String codigoPostal) {
 		this.codigoPostal = codigoPostal;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 }

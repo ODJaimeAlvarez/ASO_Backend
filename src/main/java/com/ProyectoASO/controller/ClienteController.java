@@ -10,10 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ProyectoASO.dto.ClienteDTO;
 import com.ProyectoASO.dto.EmpleadoDTO;
+import com.ProyectoASO.dto.FicheroDTO;
+import com.ProyectoASO.exceptions.FileSystemException;
 import com.ProyectoASO.responses.MethodResponse;
 import com.ProyectoASO.service.IClienteService;
 
@@ -57,5 +61,10 @@ private IClienteService clienteService;
 	@PutMapping("/baja")
 	public ResponseEntity<MethodResponse>deActivate(@RequestBody Integer id){
 		return clienteService.deActivate(id);
+	}
+	
+	@PutMapping("/cambiarFoto/{id}")
+	public ResponseEntity<MethodResponse> save(@PathVariable Integer id, @RequestParam("file") MultipartFile saving) throws FileSystemException{
+		return clienteService.changePhoto(id, saving);
 	}
 }

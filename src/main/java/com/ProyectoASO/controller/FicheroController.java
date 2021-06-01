@@ -24,11 +24,6 @@ import com.ProyectoASO.service.IFotoPerfilService;
 @RestController
 @RequestMapping("/api/files")
 @CrossOrigin("*")
-/**
- * Representa el CRUD de los ficheros, permitiendo la obtención y la persistencia de los ficheros, tanto en BBDD como en el servidor donde esté alojado.  
- * 
- *
- */
 public class FicheroController {
 	
 	private IFicheroService ficheroService;
@@ -48,6 +43,7 @@ public class FicheroController {
 	public ResponseEntity<FicheroDTO> getById(@PathVariable Integer id){
 		return new ResponseEntity<>(ficheroService.getById(id),HttpStatus.OK);
 	}
+	
 	@GetMapping("/project/{id}")
 	public ResponseEntity<List<FicheroDTO>> getByProyecto(@PathVariable Integer id) throws FileSystemException{
 		return new ResponseEntity<>(ficheroService.getByProyecto(id),HttpStatus.OK);

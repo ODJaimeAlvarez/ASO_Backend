@@ -1,19 +1,16 @@
 package com.ProyectoASO.service;
 
-import java.util.Arrays;
+
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.ProyectoASO.converter.EmpleadoConverter;
-import com.ProyectoASO.converter.EmpleadoDTOConverter;
 import com.ProyectoASO.dao.EmpleadoDao;
 import com.ProyectoASO.dto.EmpleadoDTO;
 import com.ProyectoASO.dto.EmpleadoNuevoDTO;
-import com.ProyectoASO.entity.Cliente;
 import com.ProyectoASO.entity.Empleado;
 import com.ProyectoASO.entity.FotoUsuarios;
 import com.ProyectoASO.entity.Usuario;
@@ -44,17 +41,20 @@ public class EmpleadoService extends BaseService implements IEmpleadoService {
 
 	@Override
 	public List<EmpleadoDTO> getAll() {
+		checkAuthority(List.of("DIRECTOR"));
 		return converter.convert(empleadoRepository.findAll());
 	}
 
 	@Override
 	public EmpleadoDTO getById(Integer id) {
+		checkAuthority(List.of("DIRECTOR"));
 		return converter.convert(empleadoRepository.findById(id).orElseThrow(
 				() -> new DBException("El empleado con id " + id + " no esta en la bbdd.", HttpStatus.NOT_FOUND)));
 	}
 
 	@Override
-	public EmpleadoDTO save(EmpleadoNuevoDTO emp) {		
+	public EmpleadoDTO save(EmpleadoNuevoDTO emp) {
+		checkAuthority(List.of("DIRECTOR"));
 		if(!usuarioService.userExist(emp.getCorreo())) {
 		Usuario user = usuarioService.saveUser(new Usuario(emp.getCorreo(), emp.getContraseña(), true));
 		rolUsuarioService.saveRolUser(user, emp.getRol());
@@ -84,6 +84,7 @@ public class EmpleadoService extends BaseService implements IEmpleadoService {
 
 	@Override
 	public ResponseEntity<MethodResponse> deActivate(Integer id) {
+		checkAuthority(List.of("DIRECTOR"));
 		Empleado emp= empleadoRepository.findById(id).orElseThrow(
 				() -> new DBException("El empleado con id " + id + " no esta en la bbdd.", HttpStatus.NOT_FOUND));
 		usuarioService.deActivateUser(emp.getUsuario().getId());
@@ -92,6 +93,7 @@ public class EmpleadoService extends BaseService implements IEmpleadoService {
 	
 	@Override
 	public ResponseEntity<MethodResponse> activate(Integer id) {
+		checkAuthority(List.of("DIRECTOR"));
 		Empleado emp= empleadoRepository.findById(id).orElseThrow(
 				() -> new DBException("El empleado con id " + id + " no esta en la bbdd.", HttpStatus.NOT_FOUND));
 		usuarioService.activateUser(emp.getUsuario().getId());

@@ -1,7 +1,7 @@
 package com.ProyectoASO.service;
 
 import java.sql.Time;
-import java.text.DecimalFormat;
+
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalTime;
@@ -22,9 +22,6 @@ import com.ProyectoASO.entity.Usuario;
 import com.ProyectoASO.jwt.JwtUtility;
 import com.ProyectoASO.jwt.TokenDetails;
 import com.ProyectoASO.responses.JornadaManagerResponse;
-import com.ProyectoASO.responses.MethodResponse;
-
-import javassist.expr.NewArray;
 
 @Service
 public class JornadaService extends BaseService implements IJornadaService {
@@ -46,7 +43,7 @@ public class JornadaService extends BaseService implements IJornadaService {
 	@Override
 	public List<JornadaDTO> getAll() {
 		checkAuthority(List.of("DIRECTOR"));
-		final List<JornadaDTO> listFormatted = new ArrayList();
+		final List<JornadaDTO> listFormatted = new ArrayList<>();
 		for (Jornada jor : jornadaDao.findAll()) {
 			listFormatted.add(new JornadaDTO(jor.getFechaJornada(), jor.getHoraInicio().toString(),
 					(jor.getFechaJornada() != null ? jor.getHoraInicio().toString() : "-"), null));

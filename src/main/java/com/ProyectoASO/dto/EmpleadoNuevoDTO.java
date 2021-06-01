@@ -1,7 +1,6 @@
 package com.ProyectoASO.dto;
 
 import com.ProyectoASO.entity.Rol;
-import com.ProyectoASO.entity.Usuario;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EmpleadoNuevoDTO {

@@ -1,13 +1,7 @@
 package com.ProyectoASO.service;
 
-import java.security.AlgorithmConstraints;
-import java.util.Base64;
-import java.util.List;
 
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.SecretKeySpec;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +12,7 @@ import com.ProyectoASO.converter.ClienteConverter;
 import com.ProyectoASO.dao.IClienteDao;
 import com.ProyectoASO.dto.ClienteDTO;
 import com.ProyectoASO.dto.ClienteNuevoDTO;
-import com.ProyectoASO.dto.EmpleadoDTO;
-import com.ProyectoASO.dto.EmpleadoNuevoDTO;
 import com.ProyectoASO.entity.Cliente;
-import com.ProyectoASO.entity.Empleado;
 import com.ProyectoASO.entity.FotoUsuarios;
 import com.ProyectoASO.entity.Rol;
 import com.ProyectoASO.entity.Usuario;
@@ -40,6 +31,8 @@ public class ClienteService extends BaseService implements IClienteService {
 	private EmailService emailService;
 	private IFotoPerfilService fotoPerfilService;
 
+	
+
 	public ClienteService(TokenDetails token, IClienteDao clienteRepository, ClienteConverter converter,
 			UserService usuarioService, RolUsuarioService rolUsuarioService, EmailService emailService,
 			IFotoPerfilService fotoPerfilService) {
@@ -49,6 +42,7 @@ public class ClienteService extends BaseService implements IClienteService {
 		this.usuarioService = usuarioService;
 		this.rolUsuarioService = rolUsuarioService;
 		this.emailService = emailService;
+		this.fotoPerfilService = fotoPerfilService;
 	}
 
 	@Override

@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 
 import com.ProyectoASO.dto.JornadaDTO;
 import com.ProyectoASO.responses.JornadaManagerResponse;
-import com.ProyectoASO.responses.MethodResponse;
 
 public interface IJornadaService {
 	

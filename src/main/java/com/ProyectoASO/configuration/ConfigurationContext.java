@@ -27,9 +27,7 @@ public class ConfigurationContext {
 		mailSender.setHost("smtp.gmail.com");
 		mailSender.setPort(587);
 		mailSender.setUsername(p.getProperty("mail.user"));
-		System.err.println(p.getProperty("mail.user"));
 		mailSender.setPassword(p.getProperty("mail.password"));
-		System.err.println(p.getProperty("mail.password"));
 		Properties prop = mailSender.getJavaMailProperties();
 		prop.put("mail.transport.protocol", "smtp");
 	    prop.put("mail.smtp.auth", "true");

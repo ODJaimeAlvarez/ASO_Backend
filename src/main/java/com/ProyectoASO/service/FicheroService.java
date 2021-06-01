@@ -22,9 +22,6 @@ import com.ProyectoASO.dto.FicheroDTO;
 
 import com.ProyectoASO.entity.Fichero;
 import com.ProyectoASO.entity.Proyecto;
-import com.ProyectoASO.entity.ProyectoUsuario;
-import com.ProyectoASO.entity.Usuario;
-import com.ProyectoASO.exceptions.AuthoritiesException;
 import com.ProyectoASO.exceptions.DBException;
 import com.ProyectoASO.exceptions.FileSystemException;
 import com.ProyectoASO.jwt.TokenDetails;

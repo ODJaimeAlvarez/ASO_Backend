@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ProyectoASO.dto.ClienteDTO;
 import com.ProyectoASO.dto.EmpleadoDTO;
 import com.ProyectoASO.dto.EmpleadoNuevoDTO;
 import com.ProyectoASO.exceptions.FileSystemException;

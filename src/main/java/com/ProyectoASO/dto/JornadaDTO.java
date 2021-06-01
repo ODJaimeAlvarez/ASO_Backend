@@ -1,6 +1,5 @@
 package com.ProyectoASO.dto;
 
-import java.sql.Time;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

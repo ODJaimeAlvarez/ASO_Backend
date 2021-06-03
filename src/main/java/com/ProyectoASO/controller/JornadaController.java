@@ -37,7 +37,7 @@ public class JornadaController {
 	}
 	@GetMapping("/{id}")
 	public ResponseEntity<List<JornadaDTO>> getJornadaByUser(@PathVariable Integer id){
-		return new ResponseEntity<>(jornadaService.getAllByUser(id),HttpStatus.OK);
+		return new ResponseEntity<>(jornadaService.getAllByEmp(id),HttpStatus.OK);
 	}
 
 }

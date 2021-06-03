@@ -11,7 +11,7 @@ public interface IJornadaService {
 	
 	public List<JornadaDTO> getAll();
 	
-	public List<JornadaDTO> getAllByUser(Integer userID);
+	public List<JornadaDTO> getAllByEmp(Integer userID);
 	
 	public ResponseEntity<JornadaManagerResponse> jornadaManager(String token);
 	

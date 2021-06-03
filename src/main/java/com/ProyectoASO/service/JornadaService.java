@@ -14,11 +14,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ProyectoASO.dao.EmpleadoDao;
 import com.ProyectoASO.dao.IJornadaDao;
 import com.ProyectoASO.dto.JornadaDTO;
 import com.ProyectoASO.entity.Empleado;
 import com.ProyectoASO.entity.Jornada;
 import com.ProyectoASO.entity.Usuario;
+import com.ProyectoASO.exceptions.DBException;
 import com.ProyectoASO.jwt.JwtUtility;
 import com.ProyectoASO.jwt.TokenDetails;
 import com.ProyectoASO.responses.JornadaManagerResponse;
@@ -28,16 +30,20 @@ public class JornadaService extends BaseService implements IJornadaService {
 
 	private IJornadaDao jornadaDao;
 	private final EmpleadoService empleadoService;
+	private final EmpleadoDao empRepository;
 	private UserService usuarioService;
 	private JwtUtility jwtUtils;
 
-	public JornadaService(TokenDetails token, IJornadaDao jornadaDao, UserService usuarioService, JwtUtility jwtUtils,
-			EmpleadoService empleadoService) {
+	
+
+	public JornadaService(TokenDetails token, IJornadaDao jornadaDao, EmpleadoService empleadoService,
+			EmpleadoDao empRepository, UserService usuarioService, JwtUtility jwtUtils) {
 		super(token);
 		this.jornadaDao = jornadaDao;
+		this.empleadoService = empleadoService;
+		this.empRepository = empRepository;
 		this.usuarioService = usuarioService;
 		this.jwtUtils = jwtUtils;
-		this.empleadoService = empleadoService;
 	}
 
 	@Override
@@ -52,10 +58,9 @@ public class JornadaService extends BaseService implements IJornadaService {
 	}
 
 	@Override
-	public List<JornadaDTO> getAllByUser(Integer userID) {
+	public List<JornadaDTO> getAllByEmp(Integer userID) {
 		checkAuthority(List.of("DIRECTOR"));
-		Usuario userFind = usuarioService.getUserByIdEntity(userID);
-		Empleado emp = empleadoService.getEmpleadoByUser(userFind);
+		Empleado emp = empRepository.findById(userID).orElseThrow(()->new DBException("El empleado no existe en la BBDD", HttpStatus.NOT_FOUND));
 		final List<Jornada> listJornada = jornadaDao.findByEmpleado(emp);
 		final List<JornadaDTO> listJornadaResul = new ArrayList<>();
 

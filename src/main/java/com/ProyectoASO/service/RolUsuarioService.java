@@ -33,6 +33,15 @@ public class RolUsuarioService implements IRolUsuarioService {
 		rolUsuarioDao.save(new RolUsuario(roles, user));
 	}
 
+	@Override
+	public List<Usuario> getUserByRol(Rol rol) {
+		List<Usuario> user= new ArrayList<>();
+		List<RolUsuario> rolesUsuario=rolUsuarioDao.findByRol(rol);
+		for(RolUsuario ru : rolesUsuario)
+			user.add(ru.getUsuario());
+		return user;
+	}
+
 	
 	
 

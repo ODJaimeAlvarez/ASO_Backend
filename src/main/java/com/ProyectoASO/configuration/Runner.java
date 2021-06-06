@@ -135,10 +135,10 @@ public class Runner {
 		proyectouserdao.save(new ProyectoUsuario(list_proyecto.get(0), list_user_normalize.get(1)));
 		proyectouserdao.save(new ProyectoUsuario(list_proyecto.get(1), list_user_normalize.get(1)));
 		
-		listFicheros.add(new Fichero("C:\\proyectoASOFiles\\primer_proyecto", "Datos_Importantes.txt", Date.from(Instant.now()), list_proyecto.get(0)));
-		listFicheros.add(new Fichero("C:\\proyectoASOFiles\\primer_proyecto", "cuentas.txt", Date.from(Instant.now()), list_proyecto.get(0)));
-		listFicheros.add(new Fichero("C:\\proyectoASOFiles\\tercer_proyecto", "Datos_Importantes.txt", Date.from(Instant.now()), list_proyecto.get(2)));
-		listFicheros.add(new Fichero("C:\\proyectoASOFiles\\cuarto_proyecto", "Datos_Importantes.txt", Date.from(Instant.now()), list_proyecto.get(3)));
+		listFicheros.add(new Fichero("./proyectoASOFiles\\primer_proyecto", "Datos_Importantes.txt", Date.from(Instant.now()), list_proyecto.get(0)));
+		listFicheros.add(new Fichero("./proyectoASOFiles\\primer_proyecto", "cuentas.txt", Date.from(Instant.now()), list_proyecto.get(0)));
+		listFicheros.add(new Fichero("./proyectoASOFiles\\tercer_proyecto", "Datos_Importantes.txt", Date.from(Instant.now()), list_proyecto.get(2)));
+		listFicheros.add(new Fichero("./proyectoASOFiles\\cuarto_proyecto", "Datos_Importantes.txt", Date.from(Instant.now()), list_proyecto.get(3)));
 		ficheroDao.saveAll(listFicheros);
 		
 		try {
@@ -154,10 +154,10 @@ public class Runner {
 		
 		String hola= "hola";
 		try {
-			Files.write(Paths.get("C:\\proyectoASOFiles\\primer_proyecto\\Datos_Importantes.txt"), hola.getBytes(), StandardOpenOption.CREATE,StandardOpenOption.WRITE);
-			Files.write(Paths.get("C:\\proyectoASOFiles\\primer_proyecto\\cuentas.txt"), hola.getBytes(), StandardOpenOption.CREATE,StandardOpenOption.WRITE);
-			Files.write(Paths.get("C:\\proyectoASOFiles\\tercer_proyecto\\Datos_Importantes.txt"), hola.getBytes(), StandardOpenOption.CREATE,StandardOpenOption.WRITE);
-			Files.write(Paths.get("C:\\proyectoASOFiles\\cuarto_proyecto\\Datos_Importantes.txt"), hola.getBytes(), StandardOpenOption.CREATE,StandardOpenOption.WRITE);
+			Files.write(Paths.get("./proyectoASOFiles\\primer_proyecto\\Datos_Importantes.txt"), hola.getBytes(), StandardOpenOption.CREATE,StandardOpenOption.WRITE);
+			Files.write(Paths.get("./proyectoASOFiles\\primer_proyecto\\cuentas.txt"), hola.getBytes(), StandardOpenOption.CREATE,StandardOpenOption.WRITE);
+			Files.write(Paths.get("./proyectoASOFiles\\tercer_proyecto\\Datos_Importantes.txt"), hola.getBytes(), StandardOpenOption.CREATE,StandardOpenOption.WRITE);
+			Files.write(Paths.get("./proyectoASOFiles\\cuarto_proyecto\\Datos_Importantes.txt"), hola.getBytes(), StandardOpenOption.CREATE,StandardOpenOption.WRITE);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

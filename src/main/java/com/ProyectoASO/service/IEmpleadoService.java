@@ -24,6 +24,10 @@ public interface IEmpleadoService {
 	public ResponseEntity<MethodResponse> activate(Integer id);
 	
 	public EmpleadoDTO getPerfil();
+	
+	public List<EmpleadoDTO> getAllEmpleados();
+	
+	public List<EmpleadoDTO> getAllDirectores();
 
 	public ResponseEntity<MethodResponse> changePhoto(Integer id, MultipartFile photo) throws FileSystemException;
 }

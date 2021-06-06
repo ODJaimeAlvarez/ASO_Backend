@@ -41,6 +41,15 @@ public class EmpleadoController {
 	public ResponseEntity<EmpleadoDTO> getById(@PathVariable Integer id) {
 		return new ResponseEntity<>(empleadoService.getById(id), HttpStatus.OK);
 	}
+	
+	@GetMapping("/directores")
+	public ResponseEntity<List<EmpleadoDTO>> getEmleados() {
+		return new ResponseEntity<>(empleadoService.getAllEmpleados(), HttpStatus.OK);
+	}
+	@GetMapping("/empleados")
+	public ResponseEntity<List<EmpleadoDTO>> getDirectores() {
+		return new ResponseEntity<>(empleadoService.getAllDirectores(), HttpStatus.OK);
+	}
 
 	@PutMapping("/alta/{id}")
 	public ResponseEntity<MethodResponse> activate(@PathVariable Integer id) {

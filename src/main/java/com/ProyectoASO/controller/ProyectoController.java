@@ -27,4 +27,5 @@ public class ProyectoController {
 		return new ResponseEntity<>(proyectoService.getAllProyectos(),HttpStatus.OK);
 	}
 	
+	@GetMapping
 }

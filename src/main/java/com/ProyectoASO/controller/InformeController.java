@@ -26,4 +26,9 @@ public class InformeController {
 	public ResponseEntity<List<InformeDTO>> getProyectsByStatus(){
 		return new ResponseEntity<>(informesService.getProyectsByStatus(),HttpStatus.OK);
 	}
+	
+	@GetMapping("/usuarios")
+	public ResponseEntity<List<InformeDTO>> getUsersByRoles(){
+		return new ResponseEntity<>(informesService.getNumberOfUserByRol(),HttpStatus.OK);
+	}
 }

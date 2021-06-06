@@ -1,6 +1,7 @@
 package com.ProyectoASO.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.ProyectoASO.converter.UsuarioConverter;
 import com.ProyectoASO.dao.IUsuarioDao;
 import com.ProyectoASO.dto.UsuarioDTO;
+import com.ProyectoASO.entity.Rol;
 import com.ProyectoASO.entity.Usuario;
 import com.ProyectoASO.exceptions.DBException;
 import com.ProyectoASO.jwt.TokenDetails;
@@ -19,21 +21,29 @@ import com.ProyectoASO.jwt.TokenDetails;
 public class UserService extends BaseService implements IUserService {
 	private IUsuarioDao usuarioRepository;
 	private UsuarioConverter usuarioConverter;
+	private IRolUsuarioService rolUsuarioService;
 	
 	@Autowired
 	BCryptPasswordEncoder crypt;
 	
 	
-	public UserService(TokenDetails token, IUsuarioDao usuarioRepository, UsuarioConverter usuarioConverter) {
+	public UserService(TokenDetails token, IUsuarioDao usuarioRepository, UsuarioConverter usuarioConverter,IRolUsuarioService rolUsuarioService) {
 		super(token);
 		this.usuarioRepository = usuarioRepository;
 		this.usuarioConverter = usuarioConverter;
+		this.rolUsuarioService=rolUsuarioService;
 	}
 
 	@Override
 	public List<UsuarioDTO> getAllUsers() {
 		checkAuthority(List.of("DIRECTOR"));
 		return usuarioConverter.convert(usuarioRepository.findAll());
+	}
+	
+	@Override
+	public List<Usuario> getAllUsersByRol(Rol rol) {
+		
+		return rolUsuarioService.getUserByRol(rol);
 	}
 
 	@Override
@@ -89,4 +99,6 @@ public class UserService extends BaseService implements IUserService {
 	public Usuario buscarPorcorreo(String correo) {
 		return usuarioRepository.findByCorreo(correo).orElseThrow(()-> new DBException("No existe un usuario con correo "+correo, HttpStatus.NOT_FOUND));
 	}
+
+	
 }

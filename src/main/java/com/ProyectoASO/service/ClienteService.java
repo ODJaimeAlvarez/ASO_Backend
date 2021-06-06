@@ -47,7 +47,6 @@ public class ClienteService extends BaseService implements IClienteService {
 
 	@Override
 	public List<ClienteDTO> getAll() {
-
 		return converter.convert(clienteRepository.findAll());
 	}
 

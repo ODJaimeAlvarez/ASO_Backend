@@ -9,6 +9,8 @@ public interface IRolUsuarioService {
 
 	public List<Rol> getRolesByUser(Usuario user);
 	
+	public List<Usuario> getUserByRol(Rol rol);
+	
 	public void saveRolUser(Usuario user, Rol roles);
 	
 	

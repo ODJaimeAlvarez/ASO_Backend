@@ -1,6 +1,7 @@
 package com.ProyectoASO.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import com.ProyectoASO.dto.EmpleadoDTO;
 import com.ProyectoASO.dto.EmpleadoNuevoDTO;
 import com.ProyectoASO.entity.Empleado;
 import com.ProyectoASO.entity.FotoUsuarios;
+import com.ProyectoASO.entity.Rol;
 import com.ProyectoASO.entity.Usuario;
 import com.ProyectoASO.exceptions.DBException;
 import com.ProyectoASO.exceptions.FileSystemException;
@@ -124,6 +126,26 @@ public class EmpleadoService extends BaseService implements IEmpleadoService {
 		}
 		empleadoRepository.save(emp);
 		return new ResponseEntity<>(new MethodResponse("Imagen actualizada satisfactoriamente"), HttpStatus.OK);
+	}
+
+	@Override
+	public List<EmpleadoDTO> getAllEmpleados() {
+		List<Usuario> emp = usuarioService.getAllUsersByRol(new Rol(3,"EMPLEADO"));
+		List<Empleado> empDTO = new ArrayList<>();
+		for(Usuario e : emp) {
+			empDTO.add(empleadoRepository.findByUsuario(e).orElseThrow(()->new DBException("El empleado no esta en la bbdd.", HttpStatus.NOT_FOUND)));
+		}
+		return converter.convert(empDTO);
+	}
+
+	@Override
+	public List<EmpleadoDTO> getAllDirectores() {
+		List<Usuario> dir = usuarioService.getAllUsersByRol(new Rol(1,"DIRECTOR"));
+		List<Empleado> dirDTO = new ArrayList<>();
+		for(Usuario e : dir) {
+			dirDTO.add(empleadoRepository.findByUsuario(e).orElseThrow(()->new DBException("El empleado no esta en la bbdd.", HttpStatus.NOT_FOUND)));
+		}
+		return converter.convert(dirDTO);
 	}
 	
 

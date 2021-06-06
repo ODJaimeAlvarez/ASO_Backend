@@ -3,11 +3,14 @@ package com.ProyectoASO.service;
 import java.util.List;
 
 import com.ProyectoASO.dto.UsuarioDTO;
+import com.ProyectoASO.entity.Rol;
 import com.ProyectoASO.entity.Usuario;
 
 public interface IUserService {
 	
 	public List<UsuarioDTO> getAllUsers();
+	
+	public List<Usuario> getAllUsersByRol(Rol rol);
 	
 	public UsuarioDTO getUserById(Integer id);
 	

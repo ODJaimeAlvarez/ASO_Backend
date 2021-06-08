@@ -61,14 +61,14 @@ public class InformesService {
 		Calendar now = Calendar.getInstance();
 		Calendar minus7days = Calendar.getInstance();
 		minus7days.add(Calendar.DATE,-6);
-		SimpleDateFormat sdf= new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat sdf= new SimpleDateFormat("EEEE");
 		List<LogClienteDia> logs= logClientesRepository.findByFechaBetween(Date.from( minus7days.toInstant()),Date.from(now.toInstant()));
 		for(int i=0;i<7;i++) {
 			if(logs.stream().anyMatch(date -> sdf.format(date.getFecha()).equals(sdf.format(Date.from(minus7days.toInstant()))))) {
 				LogClienteDia log=logs.stream().filter(date -> sdf.format(date.getFecha()).equals(sdf.format(Date.from(minus7days.toInstant())))).findFirst().get();
-				clientsRegisteredInform.add(new InformeDTO(sdf.format(log.getFecha()), log.getClientes()));
+				clientsRegisteredInform.add(new InformeDTO(capitalize(sdf.format(log.getFecha())), log.getClientes()));
 			}else
-				clientsRegisteredInform.add(new InformeDTO(sdf.format(Date.from(minus7days.toInstant())), 0));
+				clientsRegisteredInform.add(new InformeDTO(capitalize(sdf.format(Date.from(minus7days.toInstant()))), 0));
 			minus7days.add(Calendar.DATE,1);	
 		}
 		return clientsRegisteredInform;
@@ -79,17 +79,20 @@ public class InformesService {
 		Calendar now = Calendar.getInstance();
 		Calendar minus7days = Calendar.getInstance();
 		minus7days.add(Calendar.DATE,-6);
-		SimpleDateFormat sdf= new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat sdf= new SimpleDateFormat("EEEE");
 		List<LogEmpleadoDia> logs= logEmpleadoRepository.findByFechaBetween(Date.from( minus7days.toInstant()),Date.from(now.toInstant()));
 		for(int i=0;i<7;i++) {
 			if(logs.stream().anyMatch(date -> sdf.format(date.getFecha()).equals(sdf.format(Date.from(minus7days.toInstant()))))) {
 				LogEmpleadoDia log=logs.stream().filter(date -> sdf.format(date.getFecha()).equals(sdf.format(Date.from(minus7days.toInstant())))).findFirst().get();
-				empRegisteredInform.add(new InformeDTO(sdf.format(log.getFecha()), log.getClientes()));
+				empRegisteredInform.add(new InformeDTO(capitalize(sdf.format(log.getFecha())), log.getClientes()));
 			}else
-				empRegisteredInform.add(new InformeDTO(sdf.format(Date.from(minus7days.toInstant())), 0));
+				empRegisteredInform.add(new InformeDTO(capitalize(sdf.format(Date.from(minus7days.toInstant()))), 0));
 			minus7days.add(Calendar.DATE,1);
 		}
 		return empRegisteredInform;
 	}
-
+	private String capitalize(String in) {
+		return in.substring(0,1).toUpperCase()+in.substring(1);
+	}
+	
 }

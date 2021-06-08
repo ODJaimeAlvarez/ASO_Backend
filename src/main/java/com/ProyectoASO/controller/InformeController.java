@@ -35,4 +35,8 @@ public class InformeController {
 	public ResponseEntity<List<InformeDTO>> getUsersRegistered(){
 		return new ResponseEntity<>(informesService.getRegisteredClients(),HttpStatus.OK);
 	}
+	@GetMapping("/empleadosRegistrados")
+	public ResponseEntity<List<InformeDTO>> getEmpRegistered(){
+		return new ResponseEntity<>(informesService.getRegisteredEmployers(),HttpStatus.OK);
+	}
 }

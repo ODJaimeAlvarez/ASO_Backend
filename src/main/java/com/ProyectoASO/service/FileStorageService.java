@@ -51,7 +51,7 @@ public class FileStorageService implements IFileStorageService{
 			if(file.exists() && file.isReadable()) {
 				return file;
 			}else {
-				throw new FileSystemException("Error al leer el fichero, no existe o no es leible.", HttpStatus.CONFLICT);
+				throw new FileSystemException("Error al leer el fichero, no existe o no es legible.", HttpStatus.CONFLICT);
 			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();

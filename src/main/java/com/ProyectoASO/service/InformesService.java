@@ -10,9 +10,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ProyectoASO.dao.ILogClienteDiaDao;
+import com.ProyectoASO.dao.ILogEmpleadoDiaDao;
 import com.ProyectoASO.dao.IProyectoDao;
 import com.ProyectoASO.dto.InformeDTO;
 import com.ProyectoASO.entity.LogClienteDia;
+import com.ProyectoASO.entity.LogEmpleadoDia;
 import com.ProyectoASO.entity.Proyecto;
 import com.ProyectoASO.entity.Rol;
 import com.ProyectoASO.enums.Progreso;
@@ -21,14 +23,15 @@ public class InformesService {
 	private IProyectoDao proyectoRepository;
 	private IUserService userService;
 	private ILogClienteDiaDao logClientesRepository;
+	private ILogEmpleadoDiaDao logEmpleadoRepository;
 
-	
 
 	public InformesService(IProyectoDao proyectoRepository, IUserService userService,
-			ILogClienteDiaDao logClientesRepository) {
+			ILogClienteDiaDao logClientesRepository, ILogEmpleadoDiaDao logEmpleadoRepository) {
 		this.proyectoRepository = proyectoRepository;
 		this.userService = userService;
 		this.logClientesRepository = logClientesRepository;
+		this.logEmpleadoRepository = logEmpleadoRepository;
 	}
 
 	public List<InformeDTO> getProyectsByStatus() {
@@ -60,23 +63,33 @@ public class InformesService {
 		minus7days.add(Calendar.DATE,-6);
 		SimpleDateFormat sdf= new SimpleDateFormat("dd-MM-yyyy");
 		List<LogClienteDia> logs= logClientesRepository.findByFechaBetween(Date.from( minus7days.toInstant()),Date.from(now.toInstant()));
-		System.out.println(logs.get(0).getClientes());
-		System.out.println(Date.from( minus7days.toInstant()));
-		System.out.println(Date.from(now.toInstant()));
 		for(int i=0;i<7;i++) {
 			if(logs.stream().anyMatch(date -> sdf.format(date.getFecha()).equals(sdf.format(Date.from(minus7days.toInstant()))))) {
 				LogClienteDia log=logs.stream().filter(date -> sdf.format(date.getFecha()).equals(sdf.format(Date.from(minus7days.toInstant())))).findFirst().get();
 				clientsRegisteredInform.add(new InformeDTO(sdf.format(log.getFecha()), log.getClientes()));
 			}else
 				clientsRegisteredInform.add(new InformeDTO(sdf.format(Date.from(minus7days.toInstant())), 0));
-			System.out.println(sdf.format(Date.from( minus7days.toInstant())));
-			minus7days.add(Calendar.DATE,1);
-			
+			minus7days.add(Calendar.DATE,1);	
 		}
-		
-		
-		
 		return clientsRegisteredInform;
+	}
+	
+	public List<InformeDTO> getRegisteredEmployers() {
+		List<InformeDTO> empRegisteredInform = new ArrayList<>();
+		Calendar now = Calendar.getInstance();
+		Calendar minus7days = Calendar.getInstance();
+		minus7days.add(Calendar.DATE,-6);
+		SimpleDateFormat sdf= new SimpleDateFormat("dd-MM-yyyy");
+		List<LogEmpleadoDia> logs= logEmpleadoRepository.findByFechaBetween(Date.from( minus7days.toInstant()),Date.from(now.toInstant()));
+		for(int i=0;i<7;i++) {
+			if(logs.stream().anyMatch(date -> sdf.format(date.getFecha()).equals(sdf.format(Date.from(minus7days.toInstant()))))) {
+				LogEmpleadoDia log=logs.stream().filter(date -> sdf.format(date.getFecha()).equals(sdf.format(Date.from(minus7days.toInstant())))).findFirst().get();
+				empRegisteredInform.add(new InformeDTO(sdf.format(log.getFecha()), log.getClientes()));
+			}else
+				empRegisteredInform.add(new InformeDTO(sdf.format(Date.from(minus7days.toInstant())), 0));
+			minus7days.add(Calendar.DATE,1);
+		}
+		return empRegisteredInform;
 	}
 
 }

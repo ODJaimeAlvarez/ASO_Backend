@@ -51,8 +51,6 @@ public class FotoPerfilService extends BaseService implements IFotoPerfilService
 			fotoUsuarioDao.save(foto);
 			return fotoUsuarioDao.save(foto);
 		} else {
-			System.out.println("Hola" + !file.getOriginalFilename().contains(".png")
-					+ !file.getOriginalFilename().contains(".jpg"));
 			throw new AuthoritiesException("No se permite almacenar imagenes que no sean formato .png o .jpg",
 					HttpStatus.BAD_REQUEST);
 		}

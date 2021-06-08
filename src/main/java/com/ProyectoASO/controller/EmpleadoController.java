@@ -42,11 +42,11 @@ public class EmpleadoController {
 		return new ResponseEntity<>(empleadoService.getById(id), HttpStatus.OK);
 	}
 	
-	@GetMapping("/directores")
+	@GetMapping("/empleados")
 	public ResponseEntity<List<EmpleadoDTO>> getEmleados() {
 		return new ResponseEntity<>(empleadoService.getAllEmpleados(), HttpStatus.OK);
 	}
-	@GetMapping("/empleados")
+	@GetMapping("/directores")
 	public ResponseEntity<List<EmpleadoDTO>> getDirectores() {
 		return new ResponseEntity<>(empleadoService.getAllDirectores(), HttpStatus.OK);
 	}

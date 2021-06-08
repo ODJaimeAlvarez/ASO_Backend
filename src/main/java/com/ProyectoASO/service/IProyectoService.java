@@ -13,7 +13,7 @@ public interface IProyectoService {
 	
 	public ProyectoDTO save(ProyectoNuevoDTO proyect);
 	
-	public ProyectoDTO update(Integer id, ProyectoNuevoDTO proyect);
+	public ProyectoDTO update(Integer id, ProyectoDTO proyect);
 	
 	
 

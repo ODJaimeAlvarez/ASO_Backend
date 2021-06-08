@@ -43,7 +43,7 @@ public class ProyectoController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<ProyectoDTO> update(@PathVariable Integer id,@RequestBody ProyectoNuevoDTO proyect){
-		return new ResponseEntity<>(proyectoService.save(proyect),HttpStatus.OK);
+	public ResponseEntity<ProyectoDTO> update(@PathVariable Integer id,@RequestBody ProyectoDTO proyect){
+		return new ResponseEntity<>(proyectoService.update(id,proyect),HttpStatus.OK);
 	}
 }

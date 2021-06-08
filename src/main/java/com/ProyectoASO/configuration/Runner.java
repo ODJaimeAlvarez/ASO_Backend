@@ -80,6 +80,21 @@ public class Runner {
 
 		return arg -> addUsuarioRunner();
 	}
+	
+	@Profile("Prod")
+	@Bean
+	public ApplicationRunner meterUserProd() {
+
+		return arg -> addUsuarioRunnerProd();
+	}
+	
+	private void addUsuarioRunnerProd() {
+		List<Rol> list_rol = new ArrayList<>();
+		list_rol.add(new Rol("DIRECTOR"));
+		list_rol.add(new Rol("CLIENTE"));
+		list_rol.add(new Rol("EMPLEADO"));
+		rol.saveAll(list_rol);
+	}
 
 	/**
 	 * Método que crea una lista con Usuarios para su posterior inserción en la base

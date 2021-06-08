@@ -34,7 +34,8 @@ public class FileStorageService implements IFileStorageService{
 	@Override
 	public void init(String dirPath) throws FileSystemException {
 		try {
-			Files.createDirectory(Paths.get(path).resolve(dirPath));
+			System.out.println(Paths.get(dirPath));
+			Files.createDirectory(Paths.get(dirPath));
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new FileSystemException("Error al crear el directorio del proyecto, ¿Tiene permisos?", HttpStatus.UNAUTHORIZED);
@@ -45,7 +46,7 @@ public class FileStorageService implements IFileStorageService{
 	@Override
 	public Resource loadFile(String name, String dirPath) throws FileSystemException {
 		try {
-			Path fileName = Paths.get(path).resolve(dirPath).resolve(name);
+			Path fileName = Paths.get(dirPath).resolve(name);
 			Resource file= new UrlResource(fileName.toUri());
 			if(file.exists() && file.isReadable()) {
 				return file;
@@ -61,7 +62,7 @@ public class FileStorageService implements IFileStorageService{
 	@Override
 	public void delete(String name, String dirPath) {
 		try {
-			Files.deleteIfExists(Paths.get(path).resolve(dirPath).resolve(name));
+			Files.deleteIfExists(Paths.get(dirPath).resolve(name));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -70,7 +71,7 @@ public class FileStorageService implements IFileStorageService{
 	@Override
 	public void saveFile(MultipartFile file, String dirPath, String name) throws FileSystemException {
 		try {
-			Files.copy(file.getInputStream(), Paths.get(path).resolve(dirPath).resolve(name));
+			Files.copy(file.getInputStream(), Paths.get(dirPath).resolve(name));
 		}catch (FileAlreadyExistsException e) {
 			e.printStackTrace();
 			throw new FileSystemException("Error guardar el archivo, el archivo ya existe.", HttpStatus.CONFLICT);

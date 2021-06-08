@@ -31,29 +31,41 @@ public class ProyectoService extends BaseService implements IProyectoService {
 	
 	
 
+	
+
 	public ProyectoService(TokenDetails token, IProyectoDao proyectoDao, ProyectoConverter converter,
-			IProyectoUsuario proyectoUsuarioDao, UserService usuarioService, ProgresoEnumBDConverter converterEnumProgreso) {
+			ProyectoDTOConverter converterDTO, IProyectoUsuario proyectoUsuarioDao, UserService usuarioService,
+			ProgresoEnumBDConverter converterEnumProgreso) {
 		super(token);
 		this.proyectoDao = proyectoDao;
 		this.converter = converter;
+		this.converterDTO = converterDTO;
 		this.proyectoUsuarioDao = proyectoUsuarioDao;
 		this.usuarioService = usuarioService;
-		this.converterEnumProgreso= converterEnumProgreso;
+		this.converterEnumProgreso = converterEnumProgreso;
 	}
 
 	@Override
 	public List<ProyectoDTO> getAllProyectos() {
-		Usuario user = usuarioService.buscarPorcorreo(getToken().getEmail());
-		List<ProyectoUsuario> listaProyectos=proyectoUsuarioDao.findByUsuario(user);
-		List<Proyecto> proyectos=new ArrayList<>();
-		for(ProyectoUsuario p: listaProyectos) {
-			proyectos.add(p.getProyecto());
+		if(!getToken().getAuth().get(0).equals("DIRECTOR")) {
+
+			Usuario user = usuarioService.buscarPorcorreo(getToken().getEmail());
+			List<ProyectoUsuario> listaProyectos=proyectoUsuarioDao.findByUsuario(user);
+			List<Proyecto> proyectos=new ArrayList<>();
+			for(ProyectoUsuario p: listaProyectos) {
+				proyectos.add(p.getProyecto());
+			}
+			return converter.convert(proyectos);
+		}else {
+			return converter.convert(proyectoDao.findAll());
 		}
-		return converter.convert(proyectos);
+		
+		
 	}
 	
 	@Override
 	public ProyectoDTO getById(Integer id) {
+		if(!getToken().getAuth().get(0).equals("DIRECTOR")) {
 		Usuario user = usuarioService.buscarPorcorreo(getToken().getEmail());
 		List<ProyectoUsuario> listaProyectos=proyectoUsuarioDao.findByUsuario(user);
 		for(ProyectoUsuario p: listaProyectos) {
@@ -62,7 +74,10 @@ public class ProyectoService extends BaseService implements IProyectoService {
 			}
 		}
 		throw new DBException("No tiene acceso a este proyecto",  HttpStatus.FORBIDDEN);
-		
+		}
+		else {
+			return converter.convert(proyectoDao.findById(id).orElseThrow(()->new DBException("El proyecto con id "+ id +" no se encuentra.", HttpStatus.NOT_FOUND)));
+		}
 	}
 
 
@@ -85,29 +100,23 @@ public class ProyectoService extends BaseService implements IProyectoService {
 		}
 		if(proyect.getCli()!=null)
 			proyectoUsuarioDao.save(new ProyectoUsuario(proyectoDTO, usuarioService.buscarPorcorreo(proyect.getCli().getCorreo())));
-		for(Usuario dir: usuarioService.getAllUsersByRol(new Rol(1,"DIRECTOR"))) {
+		/*for(Usuario dir: usuarioService.getAllUsersByRol(new Rol(1,"DIRECTOR"))) {
 			proyectoUsuarioDao.save(new ProyectoUsuario(proyectoDTO, dir));
-		}
+		}*/
 		
 		
 		return converter.convert(proyectoDTO);
 	}
 
 	@Override
-	public ProyectoDTO update(Integer id, ProyectoNuevoDTO proyect) {
+	public ProyectoDTO update(Integer id, ProyectoDTO proyect) {
 		checkAuthority(List.of("DIRECTOR"));
 		Proyecto proyectoupdate= proyectoDao.findById(id).orElseThrow(()->new DBException("El proyecto con id "+ id +" no se encuentra.", HttpStatus.NOT_FOUND));
 		proyectoupdate.setNombre_proyecto(proyect.getNombre());
 		proyectoupdate.setDescripcion(proyect.getDescripcion());
 		proyectoupdate.setProgreso(converterEnumProgreso.convertToEntityAttribute(proyect.getEstado().getCode()));
-		proyectoupdate=proyectoDao.save(proyectoupdate);
-		for(EmpleadoDTO emp: proyect.getEmp()) {
-			proyectoUsuarioDao.save(new ProyectoUsuario(proyectoupdate, usuarioService.buscarPorcorreo(emp.getCorreo())));
-		}
-		if(proyect.getCli()!=null)
-			proyectoUsuarioDao.save(new ProyectoUsuario(proyectoupdate, usuarioService.buscarPorcorreo(proyect.getCli().getCorreo())));
 		
-		return converter.convert(proyectoupdate);
+		return converter.convert(proyectoDao.save(proyectoupdate));
 	
 		}
 

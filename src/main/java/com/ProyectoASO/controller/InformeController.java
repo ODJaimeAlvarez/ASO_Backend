@@ -31,4 +31,8 @@ public class InformeController {
 	public ResponseEntity<List<InformeDTO>> getUsersByRoles(){
 		return new ResponseEntity<>(informesService.getNumberOfUserByRol(),HttpStatus.OK);
 	}
+	@GetMapping("/usuariosRegistrados")
+	public ResponseEntity<List<InformeDTO>> getUsersRegistered(){
+		return new ResponseEntity<>(informesService.getRegisteredClients(),HttpStatus.OK);
+	}
 }

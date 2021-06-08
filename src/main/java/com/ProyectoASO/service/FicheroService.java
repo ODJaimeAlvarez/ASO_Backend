@@ -74,8 +74,10 @@ public class FicheroService extends BaseService implements IFicheroService {
 		fileSave.setUri(uriFile);
 		if(!Files.exists(Paths.get(ruta))) {
 			fileStorageService.init();
+			System.out.println("ExisteRaiz");
 		}
 		if(!Files.exists(Paths.get(uriFile))) {
+			System.out.println("direct");
 			fileStorageService.init(uriFile);
 		}
 		fileStorageService.saveFile(file, uriFile,file.getOriginalFilename());

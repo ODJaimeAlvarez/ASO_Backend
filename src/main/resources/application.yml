@@ -17,6 +17,10 @@ spring:
     time-zone: Europe/Madrid
     locale: es_ES
     
+  servlet:
+    multipart:      max-file-size:        20MB
+      max-request-size:        20MB
+    
 logging:
  level:
   org:
@@ -34,4 +38,4 @@ encription:
   secret: holamundo
 
 files:
-  route: ./proyectoASOFiles
+  route: proyectoASOFiles

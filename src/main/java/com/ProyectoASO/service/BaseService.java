@@ -14,23 +14,16 @@ public abstract class BaseService {
 		this.token = token;
 	}
 
-
-
 	public void checkAuthority(List<String> authorities) {
 	
 		List<String> authsToken= token.getAuth();
 		if(authsToken.isEmpty()||authsToken.stream().noneMatch(x-> authorities.contains(x)))
 			throw new AuthoritiesException("No tiene los permisos necesarios para utilizar este método.", HttpStatus.FORBIDDEN);
-		
 	}
-
-
 
 	public TokenDetails getToken() {
 		return token;
 	}
-
-
 
 	public void setToken(TokenDetails token) {
 		this.token = token;

@@ -62,14 +62,11 @@ public class ClienteService extends BaseService implements IClienteService {
 			Usuario user = usuarioService.saveUser(new Usuario(newCli.getCorreo(), newCli.getContraseña(), true));
 			rolUsuarioService.saveRolUser(user, new Rol(2, "CLIENTE"));
 
-			ClienteDTO cli = converter.convert(
+			return converter.convert(
 					clienteRepository.save(new Cliente(newCli.getNombre(), newCli.getApellido1(), newCli.getApellido2(),
 							newCli.getEmpresa(), newCli.getTelefono(), newCli.getDireccion(), newCli.getDescripcion(),
 							newCli.getCiudad(), newCli.getPais(), newCli.getCodigoPostal(), user, null)));
-
-			emailService.sendMessageToRegister(newCli.getCorreo(),
-					"http://www.proyectoaso.codes/verificarUsuario/" + cli.getId());
-			return cli;
+			
 
 		} else {
 			throw new DBException("El usuario ya existe.", HttpStatus.NOT_FOUND);

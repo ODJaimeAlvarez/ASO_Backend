@@ -43,7 +43,7 @@ public class EmpleadoController {
 	}
 	
 	@GetMapping("/empleados")
-	public ResponseEntity<List<EmpleadoDTO>> getEmleados() {
+	public ResponseEntity<List<EmpleadoDTO>> getEmpleados() {
 		return new ResponseEntity<>(empleadoService.getAllEmpleados(), HttpStatus.OK);
 	}
 	@GetMapping("/directores")

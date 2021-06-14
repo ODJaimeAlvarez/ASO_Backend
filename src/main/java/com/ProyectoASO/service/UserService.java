@@ -65,11 +65,6 @@ public class UserService extends BaseService implements IUserService {
 		return usuarioRepository.save(user);
 	}
 
-	@Override
-	public Usuario updateUser(Integer id, Usuario user) {
-		checkAuthority(List.of("DIRECTOR"));
-		return null;
-	}
 
 	@Override
 	public void deActivateUser(Integer id) {

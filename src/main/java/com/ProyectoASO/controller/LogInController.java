@@ -28,8 +28,6 @@ public class LogInController {
 	private LogInService logInService;
 	private JwtUtility jwtUtil;
 	
-	
-	
 	private IClienteService clienteservice;
 	
 	public LogInController(AuthenticationManager authManager, LogInService logInService, JwtUtility jwtUtil,IClienteService clienteservice) {
@@ -38,8 +36,7 @@ public class LogInController {
 		this.jwtUtil = jwtUtil;
 		this.clienteservice=clienteservice;
 	}
-
-
+	
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> logIn(@RequestBody UserLoginDTO userLogin) throws Exception{
 		try {

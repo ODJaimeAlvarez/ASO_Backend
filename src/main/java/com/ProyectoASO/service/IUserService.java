@@ -16,7 +16,6 @@ public interface IUserService {
 	
 	public Usuario saveUser(Usuario user);
 	
-	public Usuario updateUser(Integer id, Usuario user);
 	
 	public void deActivateUser(Integer id);
 	

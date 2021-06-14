@@ -65,7 +65,7 @@ public class ClienteService extends BaseService implements IClienteService {
 			return converter.convert(
 					clienteRepository.save(new Cliente(newCli.getNombre(), newCli.getApellido1(), newCli.getApellido2(),
 							newCli.getEmpresa(), newCli.getTelefono(), newCli.getDireccion(), newCli.getDescripcion(),
-							newCli.getCiudad(), newCli.getPais(), newCli.getCodigoPostal(), user, null)));
+							newCli.getPais(),newCli.getCiudad(), newCli.getCodigoPostal(), user, null)));
 			
 
 		} else {

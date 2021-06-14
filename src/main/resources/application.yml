@@ -1,18 +1,18 @@
 spring:
   profiles:
     active:
-      Testing 
+      prod 
   application:
     name: ASO_Backend
   datasource:
-    url: jdbc:mysql://localhost/proyecto_final?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost/proyectoaso?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
     username: root
-    password: metrica123
+    password: root
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   jackson:
     time-zone: Europe/Madrid
     locale: es_ES
@@ -29,13 +29,10 @@ logging:
      debug
      
 server:
-  port: 8080
+  port: 45000
   
 jwt:
-  secret: holamundo
+  secret: B~r6V:V[EL*b.uP
   
-encription:
-  secret: holamundo
-
 files:
   route: proyectoASOFiles

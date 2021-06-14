@@ -99,11 +99,7 @@ public class ProyectoService extends BaseService implements IProyectoService {
 			proyectoUsuarioDao.save(new ProyectoUsuario(proyectoDTO, usuarioService.buscarPorcorreo(emp.getCorreo())));
 		}
 		if(proyect.getCli()!=null)
-			proyectoUsuarioDao.save(new ProyectoUsuario(proyectoDTO, usuarioService.buscarPorcorreo(proyect.getCli().getCorreo())));
-		/*for(Usuario dir: usuarioService.getAllUsersByRol(new Rol(1,"DIRECTOR"))) {
-			proyectoUsuarioDao.save(new ProyectoUsuario(proyectoDTO, dir));
-		}*/
-		
+			proyectoUsuarioDao.save(new ProyectoUsuario(proyectoDTO, usuarioService.buscarPorcorreo(proyect.getCli().getCorreo())));	
 		
 		return converter.convert(proyectoDTO);
 	}

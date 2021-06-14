@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "log_cliente_dia")
+@Table(name = "log_empleado_dia")
 public class LogEmpleadoDia {
 
 	@Id
@@ -19,7 +19,7 @@ public class LogEmpleadoDia {
 	private Integer id;
 	@Column(name = "fecha", nullable = false)
 	private Date fecha;
-	@Column(name = "cantidad_clientes", nullable = false)
+	@Column(name = "cantidad_empleados", nullable = false)
 	private Integer clientes;
 
 	public LogEmpleadoDia() {

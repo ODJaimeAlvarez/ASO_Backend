@@ -62,7 +62,7 @@ public class EmpleadoService extends BaseService implements IEmpleadoService {
 		rolUsuarioService.saveRolUser(user, emp.getRol());
 		return converter.convert(empleadoRepository
 				.save(new Empleado(emp.getNombre(), emp.getApellido1(), emp.getApellido2(), emp.getCargo(),
-						emp.getTelefono(),emp.getDireccion(),emp.getDescripcion(),emp.getCiudad(),emp.getPais(),emp.getCodigoPostal(),null ,user)));
+						emp.getTelefono(),emp.getDireccion(),emp.getDescripcion(),emp.getPais(),emp.getCiudad(),emp.getCodigoPostal(),null ,user)));
 		}
 		else {
 			throw new DBException("El usuario ya existe.", HttpStatus.NOT_FOUND);
